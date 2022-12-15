@@ -23,7 +23,7 @@ const BaseLayout = () => {
   return (
     <div className="relative font-display xl:text-[18px] box-border">
       <div className="">
-        <div className="flex justify-between w-screen py-5 px-6 items-center md:px-16 ">
+        <div className="flex justify-between w-screen py-5 px-6 items-center md:px-12 ">
           <div className="flex ">
             <img
               src={hamburger}
