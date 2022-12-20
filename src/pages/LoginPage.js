@@ -1,16 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../pictures/icons/back.svg";
 import logo from "../pictures/logo/logo.svg";
 import loginpic from "../pictures/photo/login.svg";
+import eyeopen from "../pictures/icons/eyeopen.svg";
+import eyeclose from "../pictures/icons/eyeclose.svg";
+import axios from "axios";
 
 const LoginPage = () => {
+  const [showPass, setShowPass] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const showPassHandler = () => {
+    if (!showPass) {
+      setShowPass(true);
+    } else {
+      setShowPass(false);
+    }
+  };
+
+  const submitHandler = async () => {
+    console.log(email, password);
+    if (!email || !password) {
+      console.log("empty fields")
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/user/login",
+        { email, password },
+        config
+      );
+        // console.log(response.data);
+        
+        if (response.data.success === false) {
+          console.log(response.data.message);
+          return;
+        }
+        console.log(response.data.message);
+        console.log(response.data.authtoken);
+
+
+    } catch (error) {}
+  };
+
   const navigate = useNavigate();
   return (
-    <div className="font-display w-screen  md:text-lg  ">
+    <div className="font-display w-screen  md:text-lg  relative">
       <div className="">
         <button className="flex items-center m-6">
-          <img src={back} alt="" srcset="" />
+          <img src={back} alt="" />
           <p
             className="font-semibold text-[#7A7A7A]  pl-2"
             onClick={() => navigate("/")}
@@ -28,7 +75,6 @@ const LoginPage = () => {
             <img
               src={logo}
               alt=""
-              srcset=""
               className="w-[190px] md:w-[240px] lg:hidden"
             />
             <img
@@ -43,29 +89,43 @@ const LoginPage = () => {
             <img
               src={logo}
               alt=""
-              srcset=""
               className="w-[190px] md:w-[240px] hidden lg:block mb-12 xl:w-[280px]"
             />
             <div className="w-[100%] lg:text-xl">
               <div className="flex justify-between items-center mb-6 xl:mx-3 lg:mb-8">
                 <p className="font-semibold">Email: </p>
                 <input
-                  type="text"
-                  className="w-4/6 md:w-3/4 outline-none rounded-3xl py-1 px-3 border-2"
+                  type="email"
+                  className="w-4/6 md:w-3/4 outline-none rounded-lg py-1 px-3 border-2"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="flex justify-between items-center mb-7 xl:mx-3">
                 <p className="font-semibold">Password: </p>
-                <input
-                  type="text"
-                  className="w-4/6 md:w-3/4 outline-none rounded-3xl py-1 px-3 border-2"
-                />
+                <div className="w-4/6 md:w-3/4 rounded-lg py-1 px-3 border-2 flex">
+                  <input
+                    type={showPass ? "text" : "password"}
+                    className="w-[90%] outline-none "
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <img
+                    src={showPass ? eyeopen : eyeclose}
+                    alt=""
+                    srcset=""
+                    className="cursor-pointer"
+                    onClick={showPassHandler}
+                  />
+                </div>
               </div>
             </div>
-            <button className="bg-[#E25247] text-white py-2 px-7 rounded-3xl font-semibold">
+            <button
+              className="bg-[#E25247] text-white py-2 px-7 rounded-lg font-semibold"
+              onClick={submitHandler}
+            >
               Login
             </button>
-            <div className="flex font-semibold my-5">
+
+            <div className="flex font-semibold my-5 sm:text-[16px]">
               <p className="text-[#7A7A7A] pr-2">Don't have an account?</p>
               <button
                 className="text-[#E25247]"

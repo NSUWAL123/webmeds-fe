@@ -8,6 +8,7 @@ import manageicn from "../../pictures/icons/manage-admin.svg";
 import addicn from "../../pictures/icons/add-admin.svg";
 import { useNavigate } from "react-router-dom";
 
+
 const AdminBaseLayout = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
@@ -22,11 +23,10 @@ const AdminBaseLayout = () => {
             <img
               src={hamburger}
               alt=""
-              srcset=""
               className="w-max pr-4 xl:w-[55px] xl:mr-5 cursor-pointer"
               onClick={() => setShowSidebar(true)}
             />
-            <img src={logo} alt="" srcset="" className="w-[160px] lg:w-[180px] cursor-pointer" onClick={() => {navigate("/admin")}}/>
+            <img src={logo} alt="" className="w-[160px] lg:w-[180px] cursor-pointer" onClick={() => {navigate("/admin")}}/>
           </div>
           
         </div>
@@ -52,29 +52,29 @@ const AdminBaseLayout = () => {
               </button>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500">
-              <img src={dashboardicn} alt="" srcset="" className="px-2" />
+            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigate("/admin")}}>
+              <img src={dashboardicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1 ">
                 Dashboard
               </p>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500">
-              <img src={addicn} alt="" srcset="" className="px-2" />
+            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigate("/admin/add-item")}}>
+              <img src={addicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
                 Add Item
               </p>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500">
-              <img src={manageicn} alt="" srcset="" className="px-2" />
+            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigate("/admin/manage-item")}}>
+              <img src={manageicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
                 Manage Item
               </p>
             </div>
           </div>
 
-          <div className="bg-[#E25247] rounded-xl mx-6 mb-8 p-2 flex cursor-pointer justify-center hover:shadow-xl duration-500">
+          <div className="bg-[#E25247] rounded-xl mx-6 mb-8 p-2 flex cursor-pointer justify-center hover:shadow-xl duration-500" onClick={logoutHandler}>
               <p className="font-medium text-[16px] text-white px-1">
                 Logout
               </p>

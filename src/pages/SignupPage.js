@@ -1,16 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../pictures/icons/back.svg";
 import logo from "../pictures/logo/logo.svg";
 import signuppic from "../pictures/photo/signup.svg";
+import axios from "axios";
+import eyeopen from "../pictures/icons/eyeopen.svg";
+import eyeclose from "../pictures/icons/eyeclose.svg";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [dob, setDob] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [showPass, setShowPass] = useState(false);
+  const [showConfPass, setShowConfPass] = useState(false);
+
+  // console.log(showPass)
+
+  const showPassHandler = () => { 
+    if (!showPass) {
+      setShowPass(true);
+    } else {
+      setShowPass(false);
+    }
+  }
+
+  const showConfPassHandler = () => {   
+    if (!showConfPass) {
+      setShowConfPass(true);
+    } else {
+      setShowConfPass(false);
+    }
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if ((!name, !email, !mobile, !dob, !password)) {
+      console.log("Please enter all the fields.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      console.log("Entered password are different.");
+      return;
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    //nissuwal00@gmail.com
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/user/signup",
+        { name, email, mobile, dob, password },
+        config
+      );
+      console.log(`A verification link has been sent to ${data.user.email}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="font-display w-[100%] md:text-lg ">
       <div className="">
         <button className="flex items-center m-6 ">
-          <img src={back} alt="" srcset="" />
+          <img src={back} alt="" />
           <p
             className="font-semibold text-[#7A7A7A] pl-2 "
             onClick={() => navigate("/")}
@@ -28,7 +91,6 @@ const SignupPage = () => {
             <img
               src={logo}
               alt=""
-              srcset=""
               className="w-[190px] md:w-[240px] lg:hidden"
             />
             <img
@@ -39,63 +101,90 @@ const SignupPage = () => {
           </div>
 
           {/* right-cont */}
-          <div className="text-xs w-[100%] sm:text-lg md:text-xl  xl:w-[70%] flex flex-col items-center lg:h-[80%] lg:justify-evenly">
+          <form
+            className="text-xs w-[100%] sm:text-lg md:text-xl  xl:w-[70%] flex flex-col items-center lg:h-[80%] lg:justify-evenly"
+            onSubmit={submitHandler}
+          >
             <img
               src={logo}
               alt=""
-              srcset=""
               className="w-[190px] md:w-[240px] hidden lg:block mb-12 xl:w-[280px]"
             />
+
             <div className="w-[100%] ">
               <div className="flex justify-between items-center mb-6 lg:mb-8">
                 <p className="font-semibold">Full Name: </p>
                 <input
                   type="text"
-                  className="w-[70%] outline-none rounded-3xl py-1 px-3 border-2"
+                  className="w-[70%] outline-none rounded-lg py-1 px-3 border-2"
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="flex justify-between items-center mb-6 lg:mb-8">
                 <p className="font-semibold">Email: </p>
                 <input
-                  type="text"
-                  className="w-[70%] outline-none rounded-3xl py-1 px-3 border-2"
+                  type="email"
+                  className="w-[70%] outline-none rounded-lg py-1 px-3 border-2"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="flex justify-between items-center mb-6 lg:mb-8">
                 <p className="font-semibold">Mobile: </p>
                 <input
-                  type="text"
-                  className="w-[70%] outline-none rounded-3xl py-1 px-3 border-2"
+                  type="number"
+                  className="w-[70%] outline-none rounded-lg py-1 px-3 border-2 "
+                  onChange={(e) => setMobile(e.target.value)}
                 />
               </div>
               <div className="flex justify-between items-center mb-6 lg:mb-8">
-                <p className="font-semibold">Age: </p>
+                <p className="font-semibold">Date of Birth: </p>
                 <div className="w-[70%]">
                   <input
-                    type="text"
-                    className="w-[60px] outline-none rounded-3xl py-1 px-3 border-2"
+                    type="date"
+                    className="min-w-[140px] outline-none rounded-lg py-1 px-3 border-2 w-[60%]"
+                    onChange={(e) => setDob(e.target.value)}
                   />
                 </div>
               </div>
               <div className="flex justify-between items-center mb-6 lg:mb-8">
                 <p className="font-semibold">Password: </p>
-                <input
-                  type="text"
-                  className="w-[70%] outline-none rounded-3xl py-1 px-3 border-2"
-                />
+                <div className="w-[70%] outline-none rounded-lg py-1 px-3 border-2 flex justify-between">
+                  <input
+                    type={showPass ? "text" : "password"}
+                    className="w-[90%] outline-none"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <img src={showPass ? eyeopen : eyeclose} alt="" className="cursor-pointer" onClick={() => showPassHandler()}/>
+                </div>
               </div>
-              <div className="flex justify-between items-center mb-7">
+
+              <div className="flex justify-between items-center mb-6 lg:mb-8">
+                <p className="font-semibold">Confirm Pwd: </p>
+                <div className="w-[70%] outline-none rounded-lg py-1 px-3 border-2 flex justify-between">
+                  <input
+                    type={showConfPass ? "text" : "password"}
+                    className="w-[90%] outline-none"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <img src={showConfPass ? eyeopen : eyeclose} alt="" className="cursor-pointer" onClick={() => showConfPassHandler()}/>
+                </div>
+              </div>
+              {/* <div className="flex justify-between items-center mb-7">
                 <p className="font-semibold">Confirm Pwd: </p>
                 <input
-                  type="text"
-                  className="w-[70%] outline-none rounded-3xl py-1 px-3 border-2"
+                  type="password"
+                  className="w-[70%] outline-none rounded-lg py-1 px-3 border-2"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-              </div>
+              </div> */}
             </div>
-            <button className="bg-[#E25247] text-white py-2 px-7 rounded-3xl font-semibold">
+            <button
+              className="bg-[#E25247] text-white py-2 px-7 rounded-lg font-semibold"
+              type="submit"
+            >
               Sign up
             </button>
-            <div className="flex font-semibold my-5">
+            <div className="flex font-semibold my-5 md:text-[16px]">
               <p className="text-[#7A7A7A] pr-2">Already have an account?</p>
               <button
                 className="text-[#E25247]"
@@ -104,7 +193,7 @@ const SignupPage = () => {
                 Login
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

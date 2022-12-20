@@ -10,7 +10,6 @@ const PageNotFound = () => {
         <img
           src={pna}
           alt=""
-          srcset=""
           className="mb-8 md:mb-0 md:w-[350px] lg:w-[420px] xl:w-[520px]"
         />
         <div className="flex flex-col items-center justify-between mb-5">
