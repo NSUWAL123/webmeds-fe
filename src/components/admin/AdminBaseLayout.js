@@ -15,9 +15,14 @@ const AdminBaseLayout = () => {
 
   const logoutHandler = () => {};
 
+  const navigationTo = (endpoint) => {
+    navigate(endpoint);
+    setShowSidebar(false);
+  }
+
   return (
     <div className="relative font-display xl:text-[18px] box-border">
-      <div className="">
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300">
         <div className="flex justify-between w-screen py-3 px-6 items-center md:px-10 ">
           <div className="flex ">
             <img
@@ -35,11 +40,11 @@ const AdminBaseLayout = () => {
 
       {/* for sidebar */}
       {showSidebar && (
-        <div className="absolute top-0 w-[100vw] h-[100vh] bg-black opacity-30 z-10"></div>
+        <div className="fixed top-0 w-[100vw] h-[100vh] bg-black opacity-30 z-10" onClick={() => setShowSidebar(false)}></div>
       )}
 
       <div
-        className={`absolute w-[75%] top-0 left-0 max-w-[276px] h-screen bg-white  ${
+        className={`fixed w-[75%] top-0 left-0 max-w-[276px] h-screen bg-white  ${
           showSidebar ? "translate-x-0" : "translate-x-[-105%] z-20"
         } duration-500 z-20`}
       >
@@ -52,24 +57,24 @@ const AdminBaseLayout = () => {
               </button>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigate("/admin")}}>
+            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigationTo("/admin/")}}>
               <img src={dashboardicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1 ">
                 Dashboard
               </p>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigate("/admin/add-item")}}>
+            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigationTo("/admin/add-product")}}>
               <img src={addicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
-                Add Item
+                Add Product
               </p>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigate("/admin/manage-item")}}>
+            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigationTo("/admin/manage-product")}}>
               <img src={manageicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
-                Manage Item
+                Manage Product
               </p>
             </div>
           </div>
@@ -82,7 +87,9 @@ const AdminBaseLayout = () => {
         </div>
       </div>
 
-      <Outlet />
+      <div className="mt-40 mb-8 lg:mt-28 mx-6 lg:mx-12 xl:mx-20">
+        <Outlet />
+      </div>
     </div>
   );
 };

@@ -55,14 +55,17 @@ const SignupPage = () => {
         "Content-Type": "application/json",
       },
     };
+    
 
     //nissuwal00@gmail.com
+    //nishit123
     try {
       const { data } = await axios.post(
         "http://localhost:5000/user/signup",
         { name, email, mobile, dob, password },
         config
       );
+      console.log(data);
       console.log(`A verification link has been sent to ${data.user.email}`);
     } catch (error) {
       console.log(error);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../pictures/icons/back.svg";
 import logo from "../pictures/logo/logo.svg";
@@ -34,19 +34,19 @@ const LoginPage = () => {
     };
 
     try {
-      const response = await axios.post(
+      const {data} = await axios.post(
         "http://localhost:5000/user/login",
         { email, password },
         config
       );
         // console.log(response.data);
         
-        if (response.data.success === false) {
-          console.log(response.data.message);
-          return;
-        }
-        console.log(response.data.message);
-        console.log(response.data.authtoken);
+        // if (response.data.success === false) {
+        //   console.log(response.data.message);
+        //   return;
+        // }
+        console.log(data);
+        //console.log(response.data.authtoken);
 
 
     } catch (error) {}

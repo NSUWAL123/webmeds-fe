@@ -8,21 +8,24 @@ import hamburger from "../pictures/icons/hamburger.svg";
 import close from "../pictures/icons/close.svg";
 import rightarr from "../pictures/icons/rightarrow.svg";
 import cart from "../pictures/icons/cart.svg";
+import profile from "../pictures/icons/profile-icon.svg";
+import camera from "../pictures/icons/camera-icon.svg";
 
 const BaseLayout = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const loginHandler = () => {
-    navigate("/login");
-  };
+  // const loginHandler = () => {
+  //   navigate("/login");
+  // };
 
-  const signupHandler = () => {
-    navigate("/signup");
-  };
+  const navigationTo = (endpoint) => {
+    navigate(endpoint);
+    setShowSidebar(false);
+  }
 
   return (
-    <div className="font-display xl:text-[18px] ">
+    <div className="relative font-display xl:text-[18px] ">
       <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300">
         <div className="flex justify-between py-5 px-6 items-center md:px-12 ">
           <div className="flex ">
@@ -48,17 +51,11 @@ const BaseLayout = () => {
 
           <div className="">
             <button
-              className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-2 rounded-2xl xl:px-4"
-              onClick={loginHandler}
+              className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-6 xl:py-2 xl:text-[16px] "
+              onClick={() => navigationTo("/login")}
             >
               Login
             </button>
-            {/* <button
-              className="text-[14px] bg-[#31D490] font-semibold text-white py-1 px-2 rounded-2xl xl:px-4"
-              onClick={signupHandler}
-            >
-              Sign up
-            </button> */}
           </div>
         </div>
         <div className="lg:hidden">
@@ -68,7 +65,10 @@ const BaseLayout = () => {
 
       {/* for sidebar */}
       {showSidebar && (
-        <div className="fixed top-0 w-[100%] h-[100vh] bg-black opacity-30 z-10" onClick={() => setShowSidebar(false)}></div>
+        <div
+          className="fixed top-0 w-[100%] h-[100vh] bg-black opacity-30 z-10"
+          onClick={() => setShowSidebar(false)}
+        ></div>
       )}
 
       <div
@@ -94,14 +94,27 @@ const BaseLayout = () => {
             </p>
             <Categories />
           </div>
+          <div>
 
-          <button className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl">
+          
+          <div>
+            <div className="flex cursor-pointer hover:scale-110 duration-300 hover:ml-2" onClick={() => navigationTo("/profile")}>
+              <img src={profile} alt="" className=" ml-6 mr-3" />
+              <p>Manage Profile</p>
+            </div>
+            <div className="flex my-3 cursor-pointer hover:scale-110 hover:ml-2 duration-300" onClick={() => navigationTo("/upload-prescription")}>
+              <img src={camera} alt="" className="ml-7 mr-3" />
+              <p>Upload Prescription</p>
+            </div>
+          </div>
+          <button className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl" onClick={() => navigationTo("/cart")}>
             <div className="flex py-4 ml-6">
               <img src={cart} alt="" className="w-[20px] mr-3" />
               <p className="font-medium text-white">My Cart</p>
             </div>
             <img src={rightarr} alt="" className="w-[25px] py-4 mr-6" />
           </button>
+          </div>
         </div>
       </div>
       <div className="mt-40 mb-8 lg:mt-28 mx-6 lg:mx-12 xl:mx-20 ">
