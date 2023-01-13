@@ -87,7 +87,7 @@ const AdminBaseLayout = () => {
         </div>
       </div>
 
-      <div className="mt-40 mb-8 lg:mt-28 mx-6 lg:mx-12 xl:mx-20">
+      <div className="mt-20 mb-8 sm:mt-28 mx-6 lg:mx-12 xl:mx-20">
         <Outlet />
       </div>
     </div>
