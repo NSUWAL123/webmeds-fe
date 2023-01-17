@@ -111,7 +111,6 @@ const LoginPage = () => {
                   <img
                     src={showPass ? eyeopen : eyeclose}
                     alt=""
-                    srcset=""
                     className="cursor-pointer"
                     onClick={showPassHandler}
                   />
