@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast"
 
 const AddProduct = () => {
   const [pname, setPname] = useState("");
@@ -16,9 +19,12 @@ const AddProduct = () => {
   const [previewSource, setPreviewSource] = useState("");
   const [description, setDescription] = useState("");
 
+  const maxDate = new Date().toISOString().split("T")[0];
+
   const addProduct = async () => {
       if (!pname || !purpose || !category || !company || !price || !discountPct || !stock || !expiry || !previewSource || !description) {
         console.log("Empty Fields")
+        notifyError("Empty Fields")
         return;
       }
 
@@ -34,10 +40,18 @@ const AddProduct = () => {
       
       try {
         console.log(formData)
-        await axios.post("http://localhost:5000/admin/manage-product/add", 
+        const {data} = await axios.post("http://localhost:5000/admin/manage-product/add", 
         formData,
         config
         )
+
+        if (data.lvl === "warning") {
+          notifyWarning(data.message)
+          return;
+        }
+
+        notifySuccess(data.message)
+
       } catch (error) {
         console.log(error)
       }
@@ -164,7 +178,7 @@ const AddProduct = () => {
             <div className="w-[30%]">
               <p className="mb-1 text-[#37474F] font-semibold">Discount %</p>
               <input
-                type="text"
+                type="number"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setDiscountPct(e.target.value)}
               />
@@ -172,7 +186,7 @@ const AddProduct = () => {
             <div className="w-[30%]">
               <p className="mb-1 text-[#37474F] font-semibold">Offer Price</p>
               <input
-                type="text"
+                type="number"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1 hover:cursor-not-allowed"
                 value={offerPrice}
                 disabled
@@ -190,7 +204,7 @@ const AddProduct = () => {
             <div className="mb-4 sm:mb-0 sm:w-[42%]">
               <p className="mb-1 text-[#37474F] font-semibold">Stock</p>
               <input
-                type="text"
+                type="number"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setStock(e.target.value)}
               />
@@ -199,13 +213,12 @@ const AddProduct = () => {
               <p className="mb-1 text-[#37474F] font-semibold">Expiry Date</p>
               <input
                 type="date"
+                min={maxDate}
                 className="bg-[#EEEEEE] outline-none border-black border-[1px] rounded-md w-full px-4 py-1"
                 onChange={(e) => setExpiry(e.target.value)}
               />
             </div>
-          </div>
-
-          
+          </div>       
 
           {/* Add Picture container */}
           <div className="flex items-center">
@@ -215,6 +228,7 @@ const AddProduct = () => {
             <input type="file" className="" 
             //onChange={(e) => setPicture(e.target.value)}
             onChange={handleFileInputChange}
+            accept="image/png, image/gif, image/jpeg"
             />
           </div>
 
@@ -252,6 +266,7 @@ const AddProduct = () => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored"/>
     </div>
   );
 };

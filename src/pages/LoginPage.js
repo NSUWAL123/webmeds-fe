@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import back from "../pictures/icons/back.svg";
 import logo from "../pictures/logo/logo.svg";
@@ -6,12 +6,21 @@ import loginpic from "../pictures/photo/login.svg";
 import eyeopen from "../pictures/icons/eyeopen.svg";
 import eyeclose from "../pictures/icons/eyeclose.svg";
 import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast"
 
 const LoginPage = () => {
-  const [showPass, setShowPass] = useState(false);
 
+  //toast function according to types
+  // const notifyError = (msg) => toast.error(msg);
+  // const notifyInfo = (msg) => toast.info(msg);
+  // const notifySuccess = (msg) => toast.success(msg);
+
+  const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const showPassHandler = () => {
     if (!showPass) {
@@ -24,7 +33,8 @@ const LoginPage = () => {
   const submitHandler = async () => {
     console.log(email, password);
     if (!email || !password) {
-      console.log("empty fields")
+      console.log("empty fields");
+      notifyError("Empty Fields");
     }
 
     const config = {
@@ -34,25 +44,34 @@ const LoginPage = () => {
     };
 
     try {
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:5000/user/login",
         { email, password },
         config
       );
-        // console.log(response.data);
-        
-        // if (response.data.success === false) {
-        //   console.log(response.data.message);
-        //   return;
-        // }
-        console.log(data);
-        //console.log(response.data.authtoken);
 
-
-    } catch (error) {}
+      //toast message according to type
+      if (data.lvl === "error") {
+        notifyError(data.message);
+        return;
+      }
+      if (data.lvl === "info") {
+        notifyInfo(data.message);
+        return;
+      }
+      if (data.lvl === "success") {
+        notifySuccess(data.message);
+        navigate('/')
+        return;
+      }
+      console.log(data);
+    } 
+    catch (error) {
+      console.log(error)
+    }
   };
 
-  const navigate = useNavigate();
+  
   return (
     <div className="font-display w-screen  md:text-lg  relative">
       <div className="">
@@ -136,6 +155,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored"/>
     </div>
   );
 };
