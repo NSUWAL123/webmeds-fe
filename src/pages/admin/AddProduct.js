@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast"
+import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast";
 
 const AddProduct = () => {
   const [pname, setPname] = useState("");
@@ -22,67 +22,88 @@ const AddProduct = () => {
   const maxDate = new Date().toISOString().split("T")[0];
 
   const addProduct = async () => {
-      if (!pname || !purpose || !category || !company || !price || !discountPct || !stock || !expiry || !previewSource || !description) {
-        console.log("Empty Fields")
-        notifyError("Empty Fields")
+    if (
+      !pname ||
+      !purpose ||
+      !category ||
+      !company ||
+      !price ||
+      !discountPct ||
+      !stock ||
+      !expiry ||
+      !previewSource ||
+      !description
+    ) {
+      console.log("Empty Fields");
+      notifyError("Empty Fields");
+      return;
+    }
+
+    const formData = {
+      pname,
+      purpose,
+      type,
+      category,
+      company,
+      price,
+      discountPct,
+      offerPrice,
+      stock,
+      expiry,
+      previewSource,
+      description,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      console.log(formData);
+      const { data } = await axios.post(
+        "http://localhost:5000/admin/manage-product/add",
+        formData,
+        config
+      );
+
+      if (data.lvl === "warning") {
+        notifyWarning(data.message);
         return;
       }
 
-      const formData = {
-        pname, purpose, type, category, company, price, discountPct, offerPrice, stock, expiry, previewSource, description
-      }
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      
-      try {
-        console.log(formData)
-        const {data} = await axios.post("http://localhost:5000/admin/manage-product/add", 
-        formData,
-        config
-        )
-
-        if (data.lvl === "warning") {
-          notifyWarning(data.message)
-          return;
-        }
-
-        notifySuccess(data.message)
-
-      } catch (error) {
-        console.log(error)
-      }
-  }
+      notifySuccess(data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const clearForm = () => {
     Array.from(document.querySelectorAll("input")).forEach(
-      input => (input.value = "")
+      (input) => (input.value = "")
     );
-    document.querySelectorAll("textarea").forEach(
-      textarea => (textarea.value = "")
-    )
-    setPname("")
-    setPurpose("")
-    setType("")
-    setCategory("")
-    setCompany("")
-    setPrice("")
-    setDiscountPct("")
-    setOfferPrice("")
-    setStock("")
-    setExpiry("")
-    setPreviewSource("")
-    setDescription("")
+    document
+      .querySelectorAll("textarea")
+      .forEach((textarea) => (textarea.value = ""));
+    setPname("");
+    setPurpose("");
+    setType("");
+    setCategory("");
+    setCompany("");
+    setPrice("");
+    setDiscountPct("");
+    setOfferPrice("");
+    setStock("");
+    setExpiry("");
+    setPreviewSource("");
+    setDescription("");
   };
   //setting price after discount
   useEffect(() => {
-    let finalPrice = price - (price * (discountPct/100))
-    setOfferPrice(finalPrice)
-  }, [discountPct, price])
-
+    let finalPrice = price - price * (discountPct / 100);
+    setOfferPrice(finalPrice);
+  }, [discountPct, price]);
 
   //files --------------------//
 
@@ -91,18 +112,17 @@ const AddProduct = () => {
       return;
     }
 
-    const file  = e.target.files[0];
+    const file = e.target.files[0];
     previewFile(file);
-
-  }
+  };
 
   const previewFile = (file) => {
     const reader = new FileReader(); //method provided by js to read file
     reader.readAsDataURL(file); //reads file as data url (base64 encoding)
     reader.onload = () => {
       setPreviewSource(reader.result);
-    }
-  }
+    };
+  };
 
   return (
     <div className="h-[1150px] sm:h-[920px] xl:h-[650px]">
@@ -130,7 +150,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
-                onChange={(e) => setPurpose(e.target.value)}               
+                onChange={(e) => setPurpose(e.target.value)}
               />
             </div>
             <div className="sm:w-[42%]">
@@ -139,7 +159,8 @@ const AddProduct = () => {
                 name="type"
                 id=""
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
-                onChange={(e) => setType(e.target.value)}              >
+                onChange={(e) => setType(e.target.value)}
+              >
                 <option value="OTC">OTC</option>
                 <option value="Non-OTC">Non-OTC</option>
               </select>
@@ -150,18 +171,35 @@ const AddProduct = () => {
           <div className="sm:flex sm:justify-between">
             <div className="sm:w-[42%] mb-4 sm:mb-0">
               <p className="mb-1 text-[#37474F] font-semibold">Category</p>
-              <input
+              {/* <input
                 type="text"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setCategory(e.target.value)}
-              />
+              /> */}
+
+              <select
+                name="type"
+                id=""
+                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="OTC Medicines">OTC Medicines</option>
+                <option value="Home Essentials">Home Essentials</option>
+                <option value="Health & Nutrition">Health & Nutrition</option>
+                <option value="Skin Care">Skin Care</option>
+                <option value="Hair Care">Hair Care</option>
+                <option value="Baby Care">Baby Care</option>
+                <option value="Covid Essentials">Covid Essentials</option>
+                <option value="Health Devices">Health Devices</option>
+              </select>
             </div>
             <div className="sm:w-[42%]">
               <p className="mb-1 text-[#37474F] font-semibold">Company</p>
               <input
                 type="text"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
-                onChange={(e) => setCompany(e.target.value)} />
+                onChange={(e) => setCompany(e.target.value)}
+              />
             </div>
           </div>
 
@@ -218,26 +256,33 @@ const AddProduct = () => {
                 onChange={(e) => setExpiry(e.target.value)}
               />
             </div>
-          </div>       
+          </div>
 
           {/* Add Picture container */}
           <div className="flex items-center">
             <p className="mb-1 text-[#37474F] font-semibold mr-8">
               Add Picture
             </p>
-            <input type="file" className="" 
-            //onChange={(e) => setPicture(e.target.value)}
-            onChange={handleFileInputChange}
-            accept="image/png, image/gif, image/jpeg"
+            <input
+              type="file"
+              className=""
+              //onChange={(e) => setPicture(e.target.value)}
+              onChange={handleFileInputChange}
+              accept="image/png, image/gif, image/jpeg"
             />
           </div>
 
           <div className="flex justify-center">
             {previewSource ? (
               <div className="">
-                <img src={previewSource} alt="" srcset="" className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"/>
+                <img
+                  src={previewSource}
+                  alt=""
+                  srcset=""
+                  className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"
+                />
               </div>
-            ): (
+            ) : (
               <div className="h-[150px] w-[150px] bg-[#ffffff] border-[#37474F] border-[1px] flex  flex-col items-center justify-center text-sm">
                 <p>No photo</p>
                 <p>to preview</p>
@@ -257,16 +302,22 @@ const AddProduct = () => {
 
           {/* button container */}
           <div className="flex justify-around sm:mx-16">
-            <button className="bg-[#37474F] text-white font-medium px-4 py-1 rounded-md" onClick={addProduct}>
+            <button
+              className="bg-[#37474F] text-white font-medium px-4 py-1 rounded-md"
+              onClick={addProduct}
+            >
               Add Product
             </button>
-            <button className="bg-[#E25247] text-white font-medium px-4 py-1 rounded-md" onClick={clearForm}>
+            <button
+              className="bg-[#E25247] text-white font-medium px-4 py-1 rounded-md"
+              onClick={clearForm}
+            >
               Clear Form
             </button>
           </div>
         </div>
       </div>
-      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored"/>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };

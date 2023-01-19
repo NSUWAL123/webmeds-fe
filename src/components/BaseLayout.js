@@ -26,8 +26,8 @@ const BaseLayout = () => {
 
   return (
     <div className="relative font-display xl:text-[18px] flex">
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300">
-        <div className="flex justify-between py-5 px-6 items-center md:px-12 ">
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
+        <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
           <div className="flex ">
             <img
               src={hamburger}
@@ -51,7 +51,7 @@ const BaseLayout = () => {
 
           <div className="">
             <button
-              className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-6 xl:py-2 xl:text-[16px] "
+              className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
               onClick={() => navigationTo("/login")}
             >
               Login
@@ -117,7 +117,7 @@ const BaseLayout = () => {
           </div>
         </div>
       </div>
-      <div className="mt-40 mb-8 lg:mt-28 mx-6 lg:mx-12 xl:mx-20 ">
+      <div className="pt-40 pb-8 lg:pt-24 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2]">
         <Outlet />
       </div>
     </div>
