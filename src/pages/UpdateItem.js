@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast";
+import { notifyError, notifyWarning, notifySuccess } from "../utils/Toast";
+import { useParams } from "react-router-dom";
 
-const AddProduct = () => {
+const UpdateItem = () => {
   const [pname, setPname] = useState("");
   const [purpose, setPurpose] = useState("");
-  const [type, setType] = useState("OTC");
-  const [category, setCategory] = useState("OTC Medicines");
+  const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
   const [company, setCompany] = useState("");
   const [price, setPrice] = useState("");
   const [discountPct, setDiscountPct] = useState(0);
@@ -21,7 +22,7 @@ const AddProduct = () => {
 
   const maxDate = new Date().toISOString().split("T")[0];
 
-  const addProduct = async () => {
+  const UpdateItem = async () => {
     if (
       !pname ||
       !purpose ||
@@ -31,7 +32,6 @@ const AddProduct = () => {
       !discountPct ||
       !stock ||
       !expiry ||
-      !previewSource ||
       !description
     ) {
       console.log("Empty Fields");
@@ -50,7 +50,6 @@ const AddProduct = () => {
       offerPrice,
       stock,
       expiry,
-      previewSource,
       description,
     };
 
@@ -63,7 +62,7 @@ const AddProduct = () => {
     try {
       console.log(formData);
       const { data } = await axios.post(
-        "http://localhost:5000/admin/manage-product/add",
+        `http://localhost:5000/admin/manage-product/update/${product._id}`,
         formData,
         config
       );
@@ -79,26 +78,7 @@ const AddProduct = () => {
     }
   };
 
-  const clearForm = () => {
-    Array.from(document.querySelectorAll("input")).forEach(
-      (input) => (input.value = "")
-    );
-    document
-      .querySelectorAll("textarea")
-      .forEach((textarea) => (textarea.value = ""));
-    setPname("");
-    setPurpose("");
-    setType("");
-    setCategory("");
-    setCompany("");
-    setPrice("");
-    setDiscountPct("");
-    setOfferPrice("");
-    setStock("");
-    setExpiry("");
-    setPreviewSource("");
-    setDescription("");
-  };
+//   
   //setting price after discount
   useEffect(() => {
     let finalPrice = price - price * (discountPct / 100);
@@ -124,6 +104,35 @@ const AddProduct = () => {
     };
   };
 
+  //--------------------------------------------------------------------------------
+  const [product, setProduct] = useState({});
+  const params = useParams();
+
+  useEffect(() => {
+    (async () => {
+      //await getAllProducts()
+      const response = await axios.get(
+        `http://localhost:5000/products/id/${params.id}`
+      );
+      const { data } = response;
+      setProduct(data);
+      //console.log(data);
+
+        setPname(data.pname);
+        setPurpose(data.purpose);
+        setType(data.type);
+        setCategory(data.category);
+        setCompany(data.company);
+        setPrice(data.price);
+        setDiscountPct(data.discountPct);
+        setOfferPrice(data.offerPrice);
+        setStock(data.stock);
+        setExpiry(data.expiry);
+        setPreviewSource(data.productPicURL);
+        setDescription(data.description);
+    })();
+  }, []);
+
   return (
     <div className="h-[1150px] sm:h-[920px] xl:h-[650px]">
       <div className="flex justify-center text-3xl sm:text-[32px] font-semibold mb-4">
@@ -138,6 +147,7 @@ const AddProduct = () => {
             <p className="mb-1 text-[#37474F] font-semibold">Product Name</p>
             <input
               type="text"
+              value={pname}
               className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
               onChange={(e) => setPname(e.target.value)}
             />
@@ -148,6 +158,7 @@ const AddProduct = () => {
             <div className="mb-4 sm:mb-0 sm:w-[42%]">
               <p className="mb-1 text-[#37474F] font-semibold">Purpose</p>
               <input
+                value={purpose}
                 type="text"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setPurpose(e.target.value)}
@@ -158,8 +169,8 @@ const AddProduct = () => {
               <select
                 name="type"
                 id=""
-                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
                 value={type}
+                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
                 onChange={(e) => setType(e.target.value)}
               >
                 <option value="OTC">OTC</option>
@@ -173,7 +184,7 @@ const AddProduct = () => {
             <div className="sm:w-[42%] mb-4 sm:mb-0">
               <p className="mb-1 text-[#37474F] font-semibold">Category</p>
               <select
-                name="type"
+                name="category"
                 id=""
                 value={category}
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
@@ -193,6 +204,7 @@ const AddProduct = () => {
               <p className="mb-1 text-[#37474F] font-semibold">Company</p>
               <input
                 type="text"
+                value={company}
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setCompany(e.target.value)}
               />
@@ -206,6 +218,7 @@ const AddProduct = () => {
               <input
                 type="number"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
+                value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
@@ -213,6 +226,7 @@ const AddProduct = () => {
               <p className="mb-1 text-[#37474F] font-semibold">Discount %</p>
               <input
                 type="number"
+                value={discountPct}
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setDiscountPct(e.target.value)}
               />
@@ -239,6 +253,7 @@ const AddProduct = () => {
               <p className="mb-1 text-[#37474F] font-semibold">Stock</p>
               <input
                 type="number"
+                value={stock}
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 onChange={(e) => setStock(e.target.value)}
               />
@@ -248,6 +263,7 @@ const AddProduct = () => {
               <input
                 type="date"
                 min={maxDate}
+                value={expiry.split("T")[0]}
                 className="bg-[#EEEEEE] outline-none border-black border-[1px] rounded-md w-full px-4 py-1"
                 onChange={(e) => setExpiry(e.target.value)}
               />
@@ -255,18 +271,19 @@ const AddProduct = () => {
           </div>
 
           {/* Add Picture container */}
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <p className="mb-1 text-[#37474F] font-semibold mr-8">
               Add Picture
             </p>
             <input
               type="file"
               className=""
+              
               //onChange={(e) => setPicture(e.target.value)}
               onChange={handleFileInputChange}
               accept="image/png, image/gif, image/jpeg"
             />
-          </div>
+          </div> */}
 
           <div className="flex justify-center">
             {previewSource ? (
@@ -291,6 +308,7 @@ const AddProduct = () => {
             <p className="mb-1 text-[#37474F] font-semibold">Description</p>
             <textarea
               type="text"
+              value={description}
               className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1 h-[100px] resize-none"
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -300,16 +318,11 @@ const AddProduct = () => {
           <div className="flex justify-around sm:mx-16">
             <button
               className="bg-[#37474F] text-white font-medium px-4 py-1 rounded-md"
-              onClick={addProduct}
+              onClick={UpdateItem}
             >
-              Add Product
+              Update Product
             </button>
-            <button
-              className="bg-[#E25247] text-white font-medium px-4 py-1 rounded-md"
-              onClick={clearForm}
-            >
-              Clear Form
-            </button>
+ 
           </div>
         </div>
       </div>
@@ -318,4 +331,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateItem;

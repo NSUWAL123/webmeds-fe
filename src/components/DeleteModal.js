@@ -44,7 +44,7 @@ const DeleteModal = (props) => {
                     </h3>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Are you sure you want to delete this product?The product
+                        Are you sure you want to delete this product? The product
                         will be permanently removed. This action cannot be
                         undone.
                       </p>

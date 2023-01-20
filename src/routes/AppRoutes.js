@@ -14,6 +14,7 @@ import ProfilePage from "../pages/ProfilePage";
 import UploadPrescriptionPage from "../pages/UploadPrescriptionPage";
 import CartPage from "../pages/CartPage";
 import IndividualProduct from "../pages/IndividualProduct";
+import UpdateItem from "../pages/UpdateItem";
 
 const AppRoutes = () => {
   return (
@@ -36,6 +37,7 @@ const AppRoutes = () => {
           <Route index element={<Dashboard/>}/>
           <Route path="/admin/add-product" element={<AddItem/>}/>
           <Route path="/admin/manage-product" element={<ManageItem/>}/>
+          <Route path="/admin/manage-product/update/:id" element={<UpdateItem/>}/>
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

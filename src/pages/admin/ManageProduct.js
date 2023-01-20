@@ -22,12 +22,13 @@ const ManageProduct = () => {
   const updateHandler = (product) => {
     //setShowUpdateModal(true);
     setCurrProduct(product)
+    navigate(`/admin/manage-product/update/${product._id}`)
     console.log(product)
   }
 
   const deleteHandler = (product) => {
-    setShowDeleteModal(true);
     setCurrProduct(product)
+    setShowDeleteModal(true);
     console.log(product)
   }
 
@@ -42,24 +43,25 @@ const ManageProduct = () => {
 
       
       <table className="w-full">
-        <tbody>
+        <tbody className="">
           <tr className="border bg-[#31D490] text-white">
-            <th className="p-3 border">Product Name</th>
-            <th className="p-3 border">In Stock</th>
-            <th className="p-3 border">Price</th>
-            <th className="p-3 border">Stock</th>
-            <th className="p-3 border">Expiry Date</th>
-            <th className="p-3 border">Action</th>
+            <th className="p-3 border font-medium">Product Name</th>
+            <th className="p-3 border font-medium">In Stock</th>
+            <th className="p-3 border font-medium">Price</th>
+            <th className="p-3 border font-medium">Stock</th>
+            <th className="p-3 border font-medium">Expiry Date</th>
+            <th className="p-3 border font-medium">Action</th>
           </tr>
 
           {products.map((product) => {
+            
             return (
               <tr key={product._id} className="even:bg-[#F2F2F2] hover:bg-[#DDDDDD]">
                 <td className="p-2 border">{product.pname}</td>
                 <td className="text-center border">{product.stock}</td>
                 <td className="text-center border">{product.price}</td>
                 <td className="text-center border">{product.stock}</td>
-                <td className="text-center border">{product.expiry}</td>
+                <td className="text-center border">{product.expiry.split("T")[0]}</td>
                 <td className="text-center border">
                   <button className="bg-[#37474F] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => {updateHandler(product)}}>Update</button>
                   <button className="bg-[#E25247] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => {deleteHandler(product)}}>Delete</button>
