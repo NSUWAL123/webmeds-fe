@@ -171,17 +171,11 @@ const AddProduct = () => {
           <div className="sm:flex sm:justify-between">
             <div className="sm:w-[42%] mb-4 sm:mb-0">
               <p className="mb-1 text-[#37474F] font-semibold">Category</p>
-              {/* <input
-                type="text"
-                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
-                onChange={(e) => setCategory(e.target.value)}
-              /> */}
-
               <select
                 name="type"
                 id=""
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
-                onChange={(e) => setType(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="OTC Medicines">OTC Medicines</option>
                 <option value="Home Essentials">Home Essentials</option>

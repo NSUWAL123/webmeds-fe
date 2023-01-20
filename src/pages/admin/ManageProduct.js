@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "../../components/DeleteModal";
 
 const ManageProduct = () => {
   const navigate = useNavigate();
   let [products, setProducts] = useState([]);
+  const [currProduct, setCurrProduct] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -17,15 +20,19 @@ const ManageProduct = () => {
   }, []);
 
   const updateHandler = (product) => {
+    //setShowUpdateModal(true);
+    setCurrProduct(product)
     console.log(product)
   }
 
   const deleteHandler = (product) => {
+    setShowDeleteModal(true);
+    setCurrProduct(product)
     console.log(product)
   }
 
   return (
-    <div>
+    <div className="">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-2xl font-medium text-[#37474F]">Manage Product</h3>
         <button className="bg-[#5D94E7] text-white font-medium px-2 sm:px-4 py-1 rounded-md" onClick={() => navigate('/admin/add-product')}>Add Product</button>
@@ -55,7 +62,7 @@ const ManageProduct = () => {
                 <td className="text-center border">{product.expiry}</td>
                 <td className="text-center border">
                   <button className="bg-[#37474F] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => {updateHandler(product)}}>Update</button>
-                  <button className="bg-[#E25247] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => deleteHandler(product)}>Delete</button>
+                  <button className="bg-[#E25247] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => {deleteHandler(product)}}>Delete</button>
                 </td>
               </tr>
 
@@ -64,6 +71,11 @@ const ManageProduct = () => {
           })}
         </tbody>
       </table>
+
+      {/* update */}
+      <div className={showDeleteModal ? "block": "hidden"}>
+        <DeleteModal indproduct={currProduct} setShowDeleteModal={setShowDeleteModal}/>
+      </div>
       </div>
     </div>
   );

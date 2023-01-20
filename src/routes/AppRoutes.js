@@ -13,6 +13,7 @@ import ManageItem from "../pages/admin/ManageProduct";
 import ProfilePage from "../pages/ProfilePage";
 import UploadPrescriptionPage from "../pages/UploadPrescriptionPage";
 import CartPage from "../pages/CartPage";
+import IndividualProduct from "../pages/IndividualProduct";
 
 const AppRoutes = () => {
   return (
@@ -21,10 +22,10 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/user/:id/verify/:token" element={<EmailVerification/>}/>
-        
 
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="/products/:pname" element={<IndividualProduct/>}/>
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/upload-prescription" element={<UploadPrescriptionPage />} />
           <Route path="/cart" element={<CartPage />} />
