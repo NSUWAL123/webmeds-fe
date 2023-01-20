@@ -22,19 +22,29 @@ const EmailVerification = () => {
       }
     };
     verifyEmailUrl();
-  }); //changed a bit so could do some problem
+  });
 
   return (
     <div>
       {validUrl ? (
         <div className="bg-[#E4E4E4] w-screen, h-screen flex justify-center items-center">
           <div className="bg-white w-4/5 h-4/6 rounded-3xl flex flex-col justify-around items-center py-14 max-w-[720px]">
-            <img src={emailverified} alt="" srcset="" className="w-[120px] ml-6 md:w-[180px]" />
+            <img
+              src={emailverified}
+              alt=""
+              srcset=""
+              className="w-[120px] ml-6 md:w-[180px]"
+            />
             <div className="font-semibold text-[20px] flex flex-col items-center md:text-[25px]">
               <p>Your account has been</p>
               <p>verified successfully!</p>
             </div>
-            <button onClick={() => navigate("/login")} className="bg-[#FF3232] text-white rounded-xl px-4 py-2 font-semibold w-28 md:text-[18px]">Done!</button>
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-[#FF3232] text-white rounded-xl px-4 py-2 font-semibold w-28 md:text-[18px]"
+            >
+              Done!
+            </button>
           </div>
         </div>
       ) : (

@@ -22,7 +22,7 @@ const BaseLayout = () => {
   const navigationTo = (endpoint) => {
     navigate(endpoint);
     setShowSidebar(false);
-  }
+  };
 
   return (
     <div className="relative font-display xl:text-[18px] flex">
@@ -95,25 +95,32 @@ const BaseLayout = () => {
             <Categories />
           </div>
           <div>
-
-          
-          <div>
-            <div className="flex cursor-pointer hover:scale-110 duration-300 hover:ml-2" onClick={() => navigationTo("/profile")}>
-              <img src={profile} alt="" className=" ml-6 mr-3" />
-              <p>Manage Profile</p>
+            <div>
+              <div
+                className="flex cursor-pointer hover:scale-110 duration-300 hover:ml-2"
+                onClick={() => navigationTo("/profile")}
+              >
+                <img src={profile} alt="" className=" ml-6 mr-3" />
+                <p>Manage Profile</p>
+              </div>
+              <div
+                className="flex my-3 cursor-pointer hover:scale-110 hover:ml-2 duration-300"
+                onClick={() => navigationTo("/upload-prescription")}
+              >
+                <img src={camera} alt="" className="ml-7 mr-3" />
+                <p>Upload Prescription</p>
+              </div>
             </div>
-            <div className="flex my-3 cursor-pointer hover:scale-110 hover:ml-2 duration-300" onClick={() => navigationTo("/upload-prescription")}>
-              <img src={camera} alt="" className="ml-7 mr-3" />
-              <p>Upload Prescription</p>
-            </div>
-          </div>
-          <button className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl" onClick={() => navigationTo("/cart")}>
-            <div className="flex py-4 ml-6">
-              <img src={cart} alt="" className="w-[20px] mr-3" />
-              <p className="font-medium text-white">My Cart</p>
-            </div>
-            <img src={rightarr} alt="" className="w-[25px] py-4 mr-6" />
-          </button>
+            <button
+              className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl"
+              onClick={() => navigationTo("/cart")}
+            >
+              <div className="flex py-4 ml-6">
+                <img src={cart} alt="" className="w-[20px] mr-3" />
+                <p className="font-medium text-white">My Cart</p>
+              </div>
+              <img src={rightarr} alt="" className="w-[25px] py-4 mr-6" />
+            </button>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifyWarning, notifySuccess } from "../utils/Toast";
+import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast";
 import { useParams } from "react-router-dom";
 
 const UpdateItem = () => {
@@ -291,7 +291,6 @@ const UpdateItem = () => {
                 <img
                   src={previewSource}
                   alt=""
-                  srcset=""
                   className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"
                 />
               </div>

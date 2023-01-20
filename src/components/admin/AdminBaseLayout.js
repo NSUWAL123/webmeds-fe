@@ -8,7 +8,6 @@ import manageicn from "../../pictures/icons/manage-admin.svg";
 import addicn from "../../pictures/icons/add-admin.svg";
 import { useNavigate } from "react-router-dom";
 
-
 const AdminBaseLayout = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
@@ -18,7 +17,7 @@ const AdminBaseLayout = () => {
   const navigationTo = (endpoint) => {
     navigate(endpoint);
     setShowSidebar(false);
-  }
+  };
 
   return (
     <div className="relative font-display xl:text-[18px] box-border">
@@ -31,16 +30,25 @@ const AdminBaseLayout = () => {
               className="w-max pr-4 xl:w-[55px] xl:mr-5 cursor-pointer"
               onClick={() => setShowSidebar(true)}
             />
-            <img src={logo} alt="" className="w-[160px] lg:w-[180px] cursor-pointer" onClick={() => {navigate("/admin")}}/>
+            <img
+              src={logo}
+              alt=""
+              className="w-[160px] lg:w-[180px] cursor-pointer"
+              onClick={() => {
+                navigate("/admin");
+              }}
+            />
           </div>
-          
         </div>
         <div className="lg:hidden"></div>
       </div>
 
       {/* for sidebar */}
       {showSidebar && (
-        <div className="fixed top-0 w-[100vw] h-[100vh] bg-black opacity-30 z-10" onClick={() => setShowSidebar(false)}></div>
+        <div
+          className="fixed top-0 w-[100vw] h-[100vh] bg-black opacity-30 z-10"
+          onClick={() => setShowSidebar(false)}
+        ></div>
       )}
 
       <div
@@ -57,21 +65,36 @@ const AdminBaseLayout = () => {
               </button>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigationTo("/admin/")}}>
+            <div
+              className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500"
+              onClick={() => {
+                navigationTo("/admin/");
+              }}
+            >
               <img src={dashboardicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1 ">
                 Dashboard
               </p>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigationTo("/admin/add-product")}}>
+            <div
+              className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500"
+              onClick={() => {
+                navigationTo("/admin/add-product");
+              }}
+            >
               <img src={addicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
                 Add Product
               </p>
             </div>
 
-            <div className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500" onClick={() => {navigationTo("/admin/manage-product")}}>
+            <div
+              className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500"
+              onClick={() => {
+                navigationTo("/admin/manage-product");
+              }}
+            >
               <img src={manageicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
                 Manage Product
@@ -79,11 +102,12 @@ const AdminBaseLayout = () => {
             </div>
           </div>
 
-          <div className="bg-[#E25247] rounded-xl mx-6 mb-8 p-2 flex cursor-pointer justify-center hover:shadow-xl duration-500" onClick={logoutHandler}>
-              <p className="font-medium text-[16px] text-white px-1">
-                Logout
-              </p>
-            </div>
+          <div
+            className="bg-[#E25247] rounded-xl mx-6 mb-8 p-2 flex cursor-pointer justify-center hover:shadow-xl duration-500"
+            onClick={logoutHandler}
+          >
+            <p className="font-medium text-[16px] text-white px-1">Logout</p>
+          </div>
         </div>
       </div>
 

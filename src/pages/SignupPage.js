@@ -8,7 +8,7 @@ import eyeopen from "../pictures/icons/eyeopen.svg";
 import eyeclose from "../pictures/icons/eyeclose.svg";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast"
+import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -23,23 +23,21 @@ const SignupPage = () => {
   const [showPass, setShowPass] = useState(false);
   const [showConfPass, setShowConfPass] = useState(false);
 
-  // console.log(showPass)
-
-  const showPassHandler = () => { 
+  const showPassHandler = () => {
     if (!showPass) {
       setShowPass(true);
     } else {
       setShowPass(false);
     }
-  }
+  };
 
-  const showConfPassHandler = () => {   
+  const showConfPassHandler = () => {
     if (!showConfPass) {
       setShowConfPass(true);
     } else {
       setShowConfPass(false);
     }
-  }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -61,7 +59,6 @@ const SignupPage = () => {
         "Content-Type": "application/json",
       },
     };
-    
 
     //nissuwal00@gmail.com
     //nishit123
@@ -72,7 +69,9 @@ const SignupPage = () => {
         config
       );
       console.log(data);
-      notifyInfo("A verification link has been sent to your email. Please check your email.")
+      notifyInfo(
+        "A verification link has been sent to your email. Please check your email."
+      );
       console.log(`A verification link has been sent to ${data.user.email}`);
     } catch (error) {
       console.log(error);
@@ -164,7 +163,12 @@ const SignupPage = () => {
                     className="w-[90%] outline-none"
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <img src={showPass ? eyeopen : eyeclose} alt="" className="cursor-pointer" onClick={() => showPassHandler()}/>
+                  <img
+                    src={showPass ? eyeopen : eyeclose}
+                    alt=""
+                    className="cursor-pointer"
+                    onClick={() => showPassHandler()}
+                  />
                 </div>
               </div>
 
@@ -176,17 +180,14 @@ const SignupPage = () => {
                     className="w-[90%] outline-none"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
-                  <img src={showConfPass ? eyeopen : eyeclose} alt="" className="cursor-pointer" onClick={() => showConfPassHandler()}/>
+                  <img
+                    src={showConfPass ? eyeopen : eyeclose}
+                    alt=""
+                    className="cursor-pointer"
+                    onClick={() => showConfPassHandler()}
+                  />
                 </div>
               </div>
-              {/* <div className="flex justify-between items-center mb-7">
-                <p className="font-semibold">Confirm Pwd: </p>
-                <input
-                  type="password"
-                  className="w-[70%] outline-none rounded-lg py-1 px-3 border-2"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div> */}
             </div>
             <button
               className="bg-[#E25247] text-white py-2 px-7 rounded-lg font-semibold"
@@ -206,7 +207,7 @@ const SignupPage = () => {
           </form>
         </div>
       </div>
-      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored"/>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };

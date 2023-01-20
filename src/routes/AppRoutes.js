@@ -14,7 +14,7 @@ import ProfilePage from "../pages/ProfilePage";
 import UploadPrescriptionPage from "../pages/UploadPrescriptionPage";
 import CartPage from "../pages/CartPage";
 import IndividualProduct from "../pages/IndividualProduct";
-import UpdateItem from "../pages/UpdateItem";
+import UpdateItem from "../pages/admin/UpdateItem";
 
 const AppRoutes = () => {
   return (

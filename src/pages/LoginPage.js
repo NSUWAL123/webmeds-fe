@@ -11,12 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast"
 
 const LoginPage = () => {
-
-  //toast function according to types
-  // const notifyError = (msg) => toast.error(msg);
-  // const notifyInfo = (msg) => toast.info(msg);
-  // const notifySuccess = (msg) => toast.success(msg);
-
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
