@@ -32,28 +32,28 @@ const AddressModal = (props) => {
                       <div className="mt-2">
                         <div className="w-[100%] h-[295px] flex flex-col justify-around">
                           <div className="flex flex-col items-start">
-                            <p className="mb-1">Full Name:</p>
+                            <p className="mb-1">Province:</p>
                             <input
                               type="text"
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
                             />
                           </div>
                           <div className="flex flex-col items-start">
-                            <p className="mb-1">Email:</p>
+                            <p className="mb-1">District:</p>
                             <input
                               type="text"
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
                             />
                           </div>
                           <div className="flex flex-col items-start">
-                            <p className="mb-1">Mobile:</p>
+                            <p className="mb-1">Area:</p>
                             <input
                               type="text"
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
                             />
                           </div>
                           <div className="flex flex-col items-start">
-                            <p className="mb-1">Date of Birth:</p>
+                            <p className="mb-1">Landmark:</p>
                             <input
                               type="text"
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"

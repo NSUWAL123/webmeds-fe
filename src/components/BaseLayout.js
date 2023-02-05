@@ -124,7 +124,7 @@ const BaseLayout = () => {
           </div>
         </div>
       </div>
-      <div className="pt-40 pb-8 lg:pt-24 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%]">
+      <div className="pt-40 pb-8 lg:pt-24 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen">
         <Outlet />
       </div>
     </div>
