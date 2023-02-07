@@ -7,7 +7,7 @@ const ProfilePage = () => {
 
   return (
     <div className="flex justify-center lg:h-[585px] items-center">
-      <div className="bg-white w-[90%] rounded-lg lg:h-[420px]">
+      <div className="bg-white w-[90%] rounded-lg lg:h-[420px] shadow-xl">
         <div className="lg:flex">
           {/* profile container */}
           <div className="flex flex-col items-center py-5 lg:w-1/2">

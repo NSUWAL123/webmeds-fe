@@ -10,14 +10,26 @@ import rightarr from "../pictures/icons/rightarrow.svg";
 import cart from "../pictures/icons/cart.svg";
 import profile from "../pictures/icons/profile-icon.svg";
 import camera from "../pictures/icons/camera-icon.svg";
+import more from "../pictures/icons/more.svg";
+import blackcart from "../pictures/icons/cart-black.svg";
+import order from "../pictures/icons/orders.svg";
+import notes from "../pictures/icons/add-note.svg";
+import notification from "../pictures/icons/notification.svg";
+import chat from "../pictures/icons/chat.svg";
+import logout from "../pictures/icons/logout.svg";
 
 const BaseLayout = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   // const loginHandler = () => {
   //   navigate("/login");
   // };
+
+  const toggleMore = () => {
+    showMore ? setShowMore(false) : setShowMore(true);
+  };
 
   const navigationTo = (endpoint) => {
     navigate(endpoint);
@@ -49,7 +61,135 @@ const BaseLayout = () => {
             <SearchBar />
           </div>
 
-          <div className="">
+            <div className={`w-screen h-screen absolute top-0 left-0 ${showMore ? "block" : "hidden"}`} onClick={() => toggleMore()}></div>
+          {/* dropdown */}
+          <div className="flex relative ">
+            <div className="cursor-pointer">
+              <img
+                src={more}
+                alt=""
+                className="pr-3 lg:pr-6 w-[40px] lg:w-[55px]"
+                srcset=""
+                onClick={() => toggleMore()}
+              />
+
+              <div
+                className={`${
+                  showMore ? "block" : "hidden"
+                } absolute  -translate-x-[100px] bg-white shadow-2xl w-[220px] text-[15px] border-t-[1px] duration-500 rounded-md`}
+              >
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/profile");
+                    setShowMore(false);
+                  }}
+                >
+                  <img
+                    src={profile}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Manage Profile</p>
+                </div>
+                <div className="flex items-center border-b-[1px] cursor-pointer"
+                onClick={() => {
+                  navigate("/upload-prescription");
+                  setShowMore(false);
+                }}>
+                  <img
+                    src={camera}
+                    alt=""
+                    srcset=""
+                    width="22px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Upload Prescription</p>
+                </div>
+                <div className="flex items-center border-b-[1px] cursor-pointer"
+                onClick={() => {
+                  navigate("/cart");
+                  setShowMore(false);
+                }}>
+                  <img
+                    src={blackcart}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Cart</p>
+                </div>
+                <div className="flex items-center border-b-[1px] cursor-pointer"
+                onClick={() => {
+                  navigate("/orders");
+                  setShowMore(false);
+                }}>
+                  <img
+                    src={order}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Orders</p>
+                </div>
+                <div className="flex items-center border-b-[1px] cursor-pointer"
+                onClick={() => {
+                  navigate("/notes");
+                  setShowMore(false);
+                }}>
+                  <img
+                    src={notes}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Add Notes</p>
+                </div>
+                <div className="flex items-center border-b-[1px] cursor-pointer"
+                onClick={() => {
+                  navigate("/notifications");
+                  setShowMore(false);
+                }}>
+                  <img
+                    src={notification}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Notifications</p>
+                </div>
+                <div className="flex items-center border-b-[1px] cursor-pointer"
+                onClick={() => {
+                  navigate("/chat");
+                  setShowMore(false);
+                }}>
+                  <img
+                    src={chat}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="hover:font-medium">Chat</p>
+                </div>
+                <div className="flex items-center cursor-pointer">
+                  <img
+                    src={logout}
+                    alt=""
+                    srcset=""
+                    width="25px"
+                    className="mx-3 my-2"
+                  />
+                  <p className="text-[#E25247] hover:font-medium">Logout</p>
+                </div>
+              </div>
+            </div>
             <button
               className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
               onClick={() => navigationTo("/login")}

@@ -28,7 +28,7 @@ const UploadPrescriptionPage = () => {
   };
   return (
     <div className="flex justify-center">
-      <div className="w-[98%] bg-white px-6 py-6 md:w-[600px] rounded-sm">
+      <div className="w-[98%] bg-white px-6 py-6 md:w-[600px] rounded-xl  shadow-xl">
 
         <div className="w-full flex justify-center text-[22px] mb-2">
           <h1 className="font-semibold">Upload Prescription</h1>
@@ -53,7 +53,7 @@ const UploadPrescriptionPage = () => {
                 />
               </div>
             ) : (
-              <div className="h-[150px] w-[150px] bg-[#ffffff] border-[#37474F] border-[1px] flex  flex-col items-center justify-center text-sm">
+              <div className="h-[150px] w-[150px] bg-[#ffffff] border-[#37474F] border-[1px] flex  flex-col items-center justify-center text-sm rounded-sm">
                 <p>No photo</p>
                 <p>to preview</p>
               </div>
@@ -63,7 +63,7 @@ const UploadPrescriptionPage = () => {
           <div className="">
             <input
               type="file"
-              className="w-[100%]"
+              className="w-[100%] outline-none"
               //onChange={(e) => setPicture(e.target.value)}
               onChange={handleFileInputChange}
               accept="image/png, image/gif, image/jpeg"
@@ -73,12 +73,12 @@ const UploadPrescriptionPage = () => {
 
           <div>
             <p className="text-[#37474F] font-medium">Doctor's Name:</p>
-            <input type="text" className="border w-full" />
+            <input type="text" className="border w-full rounded-md pl-2 outline-none" />
           </div>
 
           <div>
             <p className="text-[#37474F] font-medium">Add a Note:</p>
-            <input type="text" className="border w-full" />
+            <input type="text" className="border w-full rounded-md pl-2 outline-none" />
           </div>
 
           <div className="flex w-full items-center">

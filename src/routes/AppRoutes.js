@@ -15,6 +15,10 @@ import UploadPrescriptionPage from "../pages/UploadPrescriptionPage";
 import CartPage from "../pages/CartPage";
 import IndividualProduct from "../pages/IndividualProduct";
 import UpdateItem from "../pages/admin/UpdateItem";
+import NotesPage from "../pages/NotesPage";
+import NotificationPage from "../pages/NotificationPage";
+import ChatPage from "../pages/ChatPage";
+import OrderPage from "../pages/OrderPage";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +34,10 @@ const AppRoutes = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/upload-prescription" element={<UploadPrescriptionPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/notes" element={<NotesPage />} />
+          <Route path="/notifications" element={<NotificationPage />} />
+          <Route path="/chat" element={<ChatPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
 
