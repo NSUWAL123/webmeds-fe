@@ -9,6 +9,7 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast"
+import { setUserToLocalStorage } from "../utils/handleToken";
 
 const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
@@ -55,6 +56,7 @@ const LoginPage = () => {
       }
       if (data.lvl === "success") {
         notifySuccess(data.message);
+        setUserToLocalStorage("authenticated", data.data);
         navigate('/')
         return;
       }

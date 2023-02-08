@@ -1,15 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {
-    notes: [],
-}
 
 export const noteSlice = createSlice({
     name: 'note',
-    initialState,
+    initialState: [],
     reducers: {
-        addNote: (state, action) => {
-            state.notes.push(action.payload)
-        }
+        fillNote(state, action) {
+            // console.log(action.payload)
+            state = action.payload
+            // console.log(state)
+        },
+        addNote(state, action) {
+            console.log(state);
+        },
+        deleteNote(state, action) {
+
+        },
+        editNote(state, action) {
+
+        },
     }
 })
+
+export const {fillNote, addNote, deleteNote, editNote} =  noteSlice.actions;
+
