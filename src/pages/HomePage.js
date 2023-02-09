@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductItem from "../components/ProductItem";
+import { useDispatch } from "react-redux";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
+import { populateUser } from "../redux/userSlice";
 
 const HomePage = () => {
   // let productArray = [];
+  const dispatch = useDispatch();
   let [products, setProducts] = useState([]);
+
+  // const token = ;
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": getTokenFromLocalStorage(),
+    },
+  };
 
   useEffect(() => {
     (async () => {
@@ -12,7 +24,10 @@ const HomePage = () => {
       const response = await axios.get("http://localhost:5000/products/");
       const { data } = response;
       setProducts(data);
-      // console.log(data)
+
+      const user = await axios.get("http://localhost:5000/user/getUser/", config)
+      dispatch(populateUser(user.data))
+      // console.log(user.data)
     })();
   }, []);
 

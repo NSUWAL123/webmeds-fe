@@ -12,3 +12,12 @@ export const removeUserFromLocalStorage = () => {
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("token");
   };
+
+export const isUserLoggedIn = () => {
+    if (localStorage.getItem("isAuthenticated")) {
+        return false;
+    } else {
+        return true;
+    }
+    // return false;
+}

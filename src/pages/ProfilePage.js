@@ -1,9 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddressModal from "../components/AddressModal";
 import addsym from "../pictures/icons/add-symbol.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
+import axios from "axios";
+import { populateUser } from "../redux/userSlice";
 
 const ProfilePage = () => {
+  const userData = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+  console.log(userData);
   const [showDeleteModal, setShowModal] = useState(false);
+
+  // const token = ;
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": getTokenFromLocalStorage(),
+    },
+  };
+
+  useEffect(() => {
+    (async () => {
+      //await getAllProducts()
+      const user = await axios.get(
+        "http://localhost:5000/user/getUser/",
+        config
+      );
+      dispatch(populateUser(user.data));
+
+      // console.log(user.data)
+    })();
+  }, []);
 
   return (
     <div className="flex justify-center lg:h-[585px] items-center">
@@ -21,13 +50,16 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
+                  value={userData.name}
                 />
               </div>
               <div>
                 <p className="mb-1">Email:</p>
                 <input
                   type="text"
-                  className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
+                  className="w-[100%] rounded-sm outline-none pl-2 h-8 border "
+                  value={userData.email}
+                  disabled
                 />
               </div>
               <div>
@@ -35,6 +67,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
+                  value={userData.mobile}
                 />
               </div>
               <div>
@@ -42,6 +75,8 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
+                  value={userData.dob}
+                  disabled
                 />
               </div>
             </div>
@@ -57,11 +92,14 @@ const ProfilePage = () => {
             <h1 className="font-semibold text-[18px] lg:text-[22px]">
               Billing Address
             </h1>
+
             <div className="w-[90%]">
               <p className="mb-1">Address:</p>
-              <div className="w-[100%] rounded-sm outline-none pl-2 h-32 border flex justify-center items-center cursor-pointer"
-              onClick={() => setShowModal(true)}>
-                <img src={addsym} alt="" srcset="" />
+              <div
+                className="w-[100%] rounded-sm outline-none pl-2 h-32 border flex justify-center items-center cursor-pointer"
+                onClick={() => setShowModal(true)}
+              >
+                <img src={addsym} alt=""/>
               </div>
             </div>
 
@@ -76,7 +114,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className={showDeleteModal ? "block": "hidden"}>
+      <div className={showDeleteModal ? "block" : "hidden"}>
         <AddressModal setShowModal={setShowModal} />
       </div>
     </div>

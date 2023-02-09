@@ -48,7 +48,6 @@ const UploadPrescriptionPage = () => {
                 <img
                   src={previewSource}
                   alt=""
-                  srcset=""
                   className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"
                 />
               </div>

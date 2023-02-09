@@ -15,7 +15,7 @@ const NotesPage = () => {
 
   //selector
   const noteData = useSelector((state) => state.notes);
-  console.log(noteData);
+  // console.log(noteData);
 
   const token = getTokenFromLocalStorage();
   const config = {

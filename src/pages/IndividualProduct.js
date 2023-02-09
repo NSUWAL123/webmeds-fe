@@ -90,7 +90,7 @@ const IndividualProduct = () => {
         </div>
       </div>
 
-      {/* <img src={product.productPicURL} alt="" srcset="" width="200px"/>
+      {/* <img src={product.productPicURL} alt=""  width="200px"/>
       <p>{product.description}</p> */}
     </div>
   );

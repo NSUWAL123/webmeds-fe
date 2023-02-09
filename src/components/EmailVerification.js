@@ -32,7 +32,6 @@ const EmailVerification = () => {
             <img
               src={emailverified}
               alt=""
-              srcset=""
               className="w-[120px] ml-6 md:w-[180px]"
             />
             <div className="font-semibold text-[20px] flex flex-col items-center md:text-[25px]">

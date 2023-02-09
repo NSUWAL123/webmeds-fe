@@ -17,11 +17,14 @@ import notes from "../pictures/icons/add-note.svg";
 import notification from "../pictures/icons/notification.svg";
 import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
+import { isUserLoggedIn, removeUserFromLocalStorage } from "../utils/handleToken";
 
 const BaseLayout = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
   const [showMore, setShowMore] = useState(false);
+
+  let login = isUserLoggedIn();
 
   // const loginHandler = () => {
   //   navigate("/login");
@@ -61,7 +64,12 @@ const BaseLayout = () => {
             <SearchBar />
           </div>
 
-            <div className={`w-screen h-screen absolute top-0 left-0 ${showMore ? "block" : "hidden"}`} onClick={() => toggleMore()}></div>
+          <div
+            className={`w-screen h-screen absolute top-0 left-0 ${
+              showMore ? "block" : "hidden"
+            }`}
+            onClick={() => toggleMore()}
+          ></div>
           {/* dropdown */}
           <div className="flex relative ">
             <div className="cursor-pointer">
@@ -69,7 +77,6 @@ const BaseLayout = () => {
                 src={more}
                 alt=""
                 className="pr-3 lg:pr-6 w-[40px] lg:w-[55px]"
-                srcset=""
                 onClick={() => toggleMore()}
               />
 
@@ -88,114 +95,99 @@ const BaseLayout = () => {
                   <img
                     src={profile}
                     alt=""
-                    srcset=""
                     width="25px"
                     className="mx-3 my-2"
                   />
                   <p className="hover:font-medium">Manage Profile</p>
                 </div>
-                <div className="flex items-center border-b-[1px] cursor-pointer"
-                onClick={() => {
-                  navigate("/upload-prescription");
-                  setShowMore(false);
-                }}>
-                  <img
-                    src={camera}
-                    alt=""
-                    srcset=""
-                    width="22px"
-                    className="mx-3 my-2"
-                  />
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/upload-prescription");
+                    setShowMore(false);
+                  }}
+                >
+                  <img src={camera} alt="" width="22px" className="mx-3 my-2" />
                   <p className="hover:font-medium">Upload Prescription</p>
                 </div>
-                <div className="flex items-center border-b-[1px] cursor-pointer"
-                onClick={() => {
-                  navigate("/cart");
-                  setShowMore(false);
-                }}>
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/cart");
+                    setShowMore(false);
+                  }}
+                >
                   <img
                     src={blackcart}
                     alt=""
-                    srcset=""
                     width="25px"
                     className="mx-3 my-2"
                   />
                   <p className="hover:font-medium">Cart</p>
                 </div>
-                <div className="flex items-center border-b-[1px] cursor-pointer"
-                onClick={() => {
-                  navigate("/orders");
-                  setShowMore(false);
-                }}>
-                  <img
-                    src={order}
-                    alt=""
-                    srcset=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/orders");
+                    setShowMore(false);
+                  }}
+                >
+                  <img src={order} alt="" width="25px" className="mx-3 my-2" />
                   <p className="hover:font-medium">Orders</p>
                 </div>
-                <div className="flex items-center border-b-[1px] cursor-pointer"
-                onClick={() => {
-                  navigate("/notes");
-                  setShowMore(false);
-                }}>
-                  <img
-                    src={notes}
-                    alt=""
-                    srcset=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/notes");
+                    setShowMore(false);
+                  }}
+                >
+                  <img src={notes} alt="" width="25px" className="mx-3 my-2" />
                   <p className="hover:font-medium">Add Notes</p>
                 </div>
-                <div className="flex items-center border-b-[1px] cursor-pointer"
-                onClick={() => {
-                  navigate("/notifications");
-                  setShowMore(false);
-                }}>
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/notifications");
+                    setShowMore(false);
+                  }}
+                >
                   <img
                     src={notification}
                     alt=""
-                    srcset=""
                     width="25px"
                     className="mx-3 my-2"
                   />
                   <p className="hover:font-medium">Notifications</p>
                 </div>
-                <div className="flex items-center border-b-[1px] cursor-pointer"
-                onClick={() => {
-                  navigate("/chat");
-                  setShowMore(false);
-                }}>
-                  <img
-                    src={chat}
-                    alt=""
-                    srcset=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
+                <div
+                  className="flex items-center border-b-[1px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/chat");
+                    setShowMore(false);
+                  }}
+                >
+                  <img src={chat} alt="" width="25px" className="mx-3 my-2" />
                   <p className="hover:font-medium">Chat</p>
                 </div>
-                <div className="flex items-center cursor-pointer">
-                  <img
-                    src={logout}
-                    alt=""
-                    srcset=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
-                  <p className="text-[#E25247] hover:font-medium">Logout</p>
+                <div className="flex items-center cursor-pointer" onClick={() => {
+                    removeUserFromLocalStorage()
+                    setShowMore(false);
+                    }}>
+                  <img src={logout} alt="" width="25px" className="mx-3 my-2" />
+                  <p className="text-[#E25247] hover:font-medium" >Logout</p>
                 </div>
               </div>
             </div>
+                {(login) && (
+
             <button
               className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
               onClick={() => navigationTo("/login")}
             >
               Login
             </button>
+                )}
           </div>
         </div>
         <div className="lg:hidden">
