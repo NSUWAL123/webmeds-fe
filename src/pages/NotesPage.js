@@ -4,10 +4,14 @@ import NoteItem from "../components/NoteItem";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import { useDispatch, useSelector } from "react-redux";
 import { addNote, fillNote } from "../redux/noteSlice";
+import { notifyError } from "../utils/Toast";
+import { ToastContainer } from "react-toastify";
+import { clearForm } from "../utils/clearForm";
 
 const NotesPage = () => {
-  const [notes, setNotes] = useState(" ");
   const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   //selector
   const noteData = useSelector((state) => state.notes);
@@ -21,27 +25,34 @@ const NotesPage = () => {
     },
   };
 
+  const AddNote = async () => {
+    if (!title | !description) {
+      notifyError("Title and Description should be provided.");
+      return;
+    }
+
+    let response = await axios.post(
+      `http://localhost:5000/notes/add`,
+      { title, description },
+      config
+    );
+
+    dispatch(addNote(response.data));
+
+    clearForm();
+    setTitle("");
+    setDescription("");
+  };
+
   useEffect(() => {
     (async () => {
-      //await getAllProducts()
-      const response = await axios.get(`http://localhost:5000/notes`, config);
-      const { data } = response;
-      // console.log(data.getNotes)
-      dispatch(fillNote(data.getNotes));
-      // setProduct(data);
-    })();
-  });
+      let response = await axios.get(`http://localhost:5000/notes`, config);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     //await getAllProducts()
-  //     const response = await axios.get("http://localhost:5000/notes/");
-  //     const { data } = response;
-  //     setNotes(data);
-  //     // console.log(data)
-  //   })();
-  // }, []);
-  // console.log(notes)
+      let { data } = response;
+
+      dispatch(fillNote(data.getNotes));
+    })();
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -55,6 +66,7 @@ const NotesPage = () => {
           <input
             type="text"
             className="border w-full px-1 text-lg rounded-sm outline-none pl-2"
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div>
@@ -63,12 +75,13 @@ const NotesPage = () => {
             type="text"
             rows="4"
             className="border w-full px-1 text-lg resize-none rounded-sm outline-none pl-2"
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="flex justify-center">
           <button
             className="bg-[#37474F] text-white px-3 py-1 rounded-md"
-            onClick={() => dispatch(addNote())}
+            onClick={() => AddNote()}
           >
             Add Note
           </button>
@@ -76,30 +89,30 @@ const NotesPage = () => {
       </div>
 
       {/* showing notes section */}
-      {/* <div className="mt-9 w-full flex justify-center"> */}
-      {/* if no notes present */}
-      {/* <div className="bg-white flex justify-center items-center h-[100px] text-2xl font-semibold max-w-[650px] w-full rounded-lg shadow-2xl">
-          <h1>No Notes To Display</h1>
+      {noteData.length === 0 && (
+        <div className="mt-9 w-full flex justify-center">
+          {/* if no notes present */}
+          <div className="bg-white flex justify-center items-center h-[100px] text-2xl font-semibold max-w-[650px] w-full rounded-lg shadow-2xl">
+            <h1>No Notes To Display</h1>
+          </div>
         </div>
-      </div> */}
+      )}
 
-      {/* if notes are present */}
-      <div className="mt-9 w-full bg-white px-4 rounded-lg  shadow-2xl">
-        <div className="flex justify-center py-5">
-          <h1 className="text-2xl font-semibold">Your Notes</h1>
-        </div>
+      {noteData.length !== 0 && (
+        <div className="mt-9 w-full bg-white px-4 rounded-lg  shadow-2xl ">
+          <div className="flex justify-center py-5">
+            <h1 className="text-2xl font-semibold">Your Notes</h1>
+          </div>
 
-        <div className="border p-2 mb-3">
-          {/* {
-            noteData.map((data) => {
-              return (
-                <li>{data}</li>
-              )
-            })
-          } */}
-          <NoteItem />
+          <div className="md:flex md:flex-wrap justify-around">
+            {noteData.map((data) => {
+              return <NoteItem key={data._id} noteData={data} />;
+            })}
+          </div>
         </div>
-      </div>
+      )}
+
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };
