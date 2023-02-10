@@ -19,5 +19,4 @@ export const isUserLoggedIn = () => {
     } else {
         return true;
     }
-    // return false;
 }

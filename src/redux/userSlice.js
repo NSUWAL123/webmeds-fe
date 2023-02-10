@@ -6,12 +6,16 @@ export const userSlice = createSlice({
     reducers: {
         populateUser: (state, action) => {
             return (state = action.payload)
-            // console.log(state)
         },
-        updateAddress: (state, action) => {
-            
+        addAddress: (state, action) => {   
+            state.billingAddress = action.payload
+        },
+        updateUser: (state, action) => {
+            let data = action.payload
+            state.name = data.name;
+            state.mobile = data.mobile;
         }
     }
 })
 
-export const {populateUser} = userSlice.actions;
+export const {populateUser, addAddress, updateUser} = userSlice.actions;

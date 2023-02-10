@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { addAddress } from "../../redux/userSlice";
+import { notifyError } from "../../utils/Toast";
 
 const AddressModal = (props) => {
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const { setShowModal } = props;
 
   const [province, setProvince] = useState("Bagmati");
@@ -8,22 +14,15 @@ const AddressModal = (props) => {
   const [area, setArea] = useState("");
   const [landmark, setLandmark] = useState("");
 
-  const [billingAddress, setBillingAddress] = useState({});
-
   const saveAddress = () => {
-    setBillingAddress({
-      province: province,
-      district: district,
-      area: area,
-      landmark: landmark,
-    });
-    console.log(province)
-    console.log(district)
-    console.log(area)
-    console.log(landmark)
+    if (!area | !landmark) {
+      notifyError("Please provide full address details!")
+      return;
+    }
 
+    dispatch(addAddress(province + " province, " + district + ", " + area + ", " + landmark))
+    setShowModal(false);
   };
-  console.log(billingAddress);
 
   return (
     <div>
@@ -56,25 +55,19 @@ const AddressModal = (props) => {
                         <div className="w-[100%] h-[295px] flex flex-col justify-around">
                           <div className="flex flex-col items-start">
                             <p className="mb-1">Province:</p>
-                            {/* <input
-                              type="text"
-                              className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                            /> */}
                             <select
                               name=""
                               id=""
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                              onChange={(e) => {setProvince(e.target.value)}}
+                              onChange={(e) => {
+                                setProvince(e.target.value);
+                              }}
                             >
                               <option value="Bagmati">Bagmati</option>
                             </select>
                           </div>
                           <div className="flex flex-col items-start">
                             <p className="mb-1">District:</p>
-                            {/* <input
-                              type="text"
-                              className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                            /> */}
                             <select
                               name=""
                               id=""
@@ -91,7 +84,9 @@ const AddressModal = (props) => {
                             <input
                               type="text"
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                              onChange={(e) => {setArea(e.target.value)}}
+                              onChange={(e) => {
+                                setArea(e.target.value);
+                              }}
                             />
                           </div>
                           <div className="flex flex-col items-start">
@@ -99,7 +94,9 @@ const AddressModal = (props) => {
                             <input
                               type="text"
                               className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                              onChange={(e) => {setLandmark(e.target.value)}}
+                              onChange={(e) => {
+                                setLandmark(e.target.value);
+                              }}
                             />
                           </div>
                         </div>
@@ -113,7 +110,6 @@ const AddressModal = (props) => {
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
                       saveAddress();
-                      setShowModal(false);
                     }}
                   >
                     Save & Close
@@ -133,6 +129,7 @@ const AddressModal = (props) => {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };

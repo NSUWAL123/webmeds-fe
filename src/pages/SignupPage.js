@@ -8,7 +8,7 @@ import eyeopen from "../pictures/icons/eyeopen.svg";
 import eyeclose from "../pictures/icons/eyeclose.svg";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast";
+import { notifyError, notifyInfo } from "../utils/Toast";
 
 const SignupPage = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import NoteItem from "../components/NoteItem";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import { useDispatch, useSelector } from "react-redux";
 import { addNote, fillNote } from "../redux/noteSlice";
-import { notifyError } from "../utils/Toast";
+import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast";
 import { ToastContainer } from "react-toastify";
 import { clearForm } from "../utils/clearForm";
 
@@ -15,7 +15,6 @@ const NotesPage = () => {
 
   //selector
   const noteData = useSelector((state) => state.notes);
-  // console.log(noteData);
 
   const token = getTokenFromLocalStorage();
   const config = {
@@ -38,6 +37,7 @@ const NotesPage = () => {
     );
 
     dispatch(addNote(response.data));
+    notifyInfo("New note has been added.")
 
     clearForm();
     setTitle("");

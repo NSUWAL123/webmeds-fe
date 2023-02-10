@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import AddressModal from "../components/AddressModal";
+import AddressModal from "../components/modals/AddressModal";
 import addsym from "../pictures/icons/add-symbol.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import axios from "axios";
 import { populateUser } from "../redux/userSlice";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { notifyError, notifySuccess } from "../utils/Toast";
+import { updateUser } from "../redux/userSlice";
 
 const ProfilePage = () => {
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.user); 
 
   const dispatch = useDispatch();
   console.log(userData);
   const [showDeleteModal, setShowModal] = useState(false);
 
-  // const token = ;
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -23,16 +26,37 @@ const ProfilePage = () => {
 
   useEffect(() => {
     (async () => {
-      //await getAllProducts()
       const user = await axios.get(
         "http://localhost:5000/user/getUser/",
         config
       );
       dispatch(populateUser(user.data));
-
-      // console.log(user.data)
+        setName(user.data.name);
+        setMobile(user.data.mobile)
     })();
   }, []);
+
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("")
+
+  const updateUserDetails = async() => {
+    if (!name | !mobile) {
+      notifyError("Empty Fields!")
+      return 
+    }
+
+    const user = await axios.post(
+      "http://localhost:5000/user/update/", {
+        name: name,
+        mobile: mobile,
+        billingAddress: userData.billingAddress
+      },
+      config
+    );
+
+    dispatch(updateUser({name, mobile}))
+    notifySuccess("Successfully updated your profile information.")
+  }
 
   return (
     <div className="flex justify-center lg:h-[585px] items-center">
@@ -50,7 +74,8 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                  value={userData.name}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div>
@@ -67,7 +92,8 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                  value={userData.mobile}
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
                 />
               </div>
               <div>
@@ -99,7 +125,10 @@ const ProfilePage = () => {
                 className="w-[100%] rounded-sm outline-none pl-2 h-32 border flex justify-center items-center cursor-pointer"
                 onClick={() => setShowModal(true)}
               >
-                <img src={addsym} alt=""/>
+                {(userData.billingAddress === "") ? 
+                (<img src={addsym} alt=""/>) :
+                <p>{userData.billingAddress}</p>
+                }
               </div>
             </div>
 
@@ -108,7 +137,7 @@ const ProfilePage = () => {
         </div>
 
         <div className="flex justify-center mb-5">
-          <button className="bg-[#37474F] text-white px-3 py-1 py rounded-2xl">
+          <button className="bg-[#37474F] text-white px-3 py-1 py rounded-2xl" onClick={() => {updateUserDetails()}}>
             Save Details
           </button>
         </div>
@@ -117,6 +146,7 @@ const ProfilePage = () => {
       <div className={showDeleteModal ? "block" : "hidden"}>
         <AddressModal setShowModal={setShowModal} />
       </div>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };

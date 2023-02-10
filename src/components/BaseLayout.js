@@ -76,14 +76,14 @@ const BaseLayout = () => {
               <img
                 src={more}
                 alt=""
-                className="pr-3 lg:pr-6 w-[40px] lg:w-[55px]"
+                className={`${!login ? "": "mr-3"} lg:mr-6 w-[30px] lg:w-[35px]`}
                 onClick={() => toggleMore()}
               />
 
               <div
                 className={`${
                   showMore ? "block" : "hidden"
-                } absolute  -translate-x-[100px] bg-white shadow-2xl w-[220px] text-[15px] border-t-[1px] duration-500 rounded-md`}
+                } absolute  ${!login ? "-translate-x-[170px]": "-translate-x-[100px]"} bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md `}
               >
                 <div
                   className="flex items-center border-b-[1px] cursor-pointer"
@@ -143,7 +143,7 @@ const BaseLayout = () => {
                   }}
                 >
                   <img src={notes} alt="" width="25px" className="mx-3 my-2" />
-                  <p className="hover:font-medium">Add Notes</p>
+                  <p className="hover:font-medium">Notes</p>
                 </div>
                 <div
                   className="flex items-center border-b-[1px] cursor-pointer"
@@ -170,7 +170,7 @@ const BaseLayout = () => {
                   <img src={chat} alt="" width="25px" className="mx-3 my-2" />
                   <p className="hover:font-medium">Chat</p>
                 </div>
-                <div className="flex items-center cursor-pointer" onClick={() => {
+                <div className={`${!login ? "flex": "hidden"} items-center cursor-pointer` }onClick={() => {
                     removeUserFromLocalStorage()
                     setShowMore(false);
                     }}>
