@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import description from "../pictures/icons/description.svg";
+import PageNotFound from "./PageNotFound";
 
 const IndividualProduct = () => {
   const params = useParams();
@@ -20,7 +21,9 @@ const IndividualProduct = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div>
+    {(product) ? 
+      (<div className="w-full flex flex-col items-center">
       <div className="bg-white w-[85%] flex flex-col items-center h-[530px] rounded-3xl font-medium md:flex-row md:h-[300px] md:w-[95%] max-w-[1240px] lg:h-[450px] overflow-auto">
         <div className="h-[55%] flex items-center justify-center md:w-1/2  xl:w-[43%] xl:mr-8">
           <img
@@ -93,6 +96,7 @@ const IndividualProduct = () => {
 
       {/* <img src={product.productPicURL} alt=""  width="200px"/>
       <p>{product.description}</p> */}
+    </div>): (<PageNotFound/>)}
     </div>
   );
 };
