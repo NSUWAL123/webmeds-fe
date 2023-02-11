@@ -11,7 +11,7 @@ import { notifyError, notifySuccess } from "../utils/Toast";
 import { updateUser } from "../redux/userSlice";
 
 const ProfilePage = () => {
-  const userData = useSelector((state) => state.user); 
+  const userData = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   console.log(userData);
@@ -31,32 +31,33 @@ const ProfilePage = () => {
         config
       );
       dispatch(populateUser(user.data));
-        setName(user.data.name);
-        setMobile(user.data.mobile)
+      setName(user.data.name);
+      setMobile(user.data.mobile);
     })();
   }, []);
 
   const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("")
+  const [mobile, setMobile] = useState("");
 
-  const updateUserDetails = async() => {
+  const updateUserDetails = async () => {
     if (!name | !mobile) {
-      notifyError("Empty Fields!")
-      return 
+      notifyError("Empty Fields!");
+      return;
     }
 
     const user = await axios.post(
-      "http://localhost:5000/user/update/", {
+      "http://localhost:5000/user/update/",
+      {
         name: name,
         mobile: mobile,
-        billingAddress: userData.billingAddress
+        billingAddress: userData.billingAddress,
       },
       config
     );
 
-    dispatch(updateUser({name, mobile}))
-    notifySuccess("Successfully updated your profile information.")
-  }
+    dispatch(updateUser({ name, mobile }));
+    notifySuccess("Successfully updated your profile information.");
+  };
 
   return (
     <div className="flex justify-center lg:h-[585px] items-center">
@@ -125,19 +126,23 @@ const ProfilePage = () => {
                 className="w-[100%] rounded-sm outline-none pl-2 h-32 border flex justify-center items-center cursor-pointer"
                 onClick={() => setShowModal(true)}
               >
-                {(userData.billingAddress === "") ? 
-                (<img src={addsym} alt=""/>) :
-                <p>{userData.billingAddress}</p>
-                }
+                {userData.billingAddress === "" ? (
+                  <img src={addsym} alt="" />
+                ) : (
+                  <p>{userData.billingAddress}</p>
+                )}
               </div>
             </div>
-
-            
           </div>
         </div>
 
         <div className="flex justify-center mb-5">
-          <button className="bg-[#37474F] text-white px-3 py-1 py rounded-2xl" onClick={() => {updateUserDetails()}}>
+          <button
+            className="bg-[#37474F] text-white px-3 py-1 py rounded-2xl"
+            onClick={() => {
+              updateUserDetails();
+            }}
+          >
             Save Details
           </button>
         </div>

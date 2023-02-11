@@ -22,7 +22,7 @@ const ProductItem = (props) => {
         alt=""
         className="w-[145px] lg:w-[200px] border rounded-md "
       />
-      <p className="font-medium">{product.pname}</p>
+      <p className="font-medium w-[145px] lg:w-[200px] overflow-hidden">{product.pname}</p>
       <div className="flex justify-between items-center">
         <p className="text-[#E25247] font-medium">Rs. {product.offerPrice}</p>
       </div>

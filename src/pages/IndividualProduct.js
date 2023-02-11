@@ -21,7 +21,7 @@ const IndividualProduct = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="bg-white w-[85%] flex flex-col items-center h-[530px] rounded-3xl font-medium md:flex-row md:h-[300px] md:w-[95%] max-w-[1240px] lg:h-[450px]">
+      <div className="bg-white w-[85%] flex flex-col items-center h-[530px] rounded-3xl font-medium md:flex-row md:h-[300px] md:w-[95%] max-w-[1240px] lg:h-[450px] overflow-auto">
         <div className="h-[55%] flex items-center justify-center md:w-1/2  xl:w-[43%] xl:mr-8">
           <img
             src={product.productPicURL}
@@ -68,6 +68,7 @@ const IndividualProduct = () => {
         </div>
       </div>
 
+      {/* description */}
       <div className=" w-[85%] flex flex-col  rounded-3xl font-medium  md:w-[95%] max-w-[1240px] mt-6 md:mt-8">
         <div className="flex">
           <div className="flex bg-[#5D94E7] justify-around items-center w-[180px] rounded-t-2xl px-1 lg:w-[210px]">

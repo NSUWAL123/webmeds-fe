@@ -42,7 +42,7 @@ const HomePage = () => {
         <div className="w-[50%] sm:w-[70%] md:w-[80%] border-t h-0 border-[#AAAAAA]"></div>
       </div>
       
-      <div className="w-[100%] flex flex-wrap justify-around sm:gap-8 ">
+      <div className="w-[100%] flex flex-wrap justify-around gap-4 sm:gap-8 ">
         {products.map((product) => {
           return <ProductItem key={product._id} product={product} />;
         })}

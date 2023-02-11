@@ -227,7 +227,7 @@ const BaseLayout = () => {
             <Categories />
           </div>
           <div>
-            <div>
+            {/* <div>
               <div
                 className="flex cursor-pointer hover:scale-110 duration-300 hover:ml-2"
                 onClick={() => navigationTo("/profile")}
@@ -242,7 +242,7 @@ const BaseLayout = () => {
                 <img src={camera} alt="" className="ml-7 mr-3" />
                 <p>Upload Prescription</p>
               </div>
-            </div>
+            </div> */}
             <button
               className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl"
               onClick={() => navigationTo("/cart")}
