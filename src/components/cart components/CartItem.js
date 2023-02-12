@@ -10,11 +10,10 @@ const CartItem = () => {
         <img
           src={testpic}
           alt=""
-          srcset=""
           className="w-[60px] h-[60px] border rounded-md sm:w-[100px] sm:h-[100px]"
         />
         <div>
-          <p className="my-2">Vitamin C tablets</p>
+          <p className="my-2 font-medium">Vitamin C tablets</p>
           <div className="flex">
             <p className="mr-3">Quantity:</p>
             <div className="flex items-center">
@@ -39,7 +38,7 @@ const CartItem = () => {
           <p className="text-[#7A7A7A]"><strike>Rs. 1200</strike> -50%</p>
           <p className="text-[#E25247]">Rs. 600</p>
         </div>
-        <img src={close} alt="" srcset="" className="w-[25px]" />
+        <img src={close} alt="" className="w-[25px]" />
       </div>
     </div>
   );
