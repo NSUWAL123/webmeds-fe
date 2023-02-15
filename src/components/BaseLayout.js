@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +18,12 @@ import notification from "../pictures/icons/notification.svg";
 import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
 import { isUserLoggedIn, removeUserFromLocalStorage } from "../utils/handleToken";
+import { useDispatch } from "react-redux";
+
 
 const BaseLayout = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showSidebar, setShowSidebar] = useState(false);
   const [showMore, setShowMore] = useState(false);
 

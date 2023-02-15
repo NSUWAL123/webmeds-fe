@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import description from "../pictures/icons/description.svg";
+import { config } from "../utils/config";
 import PageNotFound from "./PageNotFound";
+import { notifySuccess } from "../utils/Toast";
 
 const IndividualProduct = () => {
   const params = useParams();
   const [product, setProduct] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -16,9 +20,29 @@ const IndividualProduct = () => {
       );
       const { data } = response;
       setProduct(data);
-      console.log(data);
+      // console.log(data);
     })();
   }, []);
+
+  // console.log(product)
+  const decreaseQty = () => {
+    if(quantity > 1) {
+      setQuantity(quantity - 1)
+    }
+  }
+
+  const addProductToCart = async () => {
+    const productToBeAdded = {
+      productId: product._id,
+      quantity: quantity
+    }
+
+    //url and config to be added here ----->
+    const response = await axios.post("http://localhost:5000/cart/addCart", productToBeAdded, config)
+
+    notifySuccess(response.data.message);
+    console.log(response.data.message)
+  }
 
   return (
     <div>
@@ -54,17 +78,17 @@ const IndividualProduct = () => {
           <div className="flex lg:text-[20px] items-center">
             <p className="mr-4">Quantity</p>
             <div className="flex items-center">
-              <button className="bg-[#37474F] text-white w-6 h-6 rounded-md mr-3 flex items-center justify-center">
+              <button className="bg-[#37474F] text-white w-6 h-6 rounded-md mr-3 flex items-center justify-center" onClick={() => {decreaseQty()}}>
                 -
               </button>
-              <p className="mr-3">1</p>
-              <button className="bg-[#37474F] text-white w-6 h-6 rounded-md flex items-center justify-center">
+              <p className="mr-3">{quantity}</p>
+              <button className="bg-[#37474F] text-white w-6 h-6 rounded-md flex items-center justify-center" onClick={() => {setQuantity(quantity + 1)}}>
                 +
               </button>
             </div>
           </div>
           <div className="flex justify-center md:justify-start">
-            <button className="bg-[#E25247] text-white px-2 py-1 rounded-lg my-3 lg:text-[20px]">
+            <button className="bg-[#E25247] text-white px-2 py-1 rounded-lg my-3 lg:text-[20px]" onClick={() => addProductToCart()}>
               Add to Cart
             </button>
           </div>
@@ -97,6 +121,7 @@ const IndividualProduct = () => {
       {/* <img src={product.productPicURL} alt=""  width="200px"/>
       <p>{product.description}</p> */}
     </div>): (<PageNotFound/>)}
+    <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };

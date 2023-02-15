@@ -4,7 +4,7 @@ import NoteItem from "../components/NoteItem";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import { useDispatch, useSelector } from "react-redux";
 import { addNote, fillNote } from "../redux/noteSlice";
-import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast";
+import { notifyError, notifyInfo } from "../utils/Toast";
 import { ToastContainer } from "react-toastify";
 import { clearForm } from "../utils/clearForm";
 

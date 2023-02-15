@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartBilling from "../components/cart components/CartBilling";
 import CartItem from "../components/cart components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../redux/cartSlice";
+import axios from "axios";
+import {config} from "../utils/config"
 
 const CartPage = () => {
   const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState([])
+  
+  
+  useEffect(() => {
+    (async () => {
+      const fetchCart = await axios.get("http://localhost:5000/cart/getCartItems", config)
+      // console.log(fetchCart.data.getCart)
+      // let cartItems = fetchCart.data.getCart;
+      setCartItems(fetchCart.data.getCart)
+      // dispatch(populateCart(cartItems))
+    })();
+  }, [])
+  
   const cart = useSelector((state) => state.cart);
+
+
+  // console.log(cart.cartItems)
 
   return (
     <div>
@@ -18,8 +36,9 @@ const CartPage = () => {
               Your Cart Items
             </h1>
             <div>
-              <CartItem />
-              <CartItem />
+              {cartItems.map((cartItem) => {
+                return <CartItem key={cartItem._id} cartItem={cartItem}/>
+              })}
             </div>
           </div>
 
