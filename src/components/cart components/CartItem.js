@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import testpic from "../../pictures/Test/meadbery.png";
 import close from "../../pictures/icons/close.svg";
 import axios from "axios";
 import { config } from "../../utils/config";
+import { useDispatch, useSelector } from "react-redux";
+import { removeItemFromCart, updateIsCheck, updateQuantity } from "../../redux/cartSlice";
 
 const CartItem = (props) => {
+  const dispatch = useDispatch();
+
   const cartItem = props.cartItem;
+  const {quantity, isCheck} = props.cartItem;
+
   const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(cartItem.quantity);
+  // const [quantity, setQuantity] = useState(cartItem.quantity);
+  //const [isCheck, setIsCheck] = useState(cartItem.isCheck);
 
   useEffect(() => {
     (async () => {
@@ -15,7 +21,6 @@ const CartItem = (props) => {
         `http://localhost:5000/products/id/${cartItem.productId}`,
         config
       );
-      // console.log(product)
       setProduct(product.data);
     })();
   }, []);
@@ -38,23 +43,62 @@ const CartItem = (props) => {
 
   const decreaseQty = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      // setQuantity(quantity - 1);
+      dispatch(updateQuantity({cartId: cartItem._id, quantity: quantity - 1}))
     }
   };
 
+  console.log("rerendered!!!")
+
   const removeFromCart = async () => {
-    const response = await axios.delete(
-      "http://localhost:5000/cart/removeCart",
-      { cartId: cartItem._id },
-      config
-    );
-    console.log(response.data);
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/cart/removeCart/${cartItem._id}`,
+        config
+      );
+      console.log(response.data);
+      // cartItem.removeItemFromCart(cartItem._id)
+      dispatch(removeItemFromCart({id: cartItem._id}))
+    } catch (error) {
+      //try catch nahuda error ayo. 'is not a function bhanera'
+    }
   };
+
+  const changeCheckStatus = async () => {
+    console.log(isCheck)
+    if (isCheck) {
+      //setIsCheck(false);
+      dispatch(updateIsCheck({id: cartItem._id, isCheck: false}))
+      const cartToBeUpdated = {
+        cartId: cartItem._id,
+        isCheck: false
+      };
+      const response = await axios.post(
+        `http://localhost:5000/cart/toggleCheck`, cartToBeUpdated,
+        config
+      );
+    } else {
+      //setIsCheck(true)
+      dispatch(updateIsCheck({id: cartItem._id, isCheck: true}))
+      const cartToBeUpdated = {
+        cartId: cartItem._id,
+        isCheck: true
+      };
+      const response = await axios.post(
+        `http://localhost:5000/cart/toggleCheck`, cartToBeUpdated,
+        config
+      );
+    }
+
+
+  }
 
   return (
     <div className="flex justify-between items-center py-4 border-b border-slate-300 sm:px-6">
       <div className="flex items-center w-[80%] sm:w-[60%] justify-between lg:w-[70%]">
-        <input type="checkbox" className="w-4 h-4 sm:w-5 sm:h-5" />
+        {/* checkbox */}
+        {/* <input type="checkbox" className="w-4 h-4 sm:w-5 sm:h-5" id="check" name="check"/> */}
+        <div className={`w-4 h-4 sm:w-5 sm:h-5 border-2 rounded-full\ ${isCheck ? "bg-[#0075FF] border-none": ""}`}  onClick={() => changeCheckStatus()}></div>
         <img
           src={product.productPicURL}
           alt=""
@@ -77,7 +121,8 @@ const CartItem = (props) => {
               <div
                 className="w-5 h-5 bg-[#37474F] flex justify-center items-center text-white rounded-md  ml-3 cursor-pointer"
                 onClick={() => {
-                  setQuantity(quantity + 1);
+                  // setQuantity(quantity + 1);
+                  dispatch(updateQuantity({cartId: cartItem._id, quantity: quantity + 1}))
                 }}
               >
                 +

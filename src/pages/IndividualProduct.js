@@ -24,7 +24,6 @@ const IndividualProduct = () => {
     })();
   }, []);
 
-  // console.log(product)
   const decreaseQty = () => {
     if(quantity > 1) {
       setQuantity(quantity - 1)

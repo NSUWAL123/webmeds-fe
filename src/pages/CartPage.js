@@ -2,33 +2,29 @@ import React, { useEffect, useState } from "react";
 import CartBilling from "../components/cart components/CartBilling";
 import CartItem from "../components/cart components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCart } from "../redux/cartSlice";
+import { populateCart, toggleCart } from "../redux/cartSlice";
 import axios from "axios";
 import {config} from "../utils/config"
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  const [cartItems, setCartItems] = useState([])
+  // const [cartItems, setCartItems] = useState([])
   
   
   useEffect(() => {
     (async () => {
       const fetchCart = await axios.get("http://localhost:5000/cart/getCartItems", config)
-      // console.log(fetchCart.data.getCart)
-      // let cartItems = fetchCart.data.getCart;
-      setCartItems(fetchCart.data.getCart)
-      // dispatch(populateCart(cartItems))
+      // setCartItems(fetchCart.data.getCart)
+      console.log(fetchCart.data.getCart)
+      dispatch(populateCart(fetchCart.data.getCart))
     })();
   }, [])
   
-  const cart = useSelector((state) => state.cart);
-
-
-  // console.log(cart.cartItems)
+  const {cartItems, toggle} = useSelector((state) => state.cart);
 
   return (
     <div>
-      {!cart.toggle ? (
+      {!toggle ? (
         <div className="flex flex-col lg:flex-row">
           {/* div for cart items */}
           <div className="bg-white mb-5 py-3 px-5 sm:px-6 rounded-md lg:w-[70%] lg:mr-10">
