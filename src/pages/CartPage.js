@@ -2,25 +2,38 @@ import React, { useEffect, useState } from "react";
 import CartBilling from "../components/cart components/CartBilling";
 import CartItem from "../components/cart components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { populateCart, toggleCart } from "../redux/cartSlice";
+import { populateCart, populateOrderLine, toggleCart } from "../redux/cartSlice";
 import axios from "axios";
-import {config} from "../utils/config"
+import { config } from "../utils/config";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  // const [cartItems, setCartItems] = useState([])
-  
-  
+  console.log("render")
+
   useEffect(() => {
     (async () => {
-      const fetchCart = await axios.get("http://localhost:5000/cart/getCartItems", config)
-      // setCartItems(fetchCart.data.getCart)
-      console.log(fetchCart.data.getCart)
-      dispatch(populateCart(fetchCart.data.getCart))
+      const fetchCart = await axios.get(
+        "http://localhost:5000/cart/getCartItems",
+        config
+      );
+      dispatch(populateCart(fetchCart.data.getCart)); 
+      dispatch(populateOrderLine(fetchCart.data.getCart)); 
+
     })();
-  }, [])
+  }, []);
+
+  const { cartItems, toggle, orderLine } = useSelector((state) => state.cart);
+
+  // console.log(cartItems)
+  // let checkedOrder = []
+  // for (let i = 0; i< cartItems.length; i++) {
+  //   if (cartItems[i].isCheck) {
+  //     checkedOrder.push(cartItems[i])
+  //   }
+  // }
+  // console.log(checkedOrder)
+  console.log(orderLine)
   
-  const {cartItems, toggle} = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -33,9 +46,15 @@ const CartPage = () => {
             </h1>
             <div>
               {cartItems.map((cartItem) => {
-                return <CartItem key={cartItem._id} cartItem={cartItem}/>
+                return <CartItem key={cartItem._id} cartItem={cartItem} />;
               })}
             </div>
+          </div>
+
+          <div>
+            {orderLine.map((order) => {
+              return <p>{order.quantity}</p>
+            })}
           </div>
 
           {/* div for order summary  */}

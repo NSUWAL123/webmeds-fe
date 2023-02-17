@@ -17,9 +17,14 @@ import notes from "../pictures/icons/add-note.svg";
 import notification from "../pictures/icons/notification.svg";
 import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
-import { isUserLoggedIn, removeUserFromLocalStorage } from "../utils/handleToken";
+import {
+  isUserLoggedIn,
+  removeUserFromLocalStorage,
+} from "../utils/handleToken";
 import { useDispatch } from "react-redux";
-
+import { populateUser } from "../redux/userSlice";
+import { config } from "../utils/config";
+import axios from "axios";
 
 const BaseLayout = () => {
   const navigate = useNavigate();
@@ -29,10 +34,6 @@ const BaseLayout = () => {
 
   let login = isUserLoggedIn();
 
-  // const loginHandler = () => {
-  //   navigate("/login");
-  // };
-
   const toggleMore = () => {
     showMore ? setShowMore(false) : setShowMore(true);
   };
@@ -41,6 +42,16 @@ const BaseLayout = () => {
     navigate(endpoint);
     setShowSidebar(false);
   };
+
+  useEffect(() => {
+    (async () => {
+      const user = await axios.get(
+        "http://localhost:5000/user/getUser/",
+        config
+      );
+      dispatch(populateUser(user.data));
+    })();
+  }, []);
 
   return (
     <div className="relative font-display xl:text-[18px] flex">
@@ -79,14 +90,16 @@ const BaseLayout = () => {
               <img
                 src={more}
                 alt=""
-                className={`${!login ? "": "mr-3"} lg:mr-6 w-[30px] lg:w-[35px]`}
+                className={`${
+                  !login ? "" : "mr-3"
+                } lg:mr-6 w-[30px] lg:w-[35px]`}
                 onClick={() => toggleMore()}
               />
 
               <div
-                className={`${
-                  showMore ? "block" : "hidden"
-                } absolute  ${!login ? "-translate-x-[170px]": "-translate-x-[100px]"} bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md `}
+                className={`${showMore ? "block" : "hidden"} absolute  ${
+                  !login ? "-translate-x-[170px]" : "-translate-x-[100px]"
+                } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md `}
               >
                 <div
                   className="flex items-center border-b-[1px] cursor-pointer"
@@ -173,24 +186,28 @@ const BaseLayout = () => {
                   <img src={chat} alt="" width="25px" className="mx-3 my-2" />
                   <p className="hover:font-medium">Chat</p>
                 </div>
-                <div className={`${!login ? "flex": "hidden"} items-center cursor-pointer` }onClick={() => {
-                    removeUserFromLocalStorage()
+                <div
+                  className={`${
+                    !login ? "flex" : "hidden"
+                  } items-center cursor-pointer`}
+                  onClick={() => {
+                    removeUserFromLocalStorage();
                     setShowMore(false);
-                    }}>
+                  }}
+                >
                   <img src={logout} alt="" width="25px" className="mx-3 my-2" />
-                  <p className="text-[#E25247] hover:font-medium" >Logout</p>
+                  <p className="text-[#E25247] hover:font-medium">Logout</p>
                 </div>
               </div>
             </div>
-                {(login) && (
-
-            <button
-              className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
-              onClick={() => navigationTo("/login")}
-            >
-              Login
-            </button>
-                )}
+            {login && (
+              <button
+                className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
+                onClick={() => navigationTo("/login")}
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
         <div className="lg:hidden">

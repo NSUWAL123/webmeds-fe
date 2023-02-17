@@ -1,14 +1,16 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../redux/cartSlice";
 import back from "../../pictures/icons/back.svg";
 import addSym from "../../pictures/icons/add-symbol.svg";
 import CartSummary from "./CartSummary";
+import AddressModal from "../modals/AddressModal";
 
 const CartBilling = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { billingAddress } = useSelector((state) => state.user);
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
       <div className="flex mb-4 items-center">
@@ -24,10 +26,14 @@ const CartBilling = () => {
       <div className="lg:flex lg:justify-between">
         <div className="bg-white rounded-md p-6 h-[350px] flex flex-col justify-between mb-6 lg:w-[60%]">
           <h1 className="text-[22px] font-medium">Your Billing Details</h1>
-          <div>
+          <div onClick={() => setShowModal(true)}>
             <p className="font-medium mb-2">Address:</p>
             <div className="w-[100%] rounded-sm outline-none pl-2 h-32 border flex justify-center items-center cursor-pointer">
-              <img src={addSym} alt="" />
+              {billingAddress ? (
+                <p>{billingAddress}</p>
+              ) : (
+                <img src={addSym} alt="" />
+              )}
             </div>
           </div>
           <div>
@@ -62,10 +68,13 @@ const CartBilling = () => {
             </div>
           </div>
           <div className="flex justify-center">
-            <button className="bg-[#E25247] rounded-md mt-3 text-white px-5 py-1 text-lg font-medium">Place Order</button>
+            <button className="bg-[#E25247] rounded-md mt-3 text-white px-5 py-1 text-lg font-medium">
+              Place Order
+            </button>
           </div>
         </div>
       </div>
+      {showModal && <AddressModal setShowModal={setShowModal} />}
     </div>
   );
 };

@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { addAddress } from "../../redux/userSlice";
+import { config } from "../../utils/config";
 import { notifyError } from "../../utils/Toast";
 
 const AddressModal = (props) => {
@@ -14,14 +16,25 @@ const AddressModal = (props) => {
   const [area, setArea] = useState("");
   const [landmark, setLandmark] = useState("");
 
-  const saveAddress = () => {
+  const saveAddress = async () => {
     if (!area | !landmark) {
       notifyError("Please provide full address details!")
       return;
     }
 
-    dispatch(addAddress(province + " province, " + district + ", " + area + ", " + landmark))
+    const billingAddress = province + " province, " + district + ", " + area + ", " + landmark;
+
+    const user = await axios.post(
+      "http://localhost:5000/user/update-address/",
+      {
+        billingAddress: billingAddress,
+      },
+      config
+    );
+
+    dispatch(addAddress(billingAddress))
     setShowModal(false);
+
   };
 
   return (
