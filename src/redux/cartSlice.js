@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   toggle: false,
   cartItems: [],
-  orderLine: [],
-  orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 },
+  cartProducts: [],
+  orderLine: [], //array of cart items that has been selected
+  orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 }, 
 };
 
 export const cartSlice = createSlice({
@@ -46,7 +47,6 @@ export const cartSlice = createSlice({
       for (let i = 0; i < cartIsChecked.length; i++) {
         if (cartIsChecked[i].isCheck) {
           state.orderLine.push(cartIsChecked[i]);
-          state.orderSummary.totalItems += cartIsChecked[i].quantity;
         }
       }
     },
@@ -67,6 +67,18 @@ export const cartSlice = createSlice({
         }
       }
     },
+    populateCartProducts: (state, action) => {     
+      state.cartProducts.push(action.payload);
+    },
+    updateOrderSummary: (state, action) => {
+      // state.orderSummary = { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 }
+      state.orderSummary = action.payload
+    },
+    decreaseOrderSummary: (state, action) => {
+
+    }
+  // orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 },
+
   },
 });
 
@@ -80,4 +92,8 @@ export const {
   addOrderLine,
   removeOrderLine,
   updateOrderLineQuantity,
+  populateCartProducts,
+  updateOrderSummary,
+  updateOrderTotalPrice,
+  getCartProduct
 } = cartSlice.actions;

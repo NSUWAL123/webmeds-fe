@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import CartBilling from "../components/cart components/CartBilling";
 import CartItem from "../components/cart components/CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { populateCart, populateOrderLine, toggleCart } from "../redux/cartSlice";
+import { getCartProduct, populateCart, populateOrderLine, toggleCart, updateOrderSummary } from "../redux/cartSlice";
 import axios from "axios";
 import { config } from "../utils/config";
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  console.log("render")
 
+  const { cartItems, toggle, orderLine, cartProducts, orderSummary } = useSelector((state) => state.cart);
   useEffect(() => {
     (async () => {
       const fetchCart = await axios.get(
@@ -19,21 +19,47 @@ const CartPage = () => {
       dispatch(populateCart(fetchCart.data.getCart)); 
       dispatch(populateOrderLine(fetchCart.data.getCart)); 
 
+
     })();
-  }, []);
+  }, [cartItems.length]);
 
-  const { cartItems, toggle, orderLine } = useSelector((state) => state.cart);
-
-  // console.log(cartItems)
-  // let checkedOrder = []
-  // for (let i = 0; i< cartItems.length; i++) {
-  //   if (cartItems[i].isCheck) {
-  //     checkedOrder.push(cartItems[i])
-  //   }
-  // }
-  // console.log(checkedOrder)
-  console.log(orderLine)
+  let qty = 0;
+  let price = 0;
+  let offeredPrice = 0;
   
+
+  if ((orderLine.length > 0) && (cartProducts.length > 0)) {
+    for(let i = 0; i< orderLine.length; i++) {
+      let product = "";
+      for (let j = 0; j < cartProducts.length; j++) {
+        if (cartProducts[j]._id === orderLine[i].productId) {
+          product = cartProducts[j];
+        }
+      }
+      // console.log(product)
+      
+      qty = qty + orderLine[i].quantity
+      price = price + (orderLine[i].quantity * product.price)
+      offeredPrice = offeredPrice + (orderLine[i].quantity * product.offerPrice)
+    }
+
+  } else {}
+  
+  console.log("qty " + qty)
+  // console.log("price" + price)
+  // console.log("discount" + (price - offeredPrice))
+  // console.log("offerprice" + offeredPrice) 
+
+  let discount = price - offeredPrice;
+  let grandTotal = price - discount
+
+  useEffect(() => {
+    dispatch(updateOrderSummary({ totalItems: qty, orderTotal: price, discount: discount, grandTotal: grandTotal }))
+  },[qty, price, discount, grandTotal, offeredPrice])
+  
+console.log(qty)
+  console.log(cartProducts)
+  console.log(orderSummary)
 
   return (
     <div>
@@ -51,11 +77,11 @@ const CartPage = () => {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             {orderLine.map((order) => {
               return <p>{order.quantity}</p>
             })}
-          </div>
+          </div> */}
 
           {/* div for order summary  */}
           <div className="bg-white mb-5 py-3 px-8 sm:px-12 rounded-md h-[280px] flex flex-col justify-around lg:px-3 lg:w-[30%] xl:px-6">
@@ -66,19 +92,19 @@ const CartPage = () => {
             <div className="h-[58%] flex flex-col justify-around">
               <div className="flex justify-between">
                 <p>Total Items:</p>
-                <p>3</p>
+                <p>{orderSummary.totalItems}</p>
               </div>
               <div className="flex justify-between">
                 <p>Order Total:</p>
-                <p>Rs. 2334</p>
+                <p>Rs. {orderSummary.orderTotal}</p>
               </div>
               <div className="flex justify-between pb-2 border-b-2 border-slate-300">
                 <p>Discount:</p>
-                <p>Rs. 230</p>
+                <p>Rs. {orderSummary.discount}</p>
               </div>
               <div className="flex justify-between text-[#E25247] font-medium">
                 <p>Grand Total</p>
-                <p>Rs. 2032</p>
+                <p>Rs. {orderSummary.grandTotal}</p>
               </div>
             </div>
             <div className="flex justify-center">

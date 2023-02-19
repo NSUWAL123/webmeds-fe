@@ -5,10 +5,12 @@ import { config } from "../../utils/config";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOrderLine,
+  populateCartProducts,
   removeItemFromCart,
   removeOrderLine,
   updateIsCheck,
   updateOrderLineQuantity,
+  updateOrderSummary,
   updateQuantity,
 } from "../../redux/cartSlice";
 
@@ -17,10 +19,9 @@ const CartItem = (props) => {
 
   const cartItem = props.cartItem;
   const { quantity, isCheck } = props.cartItem;
+  // dispatch(updateOrderSummary(quantity))
 
   const [product, setProduct] = useState({});
-  // const [quantity, setQuantity] = useState(cartItem.quantity);
-  //const [isCheck, setIsCheck] = useState(cartItem.isCheck);
 
   useEffect(() => {
     (async () => {
@@ -29,6 +30,7 @@ const CartItem = (props) => {
         config
       );
       setProduct(product.data);
+      dispatch(populateCartProducts(product.data))
     })();
   }, []);
 
@@ -44,6 +46,9 @@ const CartItem = (props) => {
         cartToBeUpdated,
         config
       );
+
+
+
     })();
   }, [quantity]);
 
@@ -66,6 +71,8 @@ const CartItem = (props) => {
         config
       );
       dispatch(removeItemFromCart({ id: cartItem._id }));
+      // --> dispatch order summary
+      
     } catch (error) {
       //try catch nahuda error ayo. 'is not a function bhanera'
     }
@@ -98,6 +105,8 @@ const CartItem = (props) => {
       );
     }
   };
+
+  
 
   return (
     <div className="flex justify-between items-center py-4 border-b border-slate-300 sm:px-6">
