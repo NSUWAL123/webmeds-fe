@@ -21,7 +21,7 @@ const CartPage = () => {
 
 
     })();
-  }, [cartItems.length]);
+  }, [cartItems.length, toggle]);
 
   let qty = 0;
   let price = 0;
@@ -59,6 +59,7 @@ const CartPage = () => {
   
 console.log(qty)
   console.log(cartProducts)
+  console.log(orderLine)
   console.log(orderSummary)
 
   return (

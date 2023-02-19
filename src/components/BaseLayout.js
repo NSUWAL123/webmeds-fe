@@ -17,6 +17,9 @@ import notes from "../pictures/icons/add-note.svg";
 import notification from "../pictures/icons/notification.svg";
 import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
+import chaticn from "../pictures/icons/chat-icn.svg";
+import { Link } from "react-router-dom";
+
 import {
   isUserLoggedIn,
   removeUserFromLocalStorage,
@@ -57,11 +60,11 @@ const BaseLayout = () => {
     <div className="relative font-display xl:text-[18px] flex">
       <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
         <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
-          <div className="flex ">
+          <div className="flex">
             <img
               src={hamburger}
               alt=""
-              className="w-max pr-4 xl:w-[55px] xl:mr-4 cursor-pointer"
+              className="w-max pr-4 xl:w-[55px] xl:mr-4 cursor-pointer md:hidden"
               onClick={() => setShowSidebar(true)}
             />
             <img
@@ -74,7 +77,7 @@ const BaseLayout = () => {
             />
           </div>
 
-          <div className="hidden lg:w-[60%] lg:flex">
+          <div className="hidden lg:w-[60%] lg:flex py-1">
             <SearchBar />
           </div>
 
@@ -84,15 +87,41 @@ const BaseLayout = () => {
             }`}
             onClick={() => toggleMore()}
           ></div>
+
           {/* dropdown */}
-          <div className="flex relative ">
+          <div className="flex relative items-center">
+            <Link to="/profile">
+              <img
+                src={profile}
+                alt=""
+                srcset=""
+                className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
+              />
+            </Link>
+            <Link to="/cart">
+              <img
+                src={blackcart}
+                alt=""
+                srcset=""
+                className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
+              />
+            </Link>
+            <Link to="upload-prescription">
+              <img
+                src={camera}
+                alt=""
+                srcset=""
+                className="mr-2 sm:mr-5 sm:w-[28px] xl:mr-7"
+              />
+            </Link>
+
             <div className="cursor-pointer">
               <img
                 src={more}
                 alt=""
                 className={`${
                   !login ? "" : "mr-3"
-                } lg:mr-6 w-[30px] lg:w-[35px]`}
+                } lg:mr-6 w-[30px] sm:w-[30px] lg:w-[35px]`}
                 onClick={() => toggleMore()}
               />
 
@@ -213,6 +242,9 @@ const BaseLayout = () => {
         <div className="lg:hidden">
           <SearchBar />
         </div>
+        <div className="hidden md:block bg-[#5D94E7]">
+          <Categories />
+        </div>
       </div>
 
       {/* for sidebar */}
@@ -224,7 +256,7 @@ const BaseLayout = () => {
       )}
 
       <div
-        className={`fixed w-[75%] top-0 left-0 max-w-[350px] h-screen bg-white  ${
+        className={`fixed md:hidden w-[75%] top-0 left-0 max-w-[350px] h-screen bg-white  ${
           showSidebar ? "translate-x-0" : "translate-x-[-105%] z-20"
         } duration-500 z-20 rounded-r-3xl `}
       >
@@ -247,22 +279,6 @@ const BaseLayout = () => {
             <Categories />
           </div>
           <div>
-            {/* <div>
-              <div
-                className="flex cursor-pointer hover:scale-110 duration-300 hover:ml-2"
-                onClick={() => navigationTo("/profile")}
-              >
-                <img src={profile} alt="" className=" ml-6 mr-3" />
-                <p>Manage Profile</p>
-              </div>
-              <div
-                className="flex my-3 cursor-pointer hover:scale-110 hover:ml-2 duration-300"
-                onClick={() => navigationTo("/upload-prescription")}
-              >
-                <img src={camera} alt="" className="ml-7 mr-3" />
-                <p>Upload Prescription</p>
-              </div>
-            </div> */}
             <button
               className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl"
               onClick={() => navigationTo("/cart")}
@@ -276,11 +292,31 @@ const BaseLayout = () => {
           </div>
         </div>
       </div>
-      <div className="pt-40 pb-8 lg:pt-24 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen">
+      <div className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen">
         <Outlet />
       </div>
+
+      <Link to="/chat">
+        <div className="fixed bottom-8 right-8 w-[65px] bg-white rounded-full p-1 shadow-lg border">
+          <img src={chaticn} alt="" srcset="" className="" />
+        </div>
+      </Link>
     </div>
   );
 };
 
 export default BaseLayout;
+
+
+
+// useEffect(() => {
+
+// })
+
+// useEffect(() => {
+
+// }, [])
+
+// useEffect(() => {
+
+// }, [name, age])

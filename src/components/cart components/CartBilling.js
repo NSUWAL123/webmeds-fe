@@ -11,6 +11,8 @@ const CartBilling = () => {
   const { billingAddress } = useSelector((state) => state.user);
   const [showModal, setShowModal] = useState(false);
 
+  const {orderLine, cartProducts} = useSelector((state) => state.cart)
+
   return (
     <div>
       <div className="flex mb-4 items-center">
@@ -47,8 +49,15 @@ const CartBilling = () => {
 
         <div className="bg-white rounded-md p-6 lg:w-[35%]">
           <h1 className="text-[22px] font-medium">Order Summary</h1>
-          <CartSummary />
-          <CartSummary />
+          {/* <CartSummary /> */}
+          {/* {orderLine.map((order) => {
+            return cartProducts.map((prod) => {
+              if (order.productId === prod._id) {
+                return <CartSummary key={prod._id} order={order} product={prod}/>
+              }
+              return ""
+            })
+          })} */}
           <div className="h-[140px] flex flex-col justify-around mt-2">
             <div className="flex justify-between">
               <p>Total Items</p>
