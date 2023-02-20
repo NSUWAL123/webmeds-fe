@@ -1,12 +1,27 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import img from "../../pictures/Test/meadbery.png"
+import { getCartProduct } from '../../redux/cartSlice';
 
 const CartSummary = (props) => {
-  const {order, product} = props;
-  console.log(order, product)
+  const dispatch = useDispatch();
+  const {order} = props;
+  // console.log(order)
+  const {cartProducts} = useSelector(state => state.cart)
+  let product = "";
 
-  const {cartProducts} = useSelector((state) => state.cart)
+  for (let i = 0; i< cartProducts.length; i++) {
+    // console.log(cartProducts)
+    if (order.productId === cartProducts[i]._id) {
+      product = cartProducts[i]
+      // console.log(cartProducts[i])
+    }
+  }
+
+
+// console.log(product)
+  // const {cartProducts} = useSelector((state) => state.cart)
+  // const product = dispatch(getCartProduct(order.productId))
   return (
     <div className='flex border-b py-3 border-gray-400'>
       

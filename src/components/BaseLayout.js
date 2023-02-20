@@ -28,6 +28,7 @@ import { useDispatch } from "react-redux";
 import { populateUser } from "../redux/userSlice";
 import { config } from "../utils/config";
 import axios from "axios";
+import Footer from "./Footer";
 
 const BaseLayout = () => {
   const navigate = useNavigate();
@@ -57,266 +58,350 @@ const BaseLayout = () => {
   }, []);
 
   return (
-    <div className="relative font-display xl:text-[18px] flex">
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
-        <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
-          <div className="flex">
-            <img
-              src={hamburger}
-              alt=""
-              className="w-max pr-4 xl:w-[55px] xl:mr-4 cursor-pointer md:hidden"
-              onClick={() => setShowSidebar(true)}
-            />
-            <img
-              src={logo}
-              alt=""
-              className="w-[139px] xl:w-[180px] cursor-pointer"
-              onClick={() => {
-                navigate("/");
-              }}
-            />
-          </div>
-
-          <div className="hidden lg:w-[60%] lg:flex py-1">
-            <SearchBar />
-          </div>
-
-          <div
-            className={`w-screen h-screen absolute top-0 left-0 ${
-              showMore ? "block" : "hidden"
-            }`}
-            onClick={() => toggleMore()}
-          ></div>
-
-          {/* dropdown */}
-          <div className="flex relative items-center">
-            <Link to="/profile">
+    <div className="bg-[#F2F2F2]">
+      <div className="relative font-display xl:text-[18px] flex ">
+        <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
+          <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
+            <div className="flex">
               <img
-                src={profile}
+                src={hamburger}
                 alt=""
-                srcset=""
-                className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
+                className="w-max pr-4 xl:w-[55px] xl:mr-4 cursor-pointer md:hidden"
+                onClick={() => setShowSidebar(true)}
               />
-            </Link>
-            <Link to="/cart">
-              <img
-                src={blackcart}
-                alt=""
-                srcset=""
-                className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
-              />
-            </Link>
-            <Link to="upload-prescription">
-              <img
-                src={camera}
-                alt=""
-                srcset=""
-                className="mr-2 sm:mr-5 sm:w-[28px] xl:mr-7"
-              />
-            </Link>
-
-            <div className="cursor-pointer">
-              <img
-                src={more}
-                alt=""
-                className={`${
-                  !login ? "" : "mr-3"
-                } lg:mr-6 w-[30px] sm:w-[30px] lg:w-[35px]`}
-                onClick={() => toggleMore()}
-              />
-
-              <div
-                className={`${showMore ? "block" : "hidden"} absolute  ${
-                  !login ? "-translate-x-[170px]" : "-translate-x-[100px]"
-                } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md `}
-              >
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/profile");
-                    setShowMore(false);
-                  }}
-                >
-                  <img
-                    src={profile}
-                    alt=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
-                  <p className="hover:font-medium">Manage Profile</p>
-                </div>
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/upload-prescription");
-                    setShowMore(false);
-                  }}
-                >
-                  <img src={camera} alt="" width="22px" className="mx-3 my-2" />
-                  <p className="hover:font-medium">Upload Prescription</p>
-                </div>
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/cart");
-                    setShowMore(false);
-                  }}
-                >
-                  <img
-                    src={blackcart}
-                    alt=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
-                  <p className="hover:font-medium">Cart</p>
-                </div>
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/orders");
-                    setShowMore(false);
-                  }}
-                >
-                  <img src={order} alt="" width="25px" className="mx-3 my-2" />
-                  <p className="hover:font-medium">Orders</p>
-                </div>
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/notes");
-                    setShowMore(false);
-                  }}
-                >
-                  <img src={notes} alt="" width="25px" className="mx-3 my-2" />
-                  <p className="hover:font-medium">Notes</p>
-                </div>
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/notifications");
-                    setShowMore(false);
-                  }}
-                >
-                  <img
-                    src={notification}
-                    alt=""
-                    width="25px"
-                    className="mx-3 my-2"
-                  />
-                  <p className="hover:font-medium">Notifications</p>
-                </div>
-                <div
-                  className="flex items-center border-b-[1px] cursor-pointer"
-                  onClick={() => {
-                    navigate("/chat");
-                    setShowMore(false);
-                  }}
-                >
-                  <img src={chat} alt="" width="25px" className="mx-3 my-2" />
-                  <p className="hover:font-medium">Chat</p>
-                </div>
-                <div
-                  className={`${
-                    !login ? "flex" : "hidden"
-                  } items-center cursor-pointer`}
-                  onClick={() => {
-                    removeUserFromLocalStorage();
-                    setShowMore(false);
-                  }}
-                >
-                  <img src={logout} alt="" width="25px" className="mx-3 my-2" />
-                  <p className="text-[#E25247] hover:font-medium">Logout</p>
-                </div>
-              </div>
-            </div>
-            {login && (
-              <button
-                className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
-                onClick={() => navigationTo("/login")}
-              >
-                Login
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="lg:hidden">
-          <SearchBar />
-        </div>
-        <div className="hidden md:block bg-[#5D94E7]">
-          <Categories />
-        </div>
-      </div>
-
-      {/* for sidebar */}
-      {showSidebar && (
-        <div
-          className="fixed top-0 w-[100%] h-[100vh] bg-black opacity-30 z-10"
-          onClick={() => setShowSidebar(false)}
-        ></div>
-      )}
-
-      <div
-        className={`fixed md:hidden w-[75%] top-0 left-0 max-w-[350px] h-screen bg-white  ${
-          showSidebar ? "translate-x-0" : "translate-x-[-105%] z-20"
-        } duration-500 z-20 rounded-r-3xl `}
-      >
-        <div className="flex flex-col justify-between h-[100%]">
-          <div>
-            <div className="flex justify-between mx-6 my-4 ">
               <img
                 src={logo}
                 alt=""
-                className="w-[150px] xl:w-[180px] cursor-pointer"
+                className="w-[139px] xl:w-[180px] cursor-pointer"
+                onClick={() => {
+                  navigate("/");
+                }}
               />
-              <button onClick={() => setShowSidebar(false)}>
-                <img src={close} alt="" />
-              </button>
             </div>
 
-            <p className="px-6 py-4  bg-[#5D94E7] font-semibold text-[20px] text-white xl:px-8">
-              Categories for you
-            </p>
+            <div className="hidden lg:w-[60%] lg:flex py-1">
+              <SearchBar />
+            </div>
+
+            <div
+              className={`w-screen h-screen absolute top-0 left-0 ${
+                showMore ? "block" : "hidden"
+              }`}
+              onClick={() => toggleMore()}
+            ></div>
+
+            {/* dropdown */}
+            <div className="flex relative items-center">
+              <div class="group flex relative">
+                <Link to="/profile">
+                  <img
+                    src={profile}
+                    alt=""
+                    srcset=""
+                    className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
+                  />
+                </Link>
+
+                <span
+                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
+                >
+                  <div
+                    class="w-0 h-0 
+   border-l-[8px] border-l-transparent
+   border-b-[10px] border-b-gray-700
+   border-r-[8px] border-r-transparent
+   mr-2 sm:mr-5 xl:mr-7"
+                  ></div>
+                  <p className="bg-gray-700 w-[120px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7">
+                    Manage Profile
+                  </p>
+                </span>
+              </div>
+
+              <div className="group flex relative">
+                <Link to="/cart">
+                  <img
+                    src={blackcart}
+                    alt=""
+                    srcset=""
+                    className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
+                  />
+                </Link>
+                <span
+                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
+                >
+                  <div
+                    class="w-0 h-0 
+   border-l-[8px] border-l-transparent
+   border-b-[10px] border-b-gray-700
+   border-r-[8px] border-r-transparent
+   mr-2 sm:mr-5 xl:mr-7
+    "
+                  ></div>
+                  <p className="bg-gray-700 w-[75px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7">
+                    My Cart
+                  </p>
+                </span>
+              </div>
+              <div className="group flex relative">
+                <Link to="upload-prescription">
+                  <img
+                    src={camera}
+                    alt=""
+                    srcset=""
+                    className="mr-2 sm:mr-5 xl:mr-7 sm:w-[28px] "
+                  />
+                </Link>
+                <span
+                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
+                >
+                  <div
+                    class="w-0 h-0 
+   border-l-[8px] border-l-transparent
+   border-b-[10px] border-b-gray-700
+   border-r-[8px] border-r-transparent
+   mr-2 sm:mr-5 xl:mr-7"
+                  ></div>
+                  <p className="bg-gray-700 w-[155px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7">
+                    Upload Prescription
+                  </p>
+                </span>
+              </div>
+
+              <div className="cursor-pointer group flex relative">
+                <img
+                  src={more}
+                  alt=""
+                  className={`${
+                    !login ? "" : "mr-3"
+                  } lg:mr-6 w-[30px] sm:w-[30px] lg:w-[35px]`}
+                  onClick={() => toggleMore()}
+                />
+                <span
+                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
+                >
+                  <div
+                    class="w-0 h-0 
+   border-l-[8px] border-l-transparent
+   border-b-[10px] border-b-gray-700
+   border-r-[8px] border-r-transparent
+   lg:mr-5  xl:mr-7"
+                  ></div>
+                  <p className="bg-gray-700 w-[55px] justify-center flex py-1 rounded-md lg:mr-5 xl:mr-7">
+                    More
+                  </p>
+                </span>
+
+                <div
+                  className={`${showMore ? "block" : "hidden"} absolute  ${
+                    !login ? "-translate-x-[170px]" : "-translate-x-[100px]"
+                  } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md `}
+                >
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/profile");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={profile}
+                      alt=""
+                      width="25px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="hover:font-medium">Manage Profile</p>
+                  </div>
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/upload-prescription");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={camera}
+                      alt=""
+                      width="22px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="hover:font-medium">Upload Prescription</p>
+                  </div>
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/cart");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={blackcart}
+                      alt=""
+                      width="25px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="hover:font-medium">Cart</p>
+                  </div>
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/orders");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={order}
+                      alt=""
+                      width="25px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="hover:font-medium">Orders</p>
+                  </div>
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/notes");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={notes}
+                      alt=""
+                      width="25px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="hover:font-medium">Notes</p>
+                  </div>
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/notifications");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={notification}
+                      alt=""
+                      width="25px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="hover:font-medium">Notifications</p>
+                  </div>
+                  <div
+                    className="flex items-center border-b-[1px] cursor-pointer"
+                    onClick={() => {
+                      navigate("/chat");
+                      setShowMore(false);
+                    }}
+                  >
+                    <img src={chat} alt="" width="25px" className="mx-3 my-2" />
+                    <p className="hover:font-medium">Chat</p>
+                  </div>
+                  <div
+                    className={`${
+                      !login ? "flex" : "hidden"
+                    } items-center cursor-pointer`}
+                    onClick={() => {
+                      removeUserFromLocalStorage();
+                      setShowMore(false);
+                    }}
+                  >
+                    <img
+                      src={logout}
+                      alt=""
+                      width="25px"
+                      className="mx-3 my-2"
+                    />
+                    <p className="text-[#E25247] hover:font-medium">Logout</p>
+                  </div>
+                </div>
+              </div>
+              {login && (
+                <button
+                  className="text-[14px] bg-[#E25247] font-semibold text-white py-1 px-3 rounded-3xl xl:px-5 xl:py-1 xl:text-[16px] "
+                  onClick={() => navigationTo("/login")}
+                >
+                  Login
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="lg:hidden">
+            <SearchBar />
+          </div>
+          <div className="hidden md:block bg-[#5D94E7]">
             <Categories />
           </div>
-          <div>
-            <button
-              className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl"
-              onClick={() => navigationTo("/cart")}
-            >
-              <div className="flex py-4 ml-6">
-                <img src={cart} alt="" className="w-[20px] mr-3" />
-                <p className="font-medium text-white">My Cart</p>
+        </div>
+
+        {/* for sidebar */}
+        {showSidebar && (
+          <div
+            className="fixed top-0 w-[100%] h-[100vh] bg-black opacity-30 z-10"
+            onClick={() => setShowSidebar(false)}
+          ></div>
+        )}
+
+        <div
+          className={`fixed md:hidden w-[75%] top-0 left-0 max-w-[350px] h-screen bg-white  ${
+            showSidebar ? "translate-x-0" : "translate-x-[-105%] z-20"
+          } duration-500 z-20 rounded-r-3xl `}
+        >
+          <div className="flex flex-col justify-between h-[100%]">
+            <div>
+              <div className="flex justify-between mx-6 my-4 ">
+                <img
+                  src={logo}
+                  alt=""
+                  className="w-[150px] xl:w-[180px] cursor-pointer"
+                />
+                <button onClick={() => setShowSidebar(false)}>
+                  <img src={close} alt="" />
+                </button>
               </div>
-              <img src={rightarr} alt="" className="w-[25px] py-4 mr-6" />
-            </button>
+
+              <p className="px-6 py-4  bg-[#5D94E7] font-semibold text-[20px] text-white xl:px-8">
+                Categories for you
+              </p>
+              <Categories />
+            </div>
+            <div>
+              <button
+                className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl"
+                onClick={() => navigationTo("/cart")}
+              >
+                <div className="flex py-4 ml-6">
+                  <img src={cart} alt="" className="w-[20px] mr-3" />
+                  <p className="font-medium text-white">My Cart</p>
+                </div>
+                <img src={rightarr} alt="" className="w-[25px] py-4 mr-6" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen">
-        <Outlet />
+        <div className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen">
+          <Outlet />
+        </div>
+
+        <Link to="/chat">
+          <div className="fixed bottom-8 right-8 w-[65px] bg-white rounded-full p-1 shadow-lg border">
+            <img src={chaticn} alt="" srcset="" className="" />
+          </div>
+        </Link>
       </div>
 
-      <Link to="/chat">
-        <div className="fixed bottom-8 right-8 w-[65px] bg-white rounded-full p-1 shadow-lg border">
-          <img src={chaticn} alt="" srcset="" className="" />
+      <div className="w-[100%] ">
+        <Footer/>
+        <div className="text-white bg-black flex justify-center lg:text-lg">
+          <p className="py-2">&#169; 2023, webmeds.com</p>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
 
 export default BaseLayout;
-
-
-
-// useEffect(() => {
-
-// })
-
-// useEffect(() => {
-
-// }, [])
-
-// useEffect(() => {
-
-// }, [name, age])

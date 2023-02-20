@@ -76,7 +76,14 @@ export const cartSlice = createSlice({
     },
     decreaseOrderSummary: (state, action) => {
 
-    }
+    },
+    // getCartProduct: (state, action) => {
+    //   for (let i = 0; i < state.cartProducts.length; i++) {
+    //     if (state.cartProducts[i]._id === action.payload) {
+    //       return state.cartProducts[i];
+    //     }
+    //   }
+    // }
   // orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 },
 
   },

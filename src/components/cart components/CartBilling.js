@@ -11,7 +11,7 @@ const CartBilling = () => {
   const { billingAddress } = useSelector((state) => state.user);
   const [showModal, setShowModal] = useState(false);
 
-  const {orderLine, cartProducts} = useSelector((state) => state.cart)
+  const { orderLine, cartProducts, orderSummary } = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -58,22 +58,25 @@ const CartBilling = () => {
               return ""
             })
           })} */}
+          {orderLine.map((order) => {
+            return <CartSummary key={order._id} order={order} />;
+          })}
           <div className="h-[140px] flex flex-col justify-around mt-2">
             <div className="flex justify-between">
               <p>Total Items</p>
-              <p>6</p>
+              <p>{orderSummary.totalItems}</p>
             </div>
             <div className="flex justify-between">
               <p>Order Total</p>
-              <p>Rs. 2505.73</p>
+              <p>Rs. {orderSummary.orderTotal}</p>
             </div>
             <div className="flex justify-between">
               <p>Discount</p>
-              <p>Rs. 900</p>
+              <p>Rs. {orderSummary.discount}</p>
             </div>
             <div className="flex justify-between text-[#E25247] font-medium text-lg border-t border-gray-400 pt-1">
               <p>Grand Total:</p>
-              <p>Rs.2032</p>
+              <p>Rs.{orderSummary.grandTotal}</p>
             </div>
           </div>
           <div className="flex justify-center">
