@@ -47,7 +47,7 @@ const NotesPage = () => {
   useEffect(() => {
     (async () => {
       let response = await axios.get(`http://localhost:5000/notes`, config);
-
+      window.scrollTo(0, 0);
       let { data } = response;
 
       dispatch(fillNote(data.getNotes));

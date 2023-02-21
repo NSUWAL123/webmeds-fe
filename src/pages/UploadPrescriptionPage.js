@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const UploadPrescriptionPage = () => {
   //files --------------------//
   const [disabled, setDisabled] = useState(true);
-
+  window.scrollTo(0, 0);
   const condition = () => {
     disabled ? setDisabled(false) : setDisabled(true);
   }

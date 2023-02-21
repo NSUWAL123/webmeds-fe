@@ -19,6 +19,7 @@ import NotesPage from "../pages/NotesPage";
 import NotificationPage from "../pages/NotificationPage";
 import ChatPage from "../pages/ChatPage";
 import OrderPage from "../pages/OrderPage";
+import FilterProductPage from "../pages/FilterProductPage";
 
 const AppRoutes = () => {
   return (
@@ -31,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/products/:pname" element={<IndividualProduct/>}/>
+          <Route path="/category/:type" element={<FilterProductPage/>}/>
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/upload-prescription" element={<UploadPrescriptionPage />} />
           <Route path="/cart" element={<CartPage />} />

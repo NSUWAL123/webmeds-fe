@@ -11,15 +11,19 @@ const IndividualProduct = () => {
   const params = useParams();
   const [product, setProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       //await getAllProducts()
+      // setLoading(true)
       const response = await axios.get(
         `http://localhost:5000/products/${params.pname}`
       );
       const { data } = response;
       setProduct(data);
+      setLoading(false);
+      window.scrollTo(0, 0);
       // console.log(data);
     })();
   }, []);
@@ -45,7 +49,13 @@ const IndividualProduct = () => {
 
   return (
     <div>
-    {(product) ? 
+      {loading && 
+      (<div className="w-full h-screen flex justify-center items-center">
+      <p className="text-2xl font-medium">Loading ...</p>
+    </div>)
+      }
+      
+    {(product && !loading) ? 
       (<div className="w-full flex flex-col items-center">
       <div className="bg-white w-[85%] flex flex-col items-center h-[530px] rounded-3xl font-medium md:flex-row md:h-[300px] md:w-[95%] max-w-[1240px] lg:h-[450px] overflow-auto">
         <div className="h-[55%] flex items-center justify-center md:w-1/2  xl:w-[43%] xl:mr-8">

@@ -5,7 +5,9 @@ const initialState = {
   cartItems: [],
   cartProducts: [],
   orderLine: [], //array of cart items that has been selected
-  orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 }, 
+  orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0, deliveryCharge: 0 }, 
+  finalOrder: {},
+  orderSuccess: false,
 };
 
 export const cartSlice = createSlice({
@@ -73,18 +75,22 @@ export const cartSlice = createSlice({
     updateOrderSummary: (state, action) => {
       // state.orderSummary = { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 }
       state.orderSummary = action.payload
+      if (action.payload.grandTotal <= 1500) {
+        state.orderSummary.deliveryCharge = 150
+        state.orderSummary.grandTotal += 150
+      } else {
+        state.orderSummary.deliveryCharge = 0
+      }
     },
     decreaseOrderSummary: (state, action) => {
 
     },
-    // getCartProduct: (state, action) => {
-    //   for (let i = 0; i < state.cartProducts.length; i++) {
-    //     if (state.cartProducts[i]._id === action.payload) {
-    //       return state.cartProducts[i];
-    //     }
-    //   }
-    // }
-  // orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 },
+    confirmOrder: (state, action) => {
+      state.finalOrder = action.payload
+    },
+    setOrderSuccess: (state, action) => {
+      state.orderSuccess = action.payload;
+    }
 
   },
 });
@@ -102,5 +108,7 @@ export const {
   populateCartProducts,
   updateOrderSummary,
   updateOrderTotalPrice,
-  getCartProduct
+  getCartProduct,
+  confirmOrder,
+  setOrderSuccess
 } = cartSlice.actions;

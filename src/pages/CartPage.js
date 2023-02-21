@@ -18,7 +18,7 @@ const CartPage = () => {
       );
       dispatch(populateCart(fetchCart.data.getCart)); 
       dispatch(populateOrderLine(fetchCart.data.getCart)); 
-
+      window.scrollTo(0, 0);
 
     })();
   }, [cartItems.length, toggle]);
@@ -36,7 +36,6 @@ const CartPage = () => {
           product = cartProducts[j];
         }
       }
-      // console.log(product)
       
       qty = qty + orderLine[i].quantity
       price = price + (orderLine[i].quantity * product.price)
@@ -45,11 +44,6 @@ const CartPage = () => {
 
   } else {}
   
-  console.log("qty " + qty)
-  // console.log("price" + price)
-  // console.log("discount" + (price - offeredPrice))
-  // console.log("offerprice" + offeredPrice) 
-
   let discount = price - offeredPrice;
   let grandTotal = price - discount
 
@@ -57,9 +51,7 @@ const CartPage = () => {
     dispatch(updateOrderSummary({ totalItems: qty, orderTotal: price, discount: discount, grandTotal: grandTotal }))
   },[qty, price, discount, grandTotal, offeredPrice])
   
-console.log(qty)
-  console.log(cartProducts)
-  console.log(orderLine)
+console.log(orderLine)
   console.log(orderSummary)
 
   return (
@@ -78,19 +70,13 @@ console.log(qty)
             </div>
           </div>
 
-          {/* <div>
-            {orderLine.map((order) => {
-              return <p>{order.quantity}</p>
-            })}
-          </div> */}
-
           {/* div for order summary  */}
           <div className="bg-white mb-5 py-3 px-8 sm:px-12 rounded-md h-[280px] flex flex-col justify-around lg:px-3 lg:w-[30%] xl:px-6">
             <h1 className="text-[20px] font-semibold lg:text-[24px]">
               Order Summary
             </h1>
 
-            <div className="h-[58%] flex flex-col justify-around">
+            <div className="h-[72%] flex flex-col justify-around">
               <div className="flex justify-between">
                 <p>Total Items:</p>
                 <p>{orderSummary.totalItems}</p>
@@ -99,9 +85,13 @@ console.log(qty)
                 <p>Order Total:</p>
                 <p>Rs. {orderSummary.orderTotal}</p>
               </div>
-              <div className="flex justify-between pb-2 border-b-2 border-slate-300">
+              <div className="flex justify-between">
                 <p>Discount:</p>
                 <p>Rs. {orderSummary.discount}</p>
+              </div>
+              <div className="flex justify-between pb-2 border-b-2 border-slate-300">
+                <p>Delivery Charge:</p>
+                <p>Rs. {orderSummary.deliveryCharge}</p>
               </div>
               <div className="flex justify-between text-[#E25247] font-medium">
                 <p>Grand Total</p>

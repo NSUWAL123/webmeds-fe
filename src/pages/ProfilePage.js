@@ -33,6 +33,7 @@ const ProfilePage = () => {
       dispatch(populateUser(user.data));
       setName(user.data.name);
       setMobile(user.data.mobile);
+      window.scrollTo(0, 0);
     })();
   }, []);
 

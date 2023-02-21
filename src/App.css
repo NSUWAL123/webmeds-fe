@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.box {
+  --mask:
+    radial-gradient(38.99px at 50% calc(100% + 18.00px),#0000 calc(99% - 8px),#000 calc(101% - 8px) 99%,#0000 101%) calc(50% - 60px) calc(50% - 19px + .5px)/120px 38px ,
+    radial-gradient(38.99px at 50% -18px,#0000 calc(99% - 8px),#000 calc(101% - 8px) 99%,#0000 101%) 50% calc(50% + 19px)/120px 38px ;
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+}

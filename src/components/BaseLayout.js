@@ -92,22 +92,21 @@ const BaseLayout = () => {
 
             {/* dropdown */}
             <div className="flex relative items-center">
-              <div class="group flex relative">
+              <div className="group flex relative">
                 <Link to="/profile">
                   <img
                     src={profile}
                     alt=""
-                    srcset=""
                     className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
                   />
                 </Link>
 
                 <span
-                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+                  className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
     -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
                 >
                   <div
-                    class="w-0 h-0 
+                    className="w-0 h-0 
    border-l-[8px] border-l-transparent
    border-b-[10px] border-b-gray-700
    border-r-[8px] border-r-transparent
@@ -124,16 +123,15 @@ const BaseLayout = () => {
                   <img
                     src={blackcart}
                     alt=""
-                    srcset=""
                     className="mr-2 sm:mr-5 sm:w-[30px] xl:mr-7"
                   />
                 </Link>
                 <span
-                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+                  className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
     -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
                 >
                   <div
-                    class="w-0 h-0 
+                    className="w-0 h-0 
    border-l-[8px] border-l-transparent
    border-b-[10px] border-b-gray-700
    border-r-[8px] border-r-transparent
@@ -150,16 +148,15 @@ const BaseLayout = () => {
                   <img
                     src={camera}
                     alt=""
-                    srcset=""
                     className="mr-2 sm:mr-5 xl:mr-7 sm:w-[28px] "
                   />
                 </Link>
                 <span
-                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+                  className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
     -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
                 >
                   <div
-                    class="w-0 h-0 
+                    className="w-0 h-0 
    border-l-[8px] border-l-transparent
    border-b-[10px] border-b-gray-700
    border-r-[8px] border-r-transparent
@@ -181,11 +178,11 @@ const BaseLayout = () => {
                   onClick={() => toggleMore()}
                 />
                 <span
-                  class="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
+                  className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
     -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
                 >
                   <div
-                    class="w-0 h-0 
+                    className="w-0 h-0 
    border-l-[8px] border-l-transparent
    border-b-[10px] border-b-gray-700
    border-r-[8px] border-r-transparent
@@ -199,7 +196,7 @@ const BaseLayout = () => {
                 <div
                   className={`${showMore ? "block" : "hidden"} absolute  ${
                     !login ? "-translate-x-[170px]" : "-translate-x-[100px]"
-                  } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md `}
+                  } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md mt-8 lg:mt-10`}
                 >
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"
@@ -389,14 +386,14 @@ const BaseLayout = () => {
 
         <Link to="/chat">
           <div className="fixed bottom-8 right-8 w-[65px] bg-white rounded-full p-1 shadow-lg border">
-            <img src={chaticn} alt="" srcset="" className="" />
+            <img src={chaticn} alt="" className="" />
           </div>
         </Link>
       </div>
 
-      <div className="w-[100%] ">
-        <Footer/>
-        <div className="text-white bg-black flex justify-center lg:text-lg">
+      <div className="w-[100%]  rounded-t-3xl border mt-8">
+        <Footer />
+        <div className="text-white bg-[#31D490]  flex justify-center lg:text-lg">
           <p className="py-2">&#169; 2023, webmeds.com</p>
         </div>
       </div>

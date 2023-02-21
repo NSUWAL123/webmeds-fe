@@ -24,7 +24,7 @@ const HomePage = () => {
       const response = await axios.get("http://localhost:5000/products/");
       const { data } = response;
       setProducts(data);
-
+      window.scrollTo(0, 0);
       const user = await axios.get("http://localhost:5000/user/getUser/", config)
       dispatch(populateUser(user.data))
       // console.log(user.data)

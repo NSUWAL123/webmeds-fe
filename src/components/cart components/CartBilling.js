@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCart } from "../../redux/cartSlice";
+import { confirmOrder, toggleCart } from "../../redux/cartSlice";
 import back from "../../pictures/icons/back.svg";
 import addSym from "../../pictures/icons/add-symbol.svg";
 import CartSummary from "./CartSummary";
 import AddressModal from "../modals/AddressModal";
+import PlaceOrderModal from "../modals/PlaceOrderModal";
+import OrderSuccessModal from "../modals/OrderSuccessModal";
 
 const CartBilling = () => {
   const dispatch = useDispatch();
   const { billingAddress } = useSelector((state) => state.user);
-  const [showModal, setShowModal] = useState(false);
+  const [paymentType, setPaymentType] = useState("cod");
 
-  const { orderLine, cartProducts, orderSummary } = useSelector((state) => state.cart);
+  //showing modals
+  const [showModal, setShowModal] = useState(false);
+  const [showPlaceOrderModal, setShowPlaceOrderModal] = useState(false);
+
+  const { orderLine, cartProducts, orderSummary, finalOrder, orderSuccess } = useSelector(
+    (state) => state.cart
+  );
+
+  const placeOrder = () => {
+    setShowPlaceOrderModal(true);
+    // console.log(order)
+  };
+  console.log(finalOrder);
 
   return (
     <div>
@@ -40,7 +54,12 @@ const CartBilling = () => {
           </div>
           <div>
             <p className="font-medium mb-2">Payment Option:</p>
-            <select name="" id="" className="border w-full p-1">
+            <select
+              name=""
+              id=""
+              className="border w-full p-1"
+              onChange={(e) => setPaymentType(e.target.value)}
+            >
               <option value="cod">Cash on Delivery</option>
               <option value="khalti">Khalti</option>
             </select>
@@ -49,19 +68,10 @@ const CartBilling = () => {
 
         <div className="bg-white rounded-md p-6 lg:w-[35%]">
           <h1 className="text-[22px] font-medium">Order Summary</h1>
-          {/* <CartSummary /> */}
-          {/* {orderLine.map((order) => {
-            return cartProducts.map((prod) => {
-              if (order.productId === prod._id) {
-                return <CartSummary key={prod._id} order={order} product={prod}/>
-              }
-              return ""
-            })
-          })} */}
           {orderLine.map((order) => {
             return <CartSummary key={order._id} order={order} />;
           })}
-          <div className="h-[140px] flex flex-col justify-around mt-2">
+          <div className="h-[175px] flex flex-col justify-around mt-2">
             <div className="flex justify-between">
               <p>Total Items</p>
               <p>{orderSummary.totalItems}</p>
@@ -74,19 +84,34 @@ const CartBilling = () => {
               <p>Discount</p>
               <p>Rs. {orderSummary.discount}</p>
             </div>
+            <div className="flex justify-between">
+              <p>Discount</p>
+              <p>Rs. {orderSummary.deliveryCharge}</p>
+            </div>
             <div className="flex justify-between text-[#E25247] font-medium text-lg border-t border-gray-400 pt-1">
               <p>Grand Total:</p>
               <p>Rs.{orderSummary.grandTotal}</p>
             </div>
           </div>
           <div className="flex justify-center">
-            <button className="bg-[#E25247] rounded-md mt-3 text-white px-5 py-1 text-lg font-medium">
+            <button
+              className="bg-[#E25247] rounded-md mt-3 text-white px-5 py-1 text-lg font-medium"
+              onClick={() => placeOrder()}
+            >
               Place Order
             </button>
           </div>
         </div>
       </div>
       {showModal && <AddressModal setShowModal={setShowModal} />}
+      {showPlaceOrderModal && (
+        <PlaceOrderModal
+          setShowPlaceOrderModal={setShowPlaceOrderModal}
+          paymentType={paymentType}
+        />
+      )}
+      {orderSuccess && <OrderSuccessModal/>}
+
     </div>
   );
 };

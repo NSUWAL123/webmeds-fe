@@ -4,12 +4,13 @@ import logowhite from "../pictures/icons/logo-white.svg";
 
 const Footer = () => {
   return (
-    <div className="w-[100%] h-[120px] lg:h-[150px] bg-[#37474F] shadow-xl flex justify-center">
-          <div className="w-[90%] md:w-[80%] flex justify-between">
+    <div className="w-[100%] h-[145px] lg:h-[160px] bg-[#31D490] shadow-xl flex justify-center rounded-t-3xl">
+      
+          <div className="w-[90%] md:w-[80%] flex justify-between border-b py-2">
             <div>
               <div className="flex items-center mt-3 lg:mt-5">
-                <img src={logowhite} alt="" srcset="" className=" mr-2" />
-                <h1 className="text-white text-2xl font-semibold ">webmeds</h1>
+                <img src={logowhite} alt="" className=" mr-2 lg:w-[30px]" />
+                <h1 className="text-white text-2xl font-semibold lg:text-3xl">webmeds</h1>
               </div>
 
               <div className="text-[#F2F2F2] text-sm lg:text-lg">
