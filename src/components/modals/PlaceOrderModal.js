@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import confirm from "../../pictures/icons/confirm.svg";
 import {
   confirmOrder,
+  removeItemFromCart,
   setOrderSuccess,
   toggleCart,
 } from "../../redux/cartSlice";
 import ordersucess from "../../pictures/photo/ordersuccess.svg"
+import axios from "axios";
+import { config } from "../../utils/config";
 
 const PlaceOrderModal = (props) => {
   const [toggleDiv, setToggleDiv] = useState(true);
@@ -18,7 +21,7 @@ const PlaceOrderModal = (props) => {
   const { orderLine, cartProducts, orderSummary, finalOrder, orderSuccess } =
     useSelector((state) => state.cart);
 
-  const placeOrder = () => {
+  const placeOrder = async () => {
     const order = {
       orderLine,
       ...orderSummary,
@@ -27,15 +30,25 @@ const PlaceOrderModal = (props) => {
       paymentStatus: false,
       deliveryStatus: "pending",
     };
+    console.log(order)
+    
+    const initiateOrder = await axios.post('http://localhost:5000/order/addOrder', order, config);
 
-    // console.log("ordr", order)
+    //removes products from cart that has been ordered
+    for (let i = 0; i < orderLine.length; i++) {
+      const response = await axios.delete(
+        `http://localhost:5000/cart/removeCart/${orderLine[i]._id}`,
+        config
+      );
+      dispatch(removeItemFromCart({ id: orderLine[i]._id }));
+    }
+
     dispatch(confirmOrder(order));
     setToggleDiv(false);
-    // setShowPlaceOrderModal(false);
-    // dispatch(setOrderSuccess(true));
+    
 
-    // navigate("/")
-    // dispatch(toggleCart(false));
+    // console.log()
+
   };
 
   return (
@@ -118,7 +131,7 @@ const PlaceOrderModal = (props) => {
                     <img src={ordersucess} alt=""  />
                     <p className="text-gray-600 text-xl font-medium">Your package will be delivered soon!</p>
                     <p className="text-gray-600 text-xl font-medium">Thankyou, for ordering from <span className="text-[#5D94E7] font-semibold">web</span><span className="text-[#31D490] font-semibold">meds</span>!</p>
-                    <button className="bg-[#E25247] text-white rounded-md px-4 py-1 mt-3" onClick={() => navigate("/")}>Continue Shopping</button>
+                    <button className="bg-[#E25247] hover:bg-[#e56359] text-white rounded-md px-4 py-1 mt-3" onClick={() => navigate("/")}>Continue Shopping</button>
                 </div>
               </div>
             </div>

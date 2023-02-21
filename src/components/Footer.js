@@ -8,7 +8,7 @@ const Footer = () => {
       
           <div className="w-[90%] md:w-[80%] flex justify-between border-b py-2">
             <div>
-              <div className="flex items-center mt-3 lg:mt-5">
+              <div className="flex items-center mt-3 lg:mt-5 mb-2">
                 <img src={logowhite} alt="" className=" mr-2 lg:w-[30px]" />
                 <h1 className="text-white text-2xl font-semibold lg:text-3xl">webmeds</h1>
               </div>

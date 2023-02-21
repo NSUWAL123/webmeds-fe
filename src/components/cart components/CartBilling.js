@@ -25,7 +25,7 @@ const CartBilling = () => {
     setShowPlaceOrderModal(true);
     // console.log(order)
   };
-  console.log(finalOrder);
+  // console.log(finalOrder);
 
   return (
     <div>
@@ -73,19 +73,19 @@ const CartBilling = () => {
           })}
           <div className="h-[175px] flex flex-col justify-around mt-2">
             <div className="flex justify-between">
-              <p>Total Items</p>
+              <p>Total Items:</p>
               <p>{orderSummary.totalItems}</p>
             </div>
             <div className="flex justify-between">
-              <p>Order Total</p>
+              <p>Order Total:</p>
               <p>Rs. {orderSummary.orderTotal}</p>
             </div>
             <div className="flex justify-between">
-              <p>Discount</p>
+              <p>Discount:</p>
               <p>Rs. {orderSummary.discount}</p>
             </div>
             <div className="flex justify-between">
-              <p>Discount</p>
+              <p>Delivery Charge:</p>
               <p>Rs. {orderSummary.deliveryCharge}</p>
             </div>
             <div className="flex justify-between text-[#E25247] font-medium text-lg border-t border-gray-400 pt-1">
