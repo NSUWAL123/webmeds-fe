@@ -20,6 +20,7 @@ import NotificationPage from "../pages/NotificationPage";
 import ChatPage from "../pages/ChatPage";
 import OrderPage from "../pages/OrderPage";
 import FilterProductPage from "../pages/FilterProductPage";
+import ManageOrder from "../pages/admin/ManageOrder";
 
 const AppRoutes = () => {
   return (
@@ -48,6 +49,7 @@ const AppRoutes = () => {
           <Route path="/admin/add-product" element={<AddItem/>}/>
           <Route path="/admin/manage-product" element={<ManageItem/>}/>
           <Route path="/admin/manage-product/update/:id" element={<UpdateItem/>}/>
+          <Route path="/admin/manage-order" element={<ManageOrder/>}/>
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

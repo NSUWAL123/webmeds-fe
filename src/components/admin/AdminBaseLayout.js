@@ -97,7 +97,55 @@ const AdminBaseLayout = () => {
             >
               <img src={manageicn} alt="" className="px-2" />
               <p className="font-medium text-[16px] text-white px-1">
-                Manage Product
+                Manage Products
+              </p>
+            </div>
+
+            <div
+              className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500"
+              onClick={() => {
+                navigationTo("/admin/manage-order");
+              }}
+            >
+              <div className="px-2">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <mask
+                    id="mask0_248_5"
+                    maskUnits="userSpaceOnUse"
+                    x="3"
+                    y="1"
+                    width="18"
+                    height="22"
+                  >
+                    <path
+                      d="M18.5 4H5.5C4.94772 4 4.5 4.44772 4.5 5V21C4.5 21.5523 4.94772 22 5.5 22H18.5C19.0523 22 19.5 21.5523 19.5 21V5C19.5 4.44772 19.0523 4 18.5 4Z"
+                      fill="black"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M9 2V5M15 2V5M8 9.5H16M8 13.5H14M8 17.5H12"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </mask>
+                  <g mask="url(#mask0_248_5)">
+                    <path d="M0 0H24V24H0V0Z" fill="#31D490" />
+                    <path d="M0 0H24V24H0V0Z" stroke="#31D490" />
+                  </g>
+                </svg>
+              </div>
+              <p className="font-medium text-[16px] text-white px-1">
+                Manage Orders
               </p>
             </div>
           </div>
