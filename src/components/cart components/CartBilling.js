@@ -110,7 +110,7 @@ const CartBilling = () => {
           paymentType={paymentType}
         />
       )}
-      {orderSuccess && <OrderSuccessModal/>}
+      {/* {orderSuccess && <OrderSuccessModal/>} */}
 
     </div>
   );

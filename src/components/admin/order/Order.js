@@ -18,19 +18,6 @@ const Order = (props) => {
 
   const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     (async () => {
-  //     //   console.log(order.userId);
-  //       const userId = order.userId;
-  //       let user = await axios.get(
-  //         `http://localhost:5000/user/getUserById`,
-  //         userId,
-  //         config
-  //       );
-  //       setUser(user);
-  //     })();
-  //   }, []);
-
   useEffect(() => {
     (async () => {
       let userId = order.userId;
@@ -49,17 +36,62 @@ const Order = (props) => {
         products.push(product.data);
       }
       setProducts(products);
-      //   console.log(user)
-      // console.log(products)
+
+      
     })();
   }, []);
+  // Button actions
+  // 1. FULFILL ORDER
+  const fulfillOrder = async () => {
+    const state = {
+      id: order._id,
+      deliveryStatus: delOptions.processed,
+    }
+    const orderUpdate = await axios.put(
+      `http://localhost:5000/order/updateOrder`, state,
+      config
+    );
+    dispatch(
+      changeAdminOrderState(state)
+    )
+  }
+
+  // 2. OUT FOR DELIVERY
+  const outForDeliveryOrder = async () => {
+    const state = {
+      id: order._id,
+      deliveryStatus: delOptions.ofd,
+    }
+    const orderUpdate = await axios.put(
+      `http://localhost:5000/order/updateOrder`, state,
+      config
+    );
+    dispatch(
+      changeAdminOrderState(state)
+    )
+  }
+
+  // 3. DELIVERED
+  const deliveredOrder = async () => {
+    const state = {
+      id: order._id,
+      deliveryStatus: delOptions.delivered,
+    }
+    const orderUpdate = await axios.put(
+      `http://localhost:5000/order/updateOrder`, state,
+      config
+    );
+    dispatch(
+      changeAdminOrderState(state)
+    )
+  }
   console.log(user);
   console.log(products);
 
   return (
     <div className="border-b-[1px] border-black my-6">
-      <div className="text-gray-500">
-        <p>Placed on:</p>
+      <div className="text-gray-500 md:flex md:justify-between">
+        <p>Placed on: {order.date.split("T")[0]}</p>
         <p>Placed by: {user.name}</p>
       </div>
 
@@ -102,7 +134,9 @@ const Order = (props) => {
           </p>
         </div>
 
+        {/* This div contains different button to be displayed when status changes. */}
         <div className="flex justify-around ">
+          {/* 1. Renders when delivery status is pending */}
           {delState === delOptions.pending && (
             <>
               <button className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]">
@@ -111,12 +145,7 @@ const Order = (props) => {
               <button
                 className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]"
                 onClick={() =>
-                  dispatch(
-                    changeAdminOrderState({
-                      id: order._id,
-                      deliveryStatus: delOptions.processed,
-                    })
-                  )
+                  fulfillOrder()
                 }
               >
                 Fulfill Order
@@ -124,37 +153,35 @@ const Order = (props) => {
             </>
           )}
 
+          {/* 2. Renders when delivery status is processed */}
           {delState === delOptions.processed && (
             <>
               <button className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]">
                 Cancel Order
               </button>
-              <button className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]" onClick={() =>
-                  dispatch(
-                    changeAdminOrderState({
-                      id: order._id,
-                      deliveryStatus: delOptions.ofd,
-                    })
-                  )
-                }>
+              <button
+                className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]"
+                onClick={() =>
+                  outForDeliveryOrder()
+                }
+              >
                 Out for Delivery
               </button>
             </>
           )}
 
+          {/* 3. Renders when delivery status is out-for-delivery */}
           {delState === delOptions.ofd && (
             <>
               <button className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]">
                 Delivery Failed
               </button>
-              <button className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]" onClick={() =>
-                  dispatch(
-                    changeAdminOrderState({
-                      id: order._id,
-                      deliveryStatus: delOptions.delivered,
-                    })
-                  )
-                }>
+              <button
+                className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]"
+                onClick={() =>
+                  deliveredOrder()
+                }
+              >
                 Delivered
               </button>
             </>
