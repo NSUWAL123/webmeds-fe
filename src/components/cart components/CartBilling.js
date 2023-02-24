@@ -23,9 +23,7 @@ const CartBilling = () => {
 
   const placeOrder = () => {
     setShowPlaceOrderModal(true);
-    // console.log(order)
   };
-  // console.log(finalOrder);
 
   return (
     <div>

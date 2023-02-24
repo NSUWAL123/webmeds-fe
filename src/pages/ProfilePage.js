@@ -33,12 +33,15 @@ const ProfilePage = () => {
       dispatch(populateUser(user.data));
       setName(user.data.name);
       setMobile(user.data.mobile);
+      setDob(user.data.dob.split("T")[0])
       window.scrollTo(0, 0);
     })();
   }, []);
 
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [dob, setDob] = useState("");
+  console.log(dob)
 
   const updateUserDetails = async () => {
     if (!name | !mobile) {
@@ -103,7 +106,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   className="w-[100%] rounded-sm outline-none pl-2 h-8 border"
-                  value={userData.dob}
+                  value={dob}
                   disabled
                 />
               </div>

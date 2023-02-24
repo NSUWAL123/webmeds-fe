@@ -1,14 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, CSSProperties } from "react";
 import Medicine from "../components/Medicine";
 import add from "../pictures/icons/add-admin.svg";
 import { clearForm } from "../utils/clearForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyWarning, notifySuccess } from "../utils/Toast";
+import { useSelector } from "react-redux";
+import AddressModal from "../components/modals/AddressModal";
+import addSym from "../../src/pictures/icons/add-symbol.svg";
+import axios from "axios";
+import { config } from "../utils/config";
+//spinners
+import ClipLoader from "react-spinners/ClipLoader";
+
+var override = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 const UploadPrescriptionPage = () => {
+  let [loading, setLoading] = useState(false);
+  let [color, setColor] = useState("#ffffff");
   //files --------------------//
   const [disabled, setDisabled] = useState(true);
+  const { billingAddress } = useSelector((state) => state.user);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,7 +83,6 @@ const UploadPrescriptionPage = () => {
   };
 
   const updateQty = (count, qty) => {
-    console.log(count, qty);
     for (let i = 0; i < medicine.length; i++) {
       if (count === medicine[i].count) {
         medicine[i].medQty = qty;
@@ -79,10 +95,10 @@ const UploadPrescriptionPage = () => {
     setDoctor("");
     setNote("");
     setCount(1);
-    setMedicine([{ count: count, medName: "", medQty: "" }]);
+    setMedicine([{ count: 1, medName: "", medQty: "" }]);
   };
 
-  const uploadPrescription = () => {
+  const uploadPrescription = async () => {
     for (let i = 0; i < medicine.length; i++) {
       if (
         !medicine[i].medName ||
@@ -91,15 +107,39 @@ const UploadPrescriptionPage = () => {
         !doctor ||
         !note
       ) {
-        notifyError("Empty Fields.")
-        console.log("empty");
+        notifyError("Empty Fields.");
         return;
       }
-      notifySuccess("Prescription uploaded successfully.")
-      console.log({ previewSource, doctor, note, medicine });
-      clearForm();
-      clearFields();
     }
+
+    setLoading(true);
+    const uploadData = {
+      prescriptionPicURL: previewSource,
+      doctorName: doctor,
+      medicines: medicine,
+      note,
+      quotedPrice: 0,
+      billingAddress,
+      paymentType: "unknown",
+      isPriceAccepted: "pending",
+      deliveryStatus: "pending",
+    };
+
+    const prescription = await axios.post(
+      "http://localhost:5000/prescription/upload",
+      uploadData,
+      config
+    );
+    setLoading(false);
+    notifySuccess("Prescription uploaded successfully.");
+    // console.log({ previewSource, doctor, note, medicine });
+    // console.log(prescription);
+    clearForm();
+    clearFields();
+    // setCount(1);
+    // setMedicine([
+    //   { count: 1, medName: "", medQty: "" },
+    // ])
   };
 
   return (
@@ -182,7 +222,7 @@ const UploadPrescriptionPage = () => {
           </div>
 
           {/*bottom section div  */}
-          <div className="h-[180px] flex flex-col justify-between mt-4">
+          <div className="h-[380px] flex flex-col justify-between mt-4">
             <div>
               <p className="text-[#37474F] font-medium pb-1">Add a Note:</p>
               <textarea
@@ -191,6 +231,19 @@ const UploadPrescriptionPage = () => {
                 rows="3"
                 onChange={(e) => setNote(e.target.value)}
               />
+            </div>
+
+            <div>
+              <h1 className="font-medium pb-1">Your Billing Address:</h1>
+              <div onClick={() => setShowModal(true)}>
+                <div className="w-[100%] rounded-sm outline-none pl-2 h-32 border flex justify-center items-center cursor-pointer">
+                  {billingAddress ? (
+                    <p>{billingAddress}</p>
+                  ) : (
+                    <img src={addSym} alt="" />
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="flex w-full items-center">
@@ -215,17 +268,24 @@ const UploadPrescriptionPage = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex justify-center">
+              <div className="flex justify-center items-center">
                 <button
                   className=" text-white px-3 py-1 rounded-md
-                  bg-[#30789c] outline-none xl:my-2"
-                  onClick={() => uploadPrescription()}
+                  bg-[#30789c] outline-none xl:my-2 mr-4"
+                  onClick={uploadPrescription}
                 >
                   Upload
                 </button>
+                <ClipLoader
+                  color="#E25247"
+                  loading={loading}
+                  size={25}
+                  speedMultiplier={1}
+                />
               </div>
             )}
           </div>
+          {showModal && <AddressModal setShowModal={setShowModal} />}
         </div>
       </div>
       <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
