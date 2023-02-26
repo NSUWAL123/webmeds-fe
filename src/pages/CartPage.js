@@ -147,3 +147,5 @@ const CartPage = () => {
 };
 
 export default CartPage;
+
+// (condition) ? (isTrue) : (isFalse)

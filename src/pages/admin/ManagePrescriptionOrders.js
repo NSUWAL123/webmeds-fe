@@ -1,40 +1,60 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Order from "../../components/admin/order/Order";
-import { populateAdminOrder } from "../../redux/adminOrderSlice";
+import PrescriptionOrder from "../../components/admin/order/PrescriptionOrder";
+import ViewPrescriptionModal from "../../components/admin/order/ViewPrescriptionModal";
+import { populatePrescriptionOrder } from "../../redux/prescriptionSlice";
 
-const ManageOrder = () => {
+const ManagePrescriptionOrders = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.adminOrder);
+  const { prescription, showRespondModal, showPrescription } = useSelector(
+    (state) => state.prescriptionOrder
+  );
+  console.log(prescription);
 
-  //four different delivery states
   const delOptions = {
+    request: "request",
     pending: "pending",
     processed: "processed",
     ofd: "ofd",
     delivered: "delivered",
   };
-  const [delState, setDelState] = useState(delOptions.pending);
-  const filteredOrder = orders.filter(
+  const [delState, setDelState] = useState(delOptions.request);
+  const filteredOrder = prescription.filter(
     (order) => order.deliveryStatus === delState
   );
-
+  console.log(filteredOrder);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  //   getAllPrescriptionOrders
   useEffect(() => {
     (async () => {
       let response = await axios.get(
-        "http://localhost:5000/order/getAllOrders"
+        "http://localhost:5000/prescription/getAllPrescriptionOrders"
       );
       let { data } = response;
-      dispatch(populateAdminOrder(data));
+
+      console.log(data);
+      dispatch(populatePrescriptionOrder(data));
     })();
   }, []);
 
-  console.log(orders);
-
   return (
-    <div>
+    <div className="relative">
       <div className="w-full">
+        <button
+          className={`${
+            delState === delOptions.request
+              ? "bg-[#5D94E7] border-[#5D94E7] text-white"
+              : "bg-white text-gray-500 border-gray-400 border-[2px] "
+          }  px-1 py-1 border-[2px] `}
+          onClick={() => setDelState(delOptions.request)}
+        >
+          Request
+        </button>
         <button
           className={`${
             delState === delOptions.pending
@@ -69,7 +89,7 @@ const ManageOrder = () => {
       <div>
         {filteredOrder.map((order) => {
           return (
-            <Order
+            <PrescriptionOrder
               delState={delState}
               delOptions={delOptions}
               key={order._id}
@@ -78,25 +98,14 @@ const ManageOrder = () => {
           );
         })}
       </div>
-
-      {/* If no orders are there to be fulfilled and so on.... */}
-      {filteredOrder.length === 0 && delState === delOptions.pending && (
-        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
-          <p>No pending deliveries!</p>
-        </div>
-      )}
-      {filteredOrder.length === 0 && delState === delOptions.processed && (
-        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
-          <p>No orders to be delivered!</p>
-        </div>
-      )}
-      {filteredOrder.length === 0 && delState === delOptions.ofd && (
-        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
-          <p>No orders are out for delivery!</p>
+      {/* top-[140px] */}
+      {showPrescription.show && (
+        <div className="fixed w-[89%] top-0 h-full flex justify-center items-center mt-8">
+          <ViewPrescriptionModal />
         </div>
       )}
     </div>
   );
 };
 
-export default ManageOrder;
+export default ManagePrescriptionOrders;

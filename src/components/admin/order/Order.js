@@ -7,9 +7,9 @@ const Order = (props) => {
   const { delState, delOptions, order } = props;
   console.log(order);
   const [user, setUser] = useState({});
+  const [products, setProducts] = useState([]);
   const orderLine = order.orderLine;
   // console.log(orderLine)
-  const [products, setProducts] = useState([]);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -36,55 +36,51 @@ const Order = (props) => {
         products.push(product.data);
       }
       setProducts(products);
-
-      
     })();
   }, []);
+
   // Button actions
   // 1. FULFILL ORDER
   const fulfillOrder = async () => {
     const state = {
       id: order._id,
       deliveryStatus: delOptions.processed,
-    }
+    };
     const orderUpdate = await axios.put(
-      `http://localhost:5000/order/updateOrder`, state,
+      `http://localhost:5000/order/updateOrder`,
+      state,
       config
     );
-    dispatch(
-      changeAdminOrderState(state)
-    )
-  }
+    dispatch(changeAdminOrderState(state));
+  };
 
   // 2. OUT FOR DELIVERY
   const outForDeliveryOrder = async () => {
     const state = {
       id: order._id,
       deliveryStatus: delOptions.ofd,
-    }
+    };
     const orderUpdate = await axios.put(
-      `http://localhost:5000/order/updateOrder`, state,
+      `http://localhost:5000/order/updateOrder`,
+      state,
       config
     );
-    dispatch(
-      changeAdminOrderState(state)
-    )
-  }
+    dispatch(changeAdminOrderState(state));
+  };
 
   // 3. DELIVERED
   const deliveredOrder = async () => {
     const state = {
       id: order._id,
       deliveryStatus: delOptions.delivered,
-    }
+    };
     const orderUpdate = await axios.put(
-      `http://localhost:5000/order/updateOrder`, state,
+      `http://localhost:5000/order/updateOrder`,
+      state,
       config
     );
-    dispatch(
-      changeAdminOrderState(state)
-    )
-  }
+    dispatch(changeAdminOrderState(state));
+  };
   console.log(user);
   console.log(products);
 
@@ -144,9 +140,7 @@ const Order = (props) => {
               </button>
               <button
                 className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]"
-                onClick={() =>
-                  fulfillOrder()
-                }
+                onClick={() => fulfillOrder()}
               >
                 Fulfill Order
               </button>
@@ -161,9 +155,7 @@ const Order = (props) => {
               </button>
               <button
                 className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]"
-                onClick={() =>
-                  outForDeliveryOrder()
-                }
+                onClick={() => outForDeliveryOrder()}
               >
                 Out for Delivery
               </button>
@@ -178,9 +170,7 @@ const Order = (props) => {
               </button>
               <button
                 className="bg-[#1bc57e] text-white px-2 py-1 rounded-md font-medium hover:bg-[#40d798]"
-                onClick={() =>
-                  deliveredOrder()
-                }
+                onClick={() => deliveredOrder()}
               >
                 Delivered
               </button>

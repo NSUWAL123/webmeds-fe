@@ -21,6 +21,7 @@ import ChatPage from "../pages/ChatPage";
 import OrderPage from "../pages/OrderPage";
 import FilterProductPage from "../pages/FilterProductPage";
 import ManageOrder from "../pages/admin/ManageOrder";
+import ManagePrescriptionOrders from "../pages/admin/ManagePrescriptionOrders";
 
 const AppRoutes = () => {
   return (
@@ -50,6 +51,7 @@ const AppRoutes = () => {
           <Route path="/admin/manage-product" element={<ManageItem/>}/>
           <Route path="/admin/manage-product/update/:id" element={<UpdateItem/>}/>
           <Route path="/admin/manage-order" element={<ManageOrder/>}/>
+          <Route path="/admin/manage-prescription-order" element={<ManagePrescriptionOrders/>}/>
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

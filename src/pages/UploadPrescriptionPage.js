@@ -20,8 +20,7 @@ var override = {
 };
 
 const UploadPrescriptionPage = () => {
-  let [loading, setLoading] = useState(false);
-  let [color, setColor] = useState("#ffffff");
+  const [loading, setLoading] = useState(false);
   //files --------------------//
   const [disabled, setDisabled] = useState(true);
   const { billingAddress } = useSelector((state) => state.user);
@@ -60,6 +59,7 @@ const UploadPrescriptionPage = () => {
     { count: count, medName: "", medQty: "" },
   ]);
   const [doctor, setDoctor] = useState("");
+  console.log(doctor);
   const [note, setNote] = useState("");
 
   const addMedicine = async () => {
@@ -122,7 +122,7 @@ const UploadPrescriptionPage = () => {
       billingAddress,
       paymentType: "unknown",
       isPriceAccepted: "pending",
-      deliveryStatus: "pending",
+      deliveryStatus: "request",
     };
 
     const prescription = await axios.post(
@@ -132,14 +132,8 @@ const UploadPrescriptionPage = () => {
     );
     setLoading(false);
     notifySuccess("Prescription uploaded successfully.");
-    // console.log({ previewSource, doctor, note, medicine });
-    // console.log(prescription);
     clearForm();
     clearFields();
-    // setCount(1);
-    // setMedicine([
-    //   { count: 1, medName: "", medQty: "" },
-    // ])
   };
 
   return (
