@@ -1,8 +1,12 @@
 import React from 'react'
+import ProtectedRoutes from '../routes/ProtectedRoutes'
 
 const NotificationPage = () => {
   return (
-    <div>NotificationPage</div>
+    <div>
+      <ProtectedRoutes/>
+      <p>NotificationPage</p>
+    </div>
   )
 }
 

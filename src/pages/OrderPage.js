@@ -1,10 +1,14 @@
-import React from 'react'
+import React from "react";
+import ProtectedRoutes from "../routes/ProtectedRoutes";
 
 const OrderPage = () => {
   window.scrollTo(0, 0);
   return (
-    <div>OrderPage</div>
-  )
-}
+    <div>
+      <ProtectedRoutes />
+      <p>OrderPage</p>
+    </div>
+  );
+};
 
-export default OrderPage
+export default OrderPage;

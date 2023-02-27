@@ -20,6 +20,7 @@ const ManagePrescriptionOrders = () => {
     delivered: "delivered",
   };
   const [delState, setDelState] = useState(delOptions.request);
+  console.log(delState)
   const filteredOrder = prescription.filter(
     (order) => order.deliveryStatus === delState
   );
@@ -102,6 +103,34 @@ const ManagePrescriptionOrders = () => {
       {showPrescription.show && (
         <div className="fixed w-[89%] top-0 h-full flex justify-center items-center mt-8">
           <ViewPrescriptionModal />
+        </div>
+      )}
+
+      {/* WHEN NO ORDERS ON REQUEST */}
+      {filteredOrder.length === 0 && delState === delOptions.request && (
+        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
+          <p>No prescription order request!</p>
+        </div>
+      )}
+
+      {/* WHEN NO ORDERS ON PENDING */}
+      {filteredOrder.length === 0 && delState === delOptions.pending && (
+        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
+          <p>No pending orders!</p>
+        </div>
+      )}
+
+      {/* WHEN NO ORDERS ON TO BE DELIVERED */}
+      {filteredOrder.length === 0 && delState === delOptions.processed && (
+        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
+          <p>No orders to be delivered!</p>
+        </div>
+      )}
+
+      {/* WHEN NO ORDERS ON OUT FOR DELIVERY */}
+      {filteredOrder.length === 0 && delState === delOptions.ofd && (
+        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
+          <p>No order to be delivered!</p>
         </div>
       )}
     </div>

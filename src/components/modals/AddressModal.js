@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { addAddress } from "../../redux/userSlice";
-import { config } from "../../utils/config";
+import { getTokenFromLocalStorage } from "../../utils/handleToken";
 import { notifyError } from "../../utils/Toast";
 
 const AddressModal = (props) => {
@@ -21,7 +21,13 @@ const AddressModal = (props) => {
       notifyError("Please provide full address details!")
       return;
     }
-
+    const token = getTokenFromLocalStorage();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token,
+      },
+    };
     const billingAddress = province + " province, " + district + ", " + area + ", " + landmark;
 
     const user = await axios.post(

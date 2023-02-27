@@ -21,12 +21,12 @@ import chaticn from "../pictures/icons/chat-icn.svg";
 import { Link } from "react-router-dom";
 
 import {
+  getTokenFromLocalStorage,
   isUserLoggedIn,
   removeUserFromLocalStorage,
 } from "../utils/handleToken";
 import { useDispatch } from "react-redux";
 import { populateUser } from "../redux/userSlice";
-import { config } from "../utils/config";
 import axios from "axios";
 import Footer from "./Footer";
 
@@ -45,6 +45,14 @@ const BaseLayout = () => {
   const navigationTo = (endpoint) => {
     navigate(endpoint);
     setShowSidebar(false);
+  };
+
+  const token = getTokenFromLocalStorage();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
   };
 
   useEffect(() => {
@@ -305,6 +313,8 @@ const BaseLayout = () => {
                     onClick={() => {
                       removeUserFromLocalStorage();
                       setShowMore(false);
+                      navigate("/login");
+                      window.location.reload();
                     }}
                   >
                     <img

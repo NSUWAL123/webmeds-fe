@@ -3,15 +3,23 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import description from "../pictures/icons/description.svg";
-import { config } from "../utils/config";
 import PageNotFound from "./PageNotFound";
 import { notifySuccess } from "../utils/Toast";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
 
 const IndividualProduct = () => {
   const params = useParams();
   const [product, setProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+
+  const token = getTokenFromLocalStorage();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
 
   useEffect(() => {
     (async () => {

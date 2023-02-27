@@ -1,10 +1,16 @@
-import { getTokenFromLocalStorage } from "./handleToken";
+// import { getTokenFromLocalStorage } from "./handleToken";
 
-const token = getTokenFromLocalStorage();
+// const token = getTokenFromLocalStorage();
 
-export const config = {
-    headers: {
-      "Content-Type": "application/json",
-      "auth-token": token,
-    },
-  };
+// const config1 = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       "auth-token": token,
+//     },
+//   };
+
+//   export const config = () => {
+//     return {
+//       config1
+//     }
+//   }

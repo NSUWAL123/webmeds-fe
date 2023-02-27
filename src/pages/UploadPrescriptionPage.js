@@ -9,9 +9,10 @@ import { useSelector } from "react-redux";
 import AddressModal from "../components/modals/AddressModal";
 import addSym from "../../src/pictures/icons/add-symbol.svg";
 import axios from "axios";
-import { config } from "../utils/config";
-//spinners
+// imporitng react-spinners
 import ClipLoader from "react-spinners/ClipLoader";
+import ProtectedRoutes from "../routes/ProtectedRoutes";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
 
 var override = {
   display: "block",
@@ -95,7 +96,7 @@ const UploadPrescriptionPage = () => {
   const clearFields = () => {
     setPreviewSource("");
     setDoctor("");
-    setNMC("")
+    setNMC("");
     setNote("");
     setCount(1);
     setMedicine([{ count: 1, medName: "", medQty: 1 }]);
@@ -130,6 +131,14 @@ const UploadPrescriptionPage = () => {
       deliveryStatus: "request",
     };
 
+    const token = getTokenFromLocalStorage();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token,
+      },
+    };
+
     const prescription = await axios.post(
       "http://localhost:5000/prescription/upload",
       uploadData,
@@ -143,6 +152,7 @@ const UploadPrescriptionPage = () => {
 
   return (
     <div className="flex justify-center">
+      <ProtectedRoutes />
       <div className="w-[98%] bg-white px-6 py-6 md:w-[600px] rounded-xl  shadow-xl">
         <div className="w-full flex justify-center text-[22px] mb-2">
           <h1 className="font-semibold">Upload Prescription</h1>
@@ -195,8 +205,9 @@ const UploadPrescriptionPage = () => {
           </div>
 
           <div className="my-2">
-            <p className="text-[#37474F] font-medium mb-1">Doctor's NMC
-            Number:</p>
+            <p className="text-[#37474F] font-medium mb-1">
+              Doctor's NMC Number:
+            </p>
             <input
               type="number"
               className="border w-full rounded-md pl-2 outline-none"

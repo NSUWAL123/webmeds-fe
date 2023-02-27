@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/Toast";
 import { updateUser } from "../redux/userSlice";
+import ProtectedRoutes from "../routes/ProtectedRoutes";
 
 const ProfilePage = () => {
   const userData = useSelector((state) => state.user);
@@ -65,6 +66,7 @@ const ProfilePage = () => {
 
   return (
     <div className="flex justify-center lg:h-[585px] items-center">
+      <ProtectedRoutes/>
       <div className="bg-white w-[90%] rounded-lg lg:h-[420px] shadow-xl">
         <div className="lg:flex">
           {/* profile container */}

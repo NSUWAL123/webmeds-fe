@@ -1,45 +1,26 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { editNote } from "../../redux/noteSlice";
-import { getTokenFromLocalStorage } from "../../utils/handleToken";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifySuccess } from "../../utils/Toast";
+import {
+  changePrescriptionOrderState,
+  setShowRespondModal,
+} from "../../../redux/prescriptionSlice";
+import ViewPrescriptionModal from "./ViewPrescriptionModal";
 
-const EditNote = (props) => {
+const RespondModal = () => {
   const dispatch = useDispatch();
+  const { prescription, showRespondModal, showPrescription } = useSelector(
+    (state) => state.prescriptionOrder
+  );
 
-  const { setShowEditModal, noteData } = props;
-  const [title, setTitle] = useState(noteData.title);
-  const [description, setDescription] = useState(noteData.description);
-
-  const token = getTokenFromLocalStorage();
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      "auth-token": token,
-    },
-  };
-
-  const EditNote = async (id, title, description) => {
-    if (!title | !description) {
-      notifyError("Both Title & Description must be provided.")
-      return;
-    }
-
-    let response = await axios.post(
-      `http://localhost:5000/notes/update/${id}`,
-      {
-        title,
-        description,
-      },
-      config
+  const sendQuotation = () => {
+    dispatch(
+      changePrescriptionOrderState({
+        id: showRespondModal.id,
+        deliveryStatus: "pending",
+      })
     );
-    dispatch(editNote({ id, title, description }));
-    notifySuccess("Note updated successfully.")
   };
-
   return (
     <div className="">
       <div
@@ -48,7 +29,7 @@ const EditNote = (props) => {
         role="dialog"
         aria-modal="true"
       >
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        <div className="fixed inset-0 bg-slate-500 bg-opacity-5 transition-opacity"></div>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -66,9 +47,9 @@ const EditNote = (props) => {
                         <input
                           type="text"
                           className="border p-1"
-                          value={title}
+                          // value={title}
                           onChange={(e) => {
-                            setTitle(e.target.value);
+                            //   setTitle(e.target.value);
                           }}
                         />
                       </div>
@@ -78,8 +59,6 @@ const EditNote = (props) => {
                           type="text"
                           rows="3"
                           className="border w-full p-1 text resize-none rounded-sm outline-none pl-2"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
                         />
                       </div>
                     </div>
@@ -91,17 +70,16 @@ const EditNote = (props) => {
                   type="button"
                   className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => {
-                    EditNote(noteData._id, title, description);
-                    setShowEditModal(false);
+                    sendQuotation();
                   }}
                 >
-                  Update
+                  Send Quotation
                 </button>
                 <button
                   type="button"
                   className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => {
-                    setShowEditModal(false);
+                    dispatch(setShowRespondModal({ setTo: false, id: "" }));
                   }}
                 >
                   Cancel
@@ -116,4 +94,4 @@ const EditNote = (props) => {
   );
 };
 
-export default EditNote;
+export default RespondModal;

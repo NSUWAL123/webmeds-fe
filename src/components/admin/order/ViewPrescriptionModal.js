@@ -10,7 +10,7 @@ const ViewPrescriptionModal = () => {
   return (
     <div className="bg-white pb-4 border border-black rounded-md shadow-2xl">
       <div className="flex justify-end py-2 mr-2">
-        <img src={cross} alt="" onClick={() => dispatch(setShowPrescription({setTo: false, id: ""}))}/>
+        <img src={cross} alt="" onClick={() => dispatch(setShowPrescription({setTo: false, id: ""}))} className="cursor-pointer"/>
       </div>
       <div className="">
         <img src={showPrescription.imgLink} alt="" className="max-h-[500px]"/>

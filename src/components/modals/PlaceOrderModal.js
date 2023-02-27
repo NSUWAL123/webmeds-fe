@@ -10,7 +10,7 @@ import {
 } from "../../redux/cartSlice";
 import ordersucess from "../../pictures/photo/ordersuccess.svg";
 import axios from "axios";
-import { config } from "../../utils/config";
+import { getTokenFromLocalStorage } from "../../utils/handleToken";
 
 const PlaceOrderModal = (props) => {
   const [toggleDiv, setToggleDiv] = useState(true);
@@ -20,6 +20,14 @@ const PlaceOrderModal = (props) => {
   const { billingAddress } = useSelector((state) => state.user);
   const { orderLine, cartProducts, orderSummary, finalOrder, orderSuccess } =
     useSelector((state) => state.cart);
+
+    const token = getTokenFromLocalStorage();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
 
   const placeOrder = async () => {
     const order = {

@@ -1,8 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import eye from "../../../pictures/icons/eyeopen.svg";
-import { setShowPrescription } from "../../../redux/prescriptionSlice";
+import {
+  changePrescriptionOrderState,
+  setShowPrescription,
+  setShowRespondModal,
+} from "../../../redux/prescriptionSlice";
+import RespondModal from "./RespondModal";
 import ViewPrescriptionModal from "./ViewPrescriptionModal";
 
 const PrescriptionOrder = (props) => {
@@ -11,6 +16,7 @@ const PrescriptionOrder = (props) => {
   const [counter, setCounter] = useState(1);
 
   const dispatch = useDispatch();
+  const { showRespondModal } = useSelector((state) => state.prescriptionOrder);
 
   const config = {
     headers: {
@@ -31,11 +37,26 @@ const PrescriptionOrder = (props) => {
 
   console.log(order._id);
 
+  // 1. FULFILL
+  const fulfill = () => {
+    dispatch(changePrescriptionOrderState({id: order._id, deliveryStatus: delOptions.processed}))
+  }
+
+  // 2. OUT FOR DELIVERY
+  const ofd = () => {
+    dispatch(changePrescriptionOrderState({id: order._id, deliveryStatus: delOptions.ofd}))
+  }
+
+  // 3. DELIVERED
+  const delivered = () => {
+    dispatch(changePrescriptionOrderState({id: order._id, deliveryStatus: delOptions.delivered}))
+  }
+
   return (
     <div className="flex flex-col justify-around bg-[#DCF2FB] mt-6 px-5 rounded-lg py-3">
       <div className="h-[55px] md:h-[25px] flex flex-col justify-around md:flex-row md:justify-between">
         <p>
-          <span className="font-medium">Placed on:</span>{" "}
+          <span className="font-medium">Placed on:</span>
           {order.date.split("T")[0]}
         </p>
         <p>
@@ -45,11 +66,9 @@ const PrescriptionOrder = (props) => {
 
       <div className="md:flex">
         <div className="h-[275px] flex flex-col items-center justify-around w-full md:w-[35%]">
-          <img
-            src={order.prescriptionPicURL}
-            alt=""
-            className="h-[200px] w-[200px] rounded-md"
-          />
+          <div className="h-[200px] w-[200px] rounded-md overflow-hidden flex items-center justify-center">
+            <img src={order.prescriptionPicURL} alt="" className="" />
+          </div>
           <button
             className="flex items-center bg-[#FFC655] hover:bg-[#fecd6a] w-fit px-2 py-1 rounded-md"
             onClick={() =>
@@ -67,7 +86,8 @@ const PrescriptionOrder = (props) => {
             {order.doctorName}
           </p>
           <p>
-            <span className="font-medium">NMC Number:</span>
+            <span className="font-medium">NMC Number: </span>
+            {order.doctorNMC}
           </p>
           <p className="font-semibold my-1">Medicines:</p>
           <table className="w-full">
@@ -102,14 +122,68 @@ const PrescriptionOrder = (props) => {
         </div>
       </div>
 
-      <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
-        <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
-          Decline
-        </button>
-        <button className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2">
-          Respond
-        </button>
-      </div>
+      {/* IF DELIVERY STATUS IS "REQUEST" */}
+      {order.deliveryStatus === delOptions.request && (
+        <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
+          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+            Decline
+          </button>
+          <button
+            className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2"
+            onClick={() =>
+              dispatch(setShowRespondModal({ setTo: true, id: order._id }))
+            }
+          >
+            Respond
+          </button>
+        </div>
+      )}
+
+      {/* IF DELIVERY STATUS IS "PENDING" */}
+      {order.deliveryStatus === delOptions.pending && (
+        <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
+          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+            Cancel
+          </button>
+          <button
+            className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2"
+            onClick={() => fulfill()}
+          >
+            Fulfill
+          </button>
+        </div>
+      )}
+
+      {/* IF DELIVERY STATUS IS "PROCESSED" */}
+      {order.deliveryStatus === delOptions.processed && (
+        <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
+          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+            Cancel
+          </button>
+          <button
+            className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2"
+            onClick={() => ofd()}
+          >
+            Out for delivery
+          </button>
+        </div>
+      )}
+
+      {/* IF DELIVERY STATUS IS "OFD" */}
+      {order.deliveryStatus === delOptions.ofd && (
+        <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
+          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+            Cancel
+          </button>
+          <button
+            className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2"
+            onClick={() => delivered()}
+          >
+            Delivered
+          </button>
+        </div>
+      )}
+      {showRespondModal.show && <RespondModal />}
     </div>
   );
 };

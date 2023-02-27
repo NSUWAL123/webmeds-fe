@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import close from "../../pictures/icons/close.svg";
 import axios from "axios";
-import { config } from "../../utils/config";
+import {getTokenFromLocalStorage} from "../../utils/handleToken"
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOrderLine,
@@ -22,6 +22,14 @@ const CartItem = (props) => {
   // dispatch(updateOrderSummary(quantity))
 
   const [product, setProduct] = useState({});
+
+  const token = getTokenFromLocalStorage();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
 
   useEffect(() => {
     (async () => {

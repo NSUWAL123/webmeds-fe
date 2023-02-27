@@ -46,7 +46,7 @@ export const cartSlice = createSlice({
     populateOrderLine: (state, action) => {
       state.orderLine = [];
       let cartIsChecked = action.payload;
-      for (let i = 0; i < cartIsChecked.length; i++) {
+      for (let i = 0; i < cartIsChecked?.length; i++) {
         if (cartIsChecked[i].isCheck) {
           state.orderLine.push(cartIsChecked[i]);
         }
@@ -73,7 +73,6 @@ export const cartSlice = createSlice({
       state.cartProducts.push(action.payload);
     },
     updateOrderSummary: (state, action) => {
-      // state.orderSummary = { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0 }
       state.orderSummary = action.payload
       if (action.payload.grandTotal <= 1500) {
         state.orderSummary.deliveryCharge = 150

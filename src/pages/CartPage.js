@@ -10,24 +10,39 @@ import {
   updateOrderSummary,
 } from "../redux/cartSlice";
 import axios from "axios";
-import { config } from "../utils/config";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
+import ProtectedRoutes from "../routes/ProtectedRoutes";
 
 const CartPage = () => {
   const dispatch = useDispatch();
 
-  const { cartItems, toggle, orderLine, cartProducts, orderSummary } =
-    useSelector((state) => state.cart);
+  const token = getTokenFromLocalStorage();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": token,
+    },
+  };
+
   useEffect(() => {
     (async () => {
       const fetchCart = await axios.get(
         "http://localhost:5000/cart/getCartItems",
         config
       );
+      console.log(fetchCart.data);
       dispatch(populateCart(fetchCart.data.getCart));
       dispatch(populateOrderLine(fetchCart.data.getCart));
       window.scrollTo(0, 0);
     })();
-  }, [cartItems.length, toggle]);
+  }, []);
+
+  const { cartItems, toggle, orderLine, cartProducts, orderSummary } =
+    useSelector((state) => state.cart);
+  // cartItems?.length, toggle
+  console.log(cartItems);
+  console.log(orderLine);
+  console.log(toggle);
 
   let qty = 0;
   let price = 0;
@@ -68,13 +83,16 @@ const CartPage = () => {
 
   return (
     <div>
+      <ProtectedRoutes/>
       {!toggle ? (
         <div className="flex flex-col lg:flex-row">
           {/* div for cart items */}
           <div className="bg-white mb-5 py-3 px-5 sm:px-6 rounded-md lg:w-[70%] lg:mr-10">
-            {cartItems.length === 0 ? (
-              <div className="flex justify-center items-center h-[100%]"> 
-                <p className="text-[20px] font-semibold lg:text-[28px]">No products added to cart to display</p>
+            {cartItems?.length === 0 || cartItems?.length === undefined ? (
+              <div className="flex justify-center items-center h-[100%]">
+                <p className="text-[20px] font-semibold lg:text-[28px]">
+                  No products added to cart to display
+                </p>
               </div>
             ) : (
               <>
@@ -82,7 +100,7 @@ const CartPage = () => {
                   Your Cart Items
                 </h1>
                 <div>
-                  {cartItems.map((cartItem) => {
+                  {cartItems?.map((cartItem) => {
                     return <CartItem key={cartItem._id} cartItem={cartItem} />;
                   })}
                 </div>
@@ -119,22 +137,22 @@ const CartPage = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              {(orderSummary.totalItems === 0) ? (
+              {orderSummary.totalItems === 0 ? (
                 <button
-                className="bg-[#e38b85] text-white px-5 py-1  rounded-md cursor-not-allowed"
-                onClick={() => dispatch(toggleCart(true))}
-                disabled
-              >
-                Checkout
-              </button>
-              ) : (              
-              <button
-                className="bg-[#E25247] text-white px-5 py-1  rounded-md"
-                onClick={() => dispatch(toggleCart(true))}                
-              >
-                Checkout
-              </button>
-              ) }
+                  className="bg-[#e38b85] text-white px-5 py-1  rounded-md cursor-not-allowed"
+                  onClick={() => dispatch(toggleCart(true))}
+                  disabled
+                >
+                  Checkout
+                </button>
+              ) : (
+                <button
+                  className="bg-[#E25247] text-white px-5 py-1  rounded-md"
+                  onClick={() => dispatch(toggleCart(true))}
+                >
+                  Checkout
+                </button>
+              )}
             </div>
           </div>
         </div>
