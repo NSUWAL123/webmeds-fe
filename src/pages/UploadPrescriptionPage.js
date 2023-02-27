@@ -56,15 +56,16 @@ const UploadPrescriptionPage = () => {
 
   const [count, setCount] = useState(1);
   const [medicine, setMedicine] = useState([
-    { count: count, medName: "", medQty: "" },
+    { count: count, medName: "", medQty: 1 },
   ]);
   const [doctor, setDoctor] = useState("");
   console.log(doctor);
+  const [NMC, setNMC] = useState("");
   const [note, setNote] = useState("");
 
   const addMedicine = async () => {
     setCount((count) => count + 1);
-    setMedicine([...medicine, { count: count + 1, medName: "", medQty: "" }]);
+    setMedicine([...medicine, { count: count + 1, medName: "", medQty: 1 }]);
   };
 
   const removeMedicine = (id) => {
@@ -88,14 +89,16 @@ const UploadPrescriptionPage = () => {
         medicine[i].medQty = qty;
       }
     }
+    console.log(qty);
   };
 
   const clearFields = () => {
     setPreviewSource("");
     setDoctor("");
+    setNMC("")
     setNote("");
     setCount(1);
-    setMedicine([{ count: 1, medName: "", medQty: "" }]);
+    setMedicine([{ count: 1, medName: "", medQty: 1 }]);
   };
 
   const uploadPrescription = async () => {
@@ -105,6 +108,7 @@ const UploadPrescriptionPage = () => {
         !medicine[i].medQty ||
         !previewSource ||
         !doctor ||
+        !NMC ||
         !note
       ) {
         notifyError("Empty Fields.");
@@ -116,6 +120,7 @@ const UploadPrescriptionPage = () => {
     const uploadData = {
       prescriptionPicURL: previewSource,
       doctorName: doctor,
+      doctorNMC: NMC,
       medicines: medicine,
       note,
       quotedPrice: 0,
@@ -180,7 +185,7 @@ const UploadPrescriptionPage = () => {
             </div>
           </div>
 
-          <div className="my-3">
+          <div className="my-2">
             <p className="text-[#37474F] font-medium mb-1">Doctor's Name:</p>
             <input
               type="text"
@@ -189,6 +194,15 @@ const UploadPrescriptionPage = () => {
             />
           </div>
 
+          <div className="my-2">
+            <p className="text-[#37474F] font-medium mb-1">Doctor's NMC
+            Number:</p>
+            <input
+              type="number"
+              className="border w-full rounded-md pl-2 outline-none"
+              onChange={(e) => setNMC(e.target.value)}
+            />
+          </div>
           {/* add div when + btn clicked */}
           <div className="">
             <div className="flex w-full justify-between items-center my-2">

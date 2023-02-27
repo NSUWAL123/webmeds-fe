@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const Medicine = (props) => {
   const { med, setMedicine, removeMedicine, updateName, updateQty } = props;
   console.log(med);
-  //   const [medName, setMedName] = useState("");
   const [medQty, setMedQty] = useState(med.medQty);
+  console.log(medQty);
   return (
     <div
       className="bg-[#FFC655] px-3 rounded-md flex flex-col justify-around mb-4 pb-2"
@@ -31,27 +31,39 @@ const Medicine = (props) => {
         </div>
         <div>
           <p>Quantity:</p>
-          <input
-            type="number"
-            className="outline-none border rounded-md w-1/6 px-2"
-            onChange={(e) => updateQty(med.count, e.target.value)}
-          />
+          <div className="flex items-center">
+            <div
+              className="w-5 h-5 bg-[#37474F] flex justify-center items-center text-white rounded-md  ml-3 cursor-pointer"
+              onClick={() => {
+                if (medQty > 1) {
+                  updateQty(med.count, medQty - 1);
+                  setMedQty(medQty - 1);
+                }
+              }}
+            >
+              -
+            </div>
+
+            <p className="bg-slate-100 w-7 h-7 rounded-md text-center mx-3">
+              {medQty}
+            </p>
+            <div
+              className="w-5 h-5 bg-[#37474F] flex justify-center items-center text-white rounded-md cursor-pointer"
+              onClick={() => {
+                if (medQty < 10) {
+                  updateQty(med.count, medQty + 1);
+                  setMedQty(medQty + 1);
+                }
+              }}
+            >
+              +
+            </div>
+          </div>
         </div>
-        {/* <div>
-          <p>Quantity:</p>
-          <input
-            type="number"
-            className="outline-none border rounded-md w-1/6 px-2"
-            onChange={(e) => updateQty(med.count, e.target.value)}
-          /> */}
-          {/* <div className="w-5 h-5 bg-[#37474F] flex justify-center items-center text-white rounded-md  ml-3 cursor-pointer">-</div>
-        </div>
-        <p>{medQty}</p>
-        <div className="w-5 h-5 bg-[#37474F] flex justify-center items-center text-white rounded-md  ml-3 cursor-pointer">
-          +
-        </div> */}
-        {/* </div> */}
+
+        
       </div>
+      {medQty===10 && (<p className="text-sm mt-1 text-red-600">Max limit is 10!</p>)}
     </div>
   );
 };
