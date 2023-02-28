@@ -22,6 +22,7 @@ import OrderPage from "../pages/OrderPage";
 import FilterProductPage from "../pages/FilterProductPage";
 import ManageOrder from "../pages/admin/ManageOrder";
 import ManagePrescriptionOrders from "../pages/admin/ManagePrescriptionOrders";
+import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/user/:id/verify/:token" element={<EmailVerification/>}/>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />

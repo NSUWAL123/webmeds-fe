@@ -8,7 +8,7 @@ import eyeclose from "../pictures/icons/eyeclose.svg";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast"
+import { notifyError, notifyInfo, notifySuccess } from "../utils/Toast";
 import { setUserToLocalStorage } from "../utils/handleToken";
 
 const LoginPage = () => {
@@ -57,17 +57,15 @@ const LoginPage = () => {
       if (data.lvl === "success") {
         notifySuccess(data.message);
         setUserToLocalStorage("authenticated", data.data);
-        navigate('/')
+        navigate("/");
         return;
       }
       console.log(data);
-    } 
-    catch (error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  
   return (
     <div className="font-display w-screen  md:text-lg  relative">
       <div className="">
@@ -115,20 +113,23 @@ const LoginPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="flex justify-between items-center mb-7 xl:mx-3">
-                <p className="font-semibold">Password: </p>
-                <div className="w-4/6 md:w-3/4 rounded-lg py-1 px-3 border-2 flex">
-                  <input
-                    type={showPass ? "text" : "password"}
-                    className="w-[90%] outline-none "
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <img
-                    src={showPass ? eyeopen : eyeclose}
-                    alt=""
-                    className="cursor-pointer"
-                    onClick={showPassHandler}
-                  />
+              <div className="flex justify-between  mb-7 xl:mx-3">
+                <p className="font-semibold mt-2">Password: </p>
+                <div className="flex flex-col w-4/6 md:w-3/4">
+                  <div className=" rounded-lg py-1 px-3 border-2 flex">
+                    <input
+                      type={showPass ? "text" : "password"}
+                      className="w-[90%] outline-none "
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <img
+                      src={showPass ? eyeopen : eyeclose}
+                      alt=""
+                      className="cursor-pointer"
+                      onClick={showPassHandler}
+                    />
+                  </div>
+                  <p className="mt-2 sm:text-sm">Forgot Password? <span className="text-blue-700 cursor-pointer" onClick={() => navigate("/forgot-password")}>Click Here.</span></p>
                 </div>
               </div>
             </div>
@@ -151,7 +152,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored"/>
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };
