@@ -21,7 +21,7 @@ const PlaceOrderModal = (props) => {
   const { orderLine, cartProducts, orderSummary, finalOrder, orderSuccess } =
     useSelector((state) => state.cart);
 
-    const token = getTokenFromLocalStorage();
+  const token = getTokenFromLocalStorage();
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -38,14 +38,11 @@ const PlaceOrderModal = (props) => {
       paymentStatus: false,
       deliveryStatus: "pending",
     };
-    console.log(order);
-
     const initiateOrder = await axios.post(
       "http://localhost:5000/order/addOrder",
       order,
       config
     );
-
     //removes products from cart that has been ordered
     for (let i = 0; i < orderLine.length; i++) {
       const response = await axios.delete(
@@ -54,11 +51,16 @@ const PlaceOrderModal = (props) => {
       );
       dispatch(removeItemFromCart({ id: orderLine[i]._id }));
     }
-
+    //updates(decreases) qty of product when order
+    for (let i = 0; i < orderLine.length; i++) {
+      const response = await axios.post(
+        "http://localhost:5000/admin/manage-product/updateQty", {
+          id: orderLine[i].productId, qty: orderLine[i].quantity
+        }
+      )
+    }
     dispatch(confirmOrder(order));
     setToggleDiv(false);
-
-    // console.log()
   };
 
   return (

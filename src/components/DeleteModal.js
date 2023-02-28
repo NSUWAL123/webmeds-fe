@@ -3,7 +3,7 @@ import React from "react";
 import { notifySuccess, notifyWarning } from "../utils/Toast";
 
 const DeleteModal = (props) => {
-  const { indproduct, setShowDeleteModal } = props;
+  const { indproduct, setShowDeleteModal, products, setProducts } = props;
 
   const deleteProduct = async (product) => {
     const config = {
@@ -15,6 +15,13 @@ const DeleteModal = (props) => {
     let id = {
       id: product._id,
     };
+
+    for (let i = 0; i < products.length; i++) {
+      if (products[i]._id === product._id) {
+        products.splice(i, 1);
+      }
+    }
+    setProducts(products);
 
     try {
       const { data } = await axios.post(

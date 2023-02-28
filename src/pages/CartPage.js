@@ -78,9 +78,6 @@ const CartPage = () => {
     );
   }, [qty, price, discount, grandTotal, offeredPrice]);
 
-  // console.log(orderLine)
-  //   console.log(orderSummary)
-
   return (
     <div>
       <ProtectedRoutes/>

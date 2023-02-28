@@ -11,10 +11,10 @@ const UpdateItem = () => {
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
   const [company, setCompany] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [discountPct, setDiscountPct] = useState(0);
-  const [offerPrice, setOfferPrice] = useState("");
-  const [stock, setStock] = useState("");
+  const [offerPrice, setOfferPrice] = useState(0);
+  const [stock, setStock] = useState(0);
   const [expiry, setExpiry] = useState("");
   //const [picture, setPicture] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -23,6 +23,19 @@ const UpdateItem = () => {
   const maxDate = new Date().toISOString().split("T")[0];
 
   const UpdateItem = async () => {
+    console.log({
+      pname,
+      purpose,
+      type,
+      category,
+      company,
+      price,
+      discountPct,
+      offerPrice,
+      stock,
+      expiry,
+      description,
+    });
     if (
       !pname ||
       !purpose ||
@@ -34,8 +47,12 @@ const UpdateItem = () => {
       !expiry ||
       !description
     ) {
-      console.log("Empty Fields");
       notifyError("Empty Fields");
+      return;
+    }
+
+    if (price < 0 || stock < 0 || discountPct < 0) {
+      notifyError("Cannot accept values less than zero.");
       return;
     }
 
@@ -78,7 +95,7 @@ const UpdateItem = () => {
     }
   };
 
-//   
+  //
   //setting price after discount
   useEffect(() => {
     let finalPrice = price - price * (discountPct / 100);
@@ -118,18 +135,18 @@ const UpdateItem = () => {
       setProduct(data);
       //console.log(data);
 
-        setPname(data.pname);
-        setPurpose(data.purpose);
-        setType(data.type);
-        setCategory(data.category);
-        setCompany(data.company);
-        setPrice(data.price);
-        setDiscountPct(data.discountPct);
-        setOfferPrice(data.offerPrice);
-        setStock(data.stock);
-        setExpiry(data.expiry);
-        setPreviewSource(data.productPicURL);
-        setDescription(data.description);
+      setPname(data.pname);
+      setPurpose(data.purpose);
+      setType(data.type);
+      setCategory(data.category);
+      setCompany(data.company);
+      setPrice(data.price);
+      setDiscountPct(data.discountPct);
+      setOfferPrice(data.offerPrice);
+      setStock(data.stock);
+      setExpiry(data.expiry);
+      setPreviewSource(data.productPicURL);
+      setDescription(data.description);
     })();
   }, []);
 
@@ -219,6 +236,7 @@ const UpdateItem = () => {
                 type="number"
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
                 value={price}
+                min="0"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
@@ -321,7 +339,6 @@ const UpdateItem = () => {
             >
               Update Product
             </button>
- 
           </div>
         </div>
       </div>

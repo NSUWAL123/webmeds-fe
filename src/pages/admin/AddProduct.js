@@ -3,6 +3,8 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast";
+import ClipLoader from "react-spinners/ClipLoader";
+import { clearForm } from "../../utils/clearForm";
 
 const AddProduct = () => {
   const [pname, setPname] = useState("");
@@ -18,6 +20,7 @@ const AddProduct = () => {
   //const [picture, setPicture] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const maxDate = new Date().toISOString().split("T")[0];
 
@@ -38,6 +41,12 @@ const AddProduct = () => {
       notifyError("Empty Fields");
       return;
     }
+
+    if (price < 0 || stock < 0 || discountPct < 0) {
+      notifyError("Cannot accept values less than zero.");
+      return;
+    }
+    setLoading(true);
 
     const formData = {
       pname,
@@ -74,31 +83,13 @@ const AddProduct = () => {
       }
 
       notifySuccess(data.message);
+      setLoading(false);
+      clearForm();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const clearForm = () => {
-    Array.from(document.querySelectorAll("input")).forEach(
-      (input) => (input.value = "")
-    );
-    document
-      .querySelectorAll("textarea")
-      .forEach((textarea) => (textarea.value = ""));
-    setPname("");
-    setPurpose("");
-    setType("");
-    setCategory("");
-    setCompany("");
-    setPrice("");
-    setDiscountPct("");
-    setOfferPrice("");
-    setStock("");
-    setExpiry("");
-    setPreviewSource("");
-    setDescription("");
-  };
   //setting price after discount
   useEffect(() => {
     let finalPrice = price - price * (discountPct / 100);
@@ -106,7 +97,6 @@ const AddProduct = () => {
   }, [discountPct, price]);
 
   //files --------------------//
-
   const handleFileInputChange = (e) => {
     if (!e.target.value) {
       return;
@@ -297,12 +287,20 @@ const AddProduct = () => {
 
           {/* button container */}
           <div className="flex justify-around sm:mx-16">
-            <button
-              className="bg-[#37474F] text-white font-medium px-4 py-1 rounded-md"
-              onClick={addProduct}
-            >
-              Add Product
-            </button>
+            <div className="flex items-center">
+              <button
+                className="bg-[#37474F] text-white font-medium px-4 py-1 rounded-md mr-3"
+                onClick={addProduct}
+              >
+                Add Product
+              </button>
+              <ClipLoader
+                color="#E25247"
+                loading={loading}
+                size={25}
+                speedMultiplier={1}
+              />
+            </div>
             <button
               className="bg-[#E25247] text-white font-medium px-4 py-1 rounded-md"
               onClick={clearForm}

@@ -76,7 +76,7 @@ const ManageProduct = () => {
 
       {/* update */}
       <div className={showDeleteModal ? "block": "hidden"}>
-        <DeleteModal indproduct={currProduct} setShowDeleteModal={setShowDeleteModal}/>
+        <DeleteModal indproduct={currProduct} setShowDeleteModal={setShowDeleteModal} products={products} setProducts={setProducts}/>
       </div>
       </div>
     </div>

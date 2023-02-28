@@ -17,12 +17,21 @@ const ProductItem = (props) => {
         showIndProduct(product);
       }}
     >
-      <img
-        src={product.productPicURL}
-        alt=""
-        className="w-[145px] lg:w-[200px] border rounded-md "
-      />
-      <p className="font-medium w-[145px] lg:w-[200px] overflow-hidden">{product.pname}</p>
+      <div className="relative flex justify-center items-center">
+        <img
+          src={product.productPicURL}
+          alt=""
+          className="w-[145px] h-[145px] lg:w-[200px] lg:h-[200px] border rounded-md "
+        />
+        {product.stock === 0 && (
+          <p className="w-[145px] lg:w-[200px] text-md text-center bg-black opacity-75 mb-2 text-white absolute">
+            Out of Stock
+          </p>
+        )}
+      </div>
+      <p className="font-medium w-[145px] lg:w-[200px] overflow-hidden">
+        {product.pname}
+      </p>
       <div className="flex justify-between items-center">
         <p className="text-[#E25247] font-medium">Rs. {product.offerPrice}</p>
       </div>
