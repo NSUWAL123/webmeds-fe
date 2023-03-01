@@ -23,8 +23,7 @@ const IndividualProduct = () => {
 
   useEffect(() => {
     (async () => {
-      //await getAllProducts()
-      // setLoading(true)
+
       const response = await axios.get(
         `http://localhost:5000/products/${params.pname}`
       );
@@ -33,7 +32,9 @@ const IndividualProduct = () => {
       setLoading(false);
       window.scrollTo(0, 0);
     })();
-  }, []);
+  }, [params.pname]);
+
+  console.log(product)
 
   const decreaseQty = () => {
     if (quantity > 1) {
@@ -136,7 +137,7 @@ const IndividualProduct = () => {
                   </button>
                 </div>
               </div>
-              {product.discountPct === 0 ? (
+              {product.stock === 0 ? (
                 <div className="flex justify-center md:justify-start">
                   <button
                     className="bg-[#f57a71] text-white px-2 py-1 rounded-lg my-3 lg:text-[20px] cursor-not-allowed"

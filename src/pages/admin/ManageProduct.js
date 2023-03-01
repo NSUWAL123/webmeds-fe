@@ -46,7 +46,7 @@ const ManageProduct = () => {
         <tbody className="">
           <tr className="border bg-[#31D490] text-white">
             <th className="p-3 border font-medium">Product Name</th>
-            <th className="p-3 border font-medium">In Stock</th>
+            {/* <th className="p-3 border font-medium">In Stock</th> */}
             <th className="p-3 border font-medium">Price</th>
             <th className="p-3 border font-medium">Stock</th>
             <th className="p-3 border font-medium">Expiry Date</th>
@@ -58,7 +58,7 @@ const ManageProduct = () => {
             return (
               <tr key={product._id} className="even:bg-[#F2F2F2] hover:bg-[#DDDDDD]">
                 <td className="p-2 border">{product.pname}</td>
-                <td className="text-center border">{product.stock}</td>
+                {/* <td className="text-center border">{product.stock}</td> */}
                 <td className="text-center border">{product.price}</td>
                 <td className="text-center border">{product.stock}</td>
                 <td className="text-center border">{product.expiry.split("T")[0]}</td>

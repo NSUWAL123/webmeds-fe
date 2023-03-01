@@ -116,19 +116,30 @@ const CartItem = (props) => {
     <div className="py-3 border-b border-slate-300">
       <div className="flex justify-between items-center sm:px-6">
         <div className="flex items-center w-[80%] sm:w-[60%] justify-between lg:w-[70%]">
-          {/* checkbox */}
-          {/* <input type="checkbox" className="w-4 h-4 sm:w-5 sm:h-5" id="check" name="check"/> */}
-          <div
-            className={`w-4 h-4 sm:w-5 sm:h-5 border-2 rounded-full\ ${
-              isCheck ? "bg-[#0075FF] border-none" : ""
-            }`}
-            onClick={() => changeCheckStatus()}
-          ></div>
-          <img
-            src={product.productPicURL}
-            alt=""
-            className="w-[60px] h-[60px] border rounded-md sm:w-[100px] sm:h-[100px]"
-          />
+          {product.stock === 0 ? (
+            <div
+              className={`w-4 h-4 sm:w-5 sm:h-5 border-2 rounded-full bg-[#AAAAAA] border-none cursor-pointer`}
+            ></div>
+          ) : (
+            <div
+              className={`w-4 h-4 sm:w-5 sm:h-5 border-2 cursor-pointer rounded-full ${
+                isCheck ? "bg-[#0075FF] border-none" : ""
+              }`}
+              onClick={() => changeCheckStatus()}
+            ></div>
+          )}
+          <div className="flex items-center justify-center relative">
+            <img
+              src={product.productPicURL}
+              alt=""
+              className="w-[60px] h-[60px] border rounded-md sm:w-[100px] sm:h-[100px]"
+            />
+            {product.stock === 0 && (
+              <p className="w-[60px] sm:w-[100px] text-xs sm:text-sm text-center bg-black opacity-75 mb-2 text-white absolute">
+                Out of Stock
+              </p>
+            )}
+          </div>
           <div className="w-1/2">
             <p className="my-2 font-medium">{product.pname}</p>
             <div className="flex">
@@ -197,7 +208,7 @@ const CartItem = (props) => {
           />
         </div>
       </div>
-      {product.stock <= 10 && (
+      {product.stock <= 10 && product.stock !== 0 && (
         <p className="text-sm text-center mb-2 text-gray-500  mt-2 ]">
           Only {product.stock} items left! Get yours fast.
         </p>

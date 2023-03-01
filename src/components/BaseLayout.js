@@ -337,7 +337,7 @@ const BaseLayout = () => {
               )}
             </div>
           </div>
-          <div className="lg:hidden">
+          <div className="lg:hidden  mb-5">
             <SearchBar />
           </div>
           <div className="hidden md:block bg-[#5D94E7]">
