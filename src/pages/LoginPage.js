@@ -129,7 +129,7 @@ const LoginPage = () => {
                       onClick={showPassHandler}
                     />
                   </div>
-                  <p className="mt-2 sm:text-sm">Forgot Password? <span className="text-blue-700 cursor-pointer" onClick={() => navigate("/forgot-password")}>Click Here.</span></p>
+                  <p className="mt-2 sm:text-sm">Forgot Password? <span className="text-[#306ad4] cursor-pointer font-medium" onClick={() => navigate("/forgot-password")}>Click Here.</span></p>
                 </div>
               </div>
             </div>

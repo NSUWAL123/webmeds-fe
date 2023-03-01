@@ -62,7 +62,7 @@ const SearchBar = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center z-20 absolute md:px-10 w-[100%] items-center">
+      <div className="flex flex-col justify-center z-10 absolute md:px-10 w-[100%] items-center">
         {returnedProduct !== null &&
           returnedProduct.map((prod) => {
             return (

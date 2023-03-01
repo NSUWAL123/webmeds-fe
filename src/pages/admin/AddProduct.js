@@ -33,11 +33,15 @@ const AddProduct = () => {
       !price ||
       !discountPct ||
       !stock ||
-      !expiry ||
       !previewSource ||
       !description
     ) {
       console.log("Empty Fields");
+      notifyError("Empty Fields");
+      return;
+    }
+
+    if (category !== "Health Devices" && !expiry) {
       notifyError("Empty Fields");
       return;
     }
@@ -233,6 +237,7 @@ const AddProduct = () => {
                 onChange={(e) => setStock(e.target.value)}
               />
             </div>
+            {category !== "Health Devices" && (
             <div className="sm:w-[42%]">
               <p className="mb-1 text-[#37474F] font-semibold">Expiry Date</p>
               <input
@@ -242,6 +247,7 @@ const AddProduct = () => {
                 onChange={(e) => setExpiry(e.target.value)}
               />
             </div>
+            )}
           </div>
 
           {/* Add Picture container */}
@@ -264,7 +270,7 @@ const AddProduct = () => {
                 <img
                   src={previewSource}
                   alt=""
-                  className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"
+                  className="h-[150px] rounded-sm border-[1px] border-[#37474F]"
                 />
               </div>
             ) : (

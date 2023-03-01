@@ -133,8 +133,6 @@ const UpdateItem = () => {
       );
       const { data } = response;
       setProduct(data);
-      //console.log(data);
-
       setPname(data.pname);
       setPurpose(data.purpose);
       setType(data.type);
@@ -147,6 +145,7 @@ const UpdateItem = () => {
       setExpiry(data.expiry);
       setPreviewSource(data.productPicURL);
       setDescription(data.description);
+      window.scrollTo(0, 0);
     })();
   }, []);
 
@@ -276,6 +275,7 @@ const UpdateItem = () => {
                 onChange={(e) => setStock(e.target.value)}
               />
             </div>
+            {category !== 'Health Devices' && (
             <div className="sm:w-[42%]">
               <p className="mb-1 text-[#37474F] font-semibold">Expiry Date</p>
               <input
@@ -286,6 +286,7 @@ const UpdateItem = () => {
                 onChange={(e) => setExpiry(e.target.value)}
               />
             </div>
+            )}
           </div>
 
           {/* Add Picture container */}
@@ -309,7 +310,7 @@ const UpdateItem = () => {
                 <img
                   src={previewSource}
                   alt=""
-                  className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"
+                  className="h-[150px] border-[1px] border-[#37474F]"
                 />
               </div>
             ) : (

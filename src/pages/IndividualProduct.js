@@ -174,7 +174,7 @@ const IndividualProduct = () => {
             <div className="flex">
               <div className="flex bg-[#5D94E7] justify-around items-center w-[180px] rounded-t-2xl px-1 lg:w-[210px]">
                 <img src={description} alt="" className="lg:w-[34px]" />
-                <p className="font-medium text-white text-[18px] p-2 lg:text-[24px]">
+                <p className="font-medium text-white text-[18px] p-2 lg:text-[22px]">
                   Description
                 </p>
               </div>
@@ -185,9 +185,9 @@ const IndividualProduct = () => {
                 <h1 className="text-[18px] lg:text-[20px] py-2">
                   Product Details:
                 </h1>
-                <p className="text-[#7A7A7A] pb-3 font-normal">
-                  {product.description}
-                </p>
+                <textarea className="text-[#7A7A7A] pb-3 font-normal w-full outline-none h-[300px]" value={product.description} >
+                  
+                </textarea>
               </div>
             </div>
           </div>

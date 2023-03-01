@@ -99,7 +99,7 @@ const BaseLayout = () => {
             ></div>
 
             {/* dropdown */}
-            <div className="flex relative items-center">
+            <div className="flex relative z-10 items-center ">
               <div className="group flex relative">
                 <Link to="/profile">
                   <img
@@ -120,8 +120,8 @@ const BaseLayout = () => {
    border-r-[8px] border-r-transparent
    mr-2 sm:mr-5 xl:mr-7"
                   ></div>
-                  <p className="bg-gray-700 w-[120px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7">
-                    Manage Profile
+                  <p className="bg-gray-700 w-[90px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7">
+                    My Profile
                   </p>
                 </span>
               </div>
@@ -219,7 +219,7 @@ const BaseLayout = () => {
                       width="25px"
                       className="mx-3 my-2"
                     />
-                    <p className="hover:font-medium">Manage Profile</p>
+                    <p className="hover:font-medium">My Profile</p>
                   </div>
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"

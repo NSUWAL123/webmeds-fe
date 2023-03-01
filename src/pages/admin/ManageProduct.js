@@ -61,7 +61,7 @@ const ManageProduct = () => {
                 {/* <td className="text-center border">{product.stock}</td> */}
                 <td className="text-center border">{product.price}</td>
                 <td className="text-center border">{product.stock}</td>
-                <td className="text-center border">{product.expiry.split("T")[0]}</td>
+                <td className="text-center border">{product.expiry && product.expiry.split("T")[0]}</td>
                 <td className="text-center border">
                   <button className="bg-[#37474F] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => {updateHandler(product)}}>Update</button>
                   <button className="bg-[#E25247] text-sm text-white px-2 py-1 rounded-md m-2" onClick={() => {deleteHandler(product)}}>Delete</button>
