@@ -17,11 +17,10 @@ const NotesPage = () => {
   //selector
   const noteData = useSelector((state) => state.notes);
 
-  const token = getTokenFromLocalStorage();
   const config = {
     headers: {
       "Content-Type": "application/json",
-      "auth-token": token,
+      "auth-token": getTokenFromLocalStorage(),
     },
   };
 

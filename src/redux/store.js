@@ -5,6 +5,7 @@ import { cartSlice } from "./cartSlice"
 import { adminOrderSlice } from "./adminOrderSlice"
 import { uploadPrescriptionSlice } from "./uploadPrescriptionSlice"
 import { prescriptionSlice } from "./prescriptionSlice"
+import { userOrderSlice } from "./userOrderSlice"
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         cart: cartSlice.reducer,
         adminOrder: adminOrderSlice.reducer,
         uploadPrescription: uploadPrescriptionSlice.reducer, 
-        prescriptionOrder: prescriptionSlice.reducer
+        prescriptionOrder: prescriptionSlice.reducer,
+        userOrder: userOrderSlice.reducer,
     },
 })

@@ -82,17 +82,22 @@ const ManageOrder = () => {
       {/* If no orders are there to be fulfilled and so on.... */}
       {filteredOrder.length === 0 && delState === delOptions.pending && (
         <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
-          <p>No pending deliveries!</p>
+          <p className="text-center">No pending deliveries!</p>
         </div>
       )}
       {filteredOrder.length === 0 && delState === delOptions.processed && (
         <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
-          <p>No orders to be delivered!</p>
+          <p className="text-center">No orders for processing!</p>
         </div>
       )}
       {filteredOrder.length === 0 && delState === delOptions.ofd && (
         <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
-          <p>No orders are out for delivery!</p>
+          <p className="text-center">No orders yet to recieve!</p>
+        </div>
+      )}
+      {filteredOrder.length === 0 && delState === delOptions.delivered && (
+        <div className="w-full flex justify-center h-[500px] items-center text-2xl font-semibold text-gray-500">
+          <p className="text-center">You haven't purchased any products yet!</p>
         </div>
       )}
     </div>
