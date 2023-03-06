@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { confirmOrder, toggleCart } from "../../redux/cartSlice";
+import { toggleCart } from "../../redux/cartSlice";
 import back from "../../pictures/icons/back.svg";
 import addSym from "../../pictures/icons/add-symbol.svg";
 import CartSummary from "./CartSummary";
 import AddressModal from "../modals/AddressModal";
 import PlaceOrderModal from "../modals/PlaceOrderModal";
-import OrderSuccessModal from "../modals/OrderSuccessModal";
-import khalticonfig from "../khalti/KhaltiConfig";
-import KhaltiCheckout from "khalti-checkout-web";
 
 const CartBilling = () => {
   const dispatch = useDispatch();

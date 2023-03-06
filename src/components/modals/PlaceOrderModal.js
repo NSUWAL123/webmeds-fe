@@ -11,7 +11,6 @@ import {
 import ordersucess from "../../pictures/photo/ordersuccess.svg";
 import axios from "axios";
 import { getTokenFromLocalStorage } from "../../utils/handleToken";
-import khalticonfig from "../khalti/KhaltiConfig";
 import KhaltiCheckout from "khalti-checkout-web";
 
 const PlaceOrderModal = (props) => {
@@ -30,48 +29,90 @@ const PlaceOrderModal = (props) => {
       "auth-token": token,
     },
   };
+  let order = {
+    orderLine,
+    ...orderSummary,
+    billingAddress,
+    paymentType,
+    paymentStatus: false,
+    deliveryStatus: "pending",
+  };
+
+  let khalticonfig = {
+    publicKey: process.env.REACT_APP_KHALTI_PUBLIC_KEY,
+    productIdentity: process.env.REACT_APP_KHALTI_SECRET_KEY,
+    productName: "webmeds",
+    productUrl: "http://localhost:3000/",
+    eventHandler: {
+      async onSuccess(payload) {
+        console.log(payload);
+        await axios.post(
+          "http://localhost:5000/payment/initiatePayment",
+          payload
+        );
+
+        await axios.post(
+          "http://localhost:5000/order/addOrder",
+          { ...order, paymentStatus: true },
+          config
+        );
+        sideeffects();
+      },
+      onError(error) {
+        console.log(error);
+      },
+      onClose() {
+        console.log("widget is closing");
+      },
+    },
+    paymentPreference: [
+      "KHALTI",
+      "EBANKING",
+      "MOBILE_BANKING",
+      "CONNECT_IPS",
+      "SCT",
+    ],
+  };
 
   const placeOrder = async () => {
-    const order = {
-      orderLine,
-      ...orderSummary,
-      billingAddress,
-      paymentType,
-      paymentStatus: false,
-      deliveryStatus: "pending",
-    };
     console.log(order);
 
     if (paymentType === "khalti") {
       let checkout = new KhaltiCheckout(khalticonfig);
       checkout.show({ amount: parseInt(orderSummary.grandTotal * 100) });
-      
+      return;
       // console.log(checkout)
+    } else {
+      const initiateOrder = await axios.post(
+        "http://localhost:5000/order/addOrder",
+        order,
+        config
+      );
     }
+    sideeffects();
+  };
 
-    // const initiateOrder = await axios.post(
-    //   "http://localhost:5000/order/addOrder",
-    //   order,
-    //   config
-    // );
-    // //removes products from cart that has been ordered
-    // for (let i = 0; i < orderLine.length; i++) {
-    //   const response = await axios.delete(
-    //     `http://localhost:5000/cart/removeCart/${orderLine[i]._id}`,
-    //     config
-    //   );
-    //   dispatch(removeItemFromCart({ id: orderLine[i]._id }));
-    // }
-    // //updates(decreases) qty of product when order
-    // for (let i = 0; i < orderLine.length; i++) {
-    //   const response = await axios.post(
-    //     "http://localhost:5000/admin/manage-product/updateQty", {
-    //       id: orderLine[i].productId, qty: orderLine[i].quantity
-    //     }
-    //   )
-    // }
-    // dispatch(confirmOrder(order));
-    // setToggleDiv(false);
+  const sideeffects = async () => {
+    //removes products from cart that has been ordered
+    for (let i = 0; i < orderLine.length; i++) {
+      const response = await axios.delete(
+        `http://localhost:5000/cart/removeCart/${orderLine[i]._id}`,
+        config
+      );
+      dispatch(removeItemFromCart({ id: orderLine[i]._id }));
+    }
+    //updates(decreases) qty of product when order
+    for (let i = 0; i < orderLine.length; i++) {
+      const response = await axios.post(
+        "http://localhost:5000/admin/manage-product/updateQty",
+        {
+          id: orderLine[i].productId,
+          qty: orderLine[i].quantity,
+        }
+      );
+    }
+    dispatch(confirmOrder(order));
+    setToggleDiv(false);
   };
 
   return (

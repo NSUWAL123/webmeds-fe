@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeAdminOrderState } from "../../../redux/adminOrderSlice";
+import khaltilogo from "../../../pictures/logo/khaltilogo.png"
 
 const Order = (props) => {
   const { delState, delOptions, order } = props;
@@ -91,35 +92,44 @@ const Order = (props) => {
         <p>Placed by: {user.name}</p>
       </div>
 
-      <div className="border-b-[1px] border-gray-300">
+      <div className="border-b-[1px] border-gray-300 flex justify-between items-center">
+        <div>
         {/* looping products */}
         {products.map((prod) => {
           return (
-            <div className="flex items-center my-2">
-              <img
-                src={prod.productPicURL}
-                alt=""
-                srcset=""
-                className="w-[60px] h-[60px] mr-4 border rounded-md my-1"
-              />
-              <div className="">
-                <p className="font-medium">{prod.pname}</p>
+            <div>
+              <div className="flex items-center my-2">
+                <img
+                  src={prod.productPicURL}
+                  alt=""
+                  srcset=""
+                  className="w-[60px] h-[60px] mr-4 border rounded-md my-1"
+                />
+                <div className="">
+                  <p className="font-medium">{prod.pname}</p>
 
-                {/* looping orderline to return quantity of each order item, condition ===> productId match hunuparyo, there is no condition productId doesn't match */}
-                {orderLine.map((ord) => {
-                  if (ord.productId === prod._id) {
-                    return (
-                      <p>
-                        Quantity{" "}
-                        <span className="font-semibold">x{ord.quantity}</span>
-                      </p>
-                    );
-                  }
-                })}
+                  {/* looping orderline to return quantity of each order item, condition ===> productId match hunuparyo, there is no condition productId doesn't match */}
+                  {orderLine.map((ord) => {
+                    if (ord.productId === prod._id) {
+                      return (
+                        <p>
+                          Quantity{" "}
+                          <span className="font-semibold">x{ord.quantity}</span>
+                        </p>
+                      );
+                    }
+                  })}
+                </div>
               </div>
             </div>
           );
         })}
+        </div>
+        {(order.paymentType === "khalti") ? (
+            <div className="flex items-center"><p className="text-gray-400 font-medium text-sm">Paid via </p><img src={khaltilogo} alt="" className="w-[60px]"/></div>
+          ) : (
+            <p className="text-gray-400 font-medium text-sm">COD</p>
+          )}
       </div>
 
       <div className="h-[80px] flex flex-col justify-around mb-2">

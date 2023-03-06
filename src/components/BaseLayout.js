@@ -35,6 +35,7 @@ const BaseLayout = () => {
   const dispatch = useDispatch();
   const [showSidebar, setShowSidebar] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [bgdiv, setBgdiv] = useState(false);
 
   let login = isUserLoggedIn();
 
@@ -66,8 +67,8 @@ const BaseLayout = () => {
   }, []);
 
   return (
-    <div className="bg-[#F2F2F2]">
-      <div className="relative font-display xl:text-[18px] flex ">
+    <div className="bg-[#F2F2F2]" >
+      <div className="relative font-display xl:text-[18px] flex">
         <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
           <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
             <div className="flex">
@@ -99,8 +100,8 @@ const BaseLayout = () => {
             ></div> */}
 
             {/* dropdown */}
-            <div className="flex relative z-10 items-center ">
-              <div className="group flex relative">
+            <div className="flex relative z-10 items-center">
+              <div className="group flex relative ">
                 <Link to="/profile">
                   <img
                     src={profile}
@@ -201,10 +202,11 @@ const BaseLayout = () => {
                   </p>
                 </span>
 
+                {/* more button div */}
                 <div
                   className={`${showMore ? "block" : "hidden"} absolute  ${
                     !login ? "-translate-x-[170px]" : "-translate-x-[100px]"
-                  } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md mt-8 lg:mt-10`}
+                  } bg-white shadow-2xl w-[210px] text-[15px] border-t-[1px] duration-500 rounded-md mt-8 lg:mt-10 z-10`}
                 >
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"

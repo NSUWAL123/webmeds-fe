@@ -40,7 +40,7 @@ const SearchBar = () => {
       return;
     }
     navigate(`/search/${searchText}`)
-
+    clearSearch();
   }
 
   return (
