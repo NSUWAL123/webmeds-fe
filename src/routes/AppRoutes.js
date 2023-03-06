@@ -23,6 +23,7 @@ import FilterProductPage from "../pages/FilterProductPage";
 import ManageOrder from "../pages/admin/ManageOrder";
 import ManagePrescriptionOrders from "../pages/admin/ManagePrescriptionOrders";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
+import SearchPage from "../pages/SearchPage";
 
 const AppRoutes = () => {
   return (
@@ -38,6 +39,7 @@ const AppRoutes = () => {
           <Route path="/products/:pname" element={<IndividualProduct/>}/>
           <Route path="/category/:type" element={<FilterProductPage/>}/>
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/search/:keyword" element={<SearchPage />} />
           <Route path="/upload-prescription" element={<UploadPrescriptionPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrderPage />} />

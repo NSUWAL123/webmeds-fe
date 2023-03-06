@@ -35,12 +35,20 @@ const SearchBar = () => {
     clearForm();
   };
 
+  const search = () => {
+    if (searchText === "") {
+      return;
+    }
+    navigate(`/search/${searchText}`)
+
+  }
+
   return (
     <div className="w-screen relative">
       <div className="flex w-screen justify-center font-display md:px-10 mb-[1px] lg:w-[100%] box-border">
         <div className="bg-[#efefef] w-[100%] mx-6 rounded-3xl flex shadow-lg items-center">
           <button className="my-2 w-[12%] flex justify-center">
-            <img src={searchicon} alt="" className="xl:w-6" />
+            <img src={searchicon} alt="" className="xl:w-6" onClick={() => search()}/>
           </button>
           <input
             className="text-[14px] bg-[#efefef] w-[90%]  outline-none"
@@ -84,6 +92,7 @@ const SearchBar = () => {
 
         {/* {returnedProduct !== null && returnedProduct.map(() => {})} */}
       </div>
+      
     </div>
   );
 };

@@ -6,6 +6,7 @@ import description from "../pictures/icons/description.svg";
 import PageNotFound from "./PageNotFound";
 import { notifySuccess } from "../utils/Toast";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
+import ProductNotFound from "../components/ProductNotFound";
 
 const IndividualProduct = () => {
   const params = useParams();
@@ -196,7 +197,7 @@ const IndividualProduct = () => {
       <p>{product.description}</p> */}
         </div>
       ) : (
-        <PageNotFound />
+        <ProductNotFound />
       )}
       <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>

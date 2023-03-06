@@ -91,12 +91,12 @@ const BaseLayout = () => {
               <SearchBar />
             </div>
 
-            <div
+            {/* <div
               className={`w-screen h-screen absolute top-0 left-0 ${
                 showMore ? "block" : "hidden"
               }`}
               onClick={() => toggleMore()}
-            ></div>
+            ></div> */}
 
             {/* dropdown */}
             <div className="flex relative z-10 items-center ">
@@ -111,7 +111,7 @@ const BaseLayout = () => {
 
                 <span
                   className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
+    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
                 >
                   <div
                     className="w-0 h-0 
@@ -120,7 +120,7 @@ const BaseLayout = () => {
    border-r-[8px] border-r-transparent
    mr-2 sm:mr-5 xl:mr-7"
                   ></div>
-                  <p className="bg-gray-700 w-[90px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7">
+                  <p className="bg-gray-700 w-[90px] justify-center flex py-1 rounded-md mr-2 sm:mr-5 xl:mr-7 ">
                     My Profile
                   </p>
                 </span>

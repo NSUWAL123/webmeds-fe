@@ -7,6 +7,8 @@ import CartSummary from "./CartSummary";
 import AddressModal from "../modals/AddressModal";
 import PlaceOrderModal from "../modals/PlaceOrderModal";
 import OrderSuccessModal from "../modals/OrderSuccessModal";
+import khalticonfig from "../khalti/KhaltiConfig";
+import KhaltiCheckout from "khalti-checkout-web";
 
 const CartBilling = () => {
   const dispatch = useDispatch();
@@ -17,9 +19,7 @@ const CartBilling = () => {
   const [showModal, setShowModal] = useState(false);
   const [showPlaceOrderModal, setShowPlaceOrderModal] = useState(false);
 
-  const { orderLine, cartProducts, orderSummary, finalOrder, orderSuccess } = useSelector(
-    (state) => state.cart
-  );
+  const { orderLine, orderSummary } = useSelector((state) => state.cart);
 
   const placeOrder = () => {
     setShowPlaceOrderModal(true);
@@ -109,7 +109,6 @@ const CartBilling = () => {
         />
       )}
       {/* {orderSuccess && <OrderSuccessModal/>} */}
-
     </div>
   );
 };
