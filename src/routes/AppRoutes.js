@@ -16,7 +16,6 @@ import CartPage from "../pages/CartPage";
 import IndividualProduct from "../pages/IndividualProduct";
 import UpdateItem from "../pages/admin/UpdateItem";
 import NotesPage from "../pages/NotesPage";
-import NotificationPage from "../pages/NotificationPage";
 import ChatPage from "../pages/ChatPage";
 import OrderPage from "../pages/OrderPage";
 import FilterProductPage from "../pages/FilterProductPage";
@@ -24,6 +23,7 @@ import ManageOrder from "../pages/admin/ManageOrder";
 import ManagePrescriptionOrders from "../pages/admin/ManagePrescriptionOrders";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SearchPage from "../pages/SearchPage";
+import PrescriptionOrderPage from "../pages/PrescriptionOrderPage";
 
 const AppRoutes = () => {
   return (
@@ -44,7 +44,7 @@ const AppRoutes = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrderPage />} />
           <Route path="/notes" element={<NotesPage />} />
-          <Route path="/notifications" element={<NotificationPage />} />
+          <Route path="/notifications" element={<PrescriptionOrderPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>

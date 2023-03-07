@@ -14,7 +14,8 @@ import more from "../pictures/icons/more.svg";
 import blackcart from "../pictures/icons/cart-black.svg";
 import order from "../pictures/icons/orders.svg";
 import notes from "../pictures/icons/add-note.svg";
-import notification from "../pictures/icons/notification.svg";
+// import notification from "../pictures/icons/notification.svg";
+import prescriptionicn from "../pictures/icons/prescription.svg";
 import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
 import chaticn from "../pictures/icons/chat-icn.svg";
@@ -291,12 +292,12 @@ const BaseLayout = () => {
                     }}
                   >
                     <img
-                      src={notification}
+                      src={prescriptionicn}
                       alt=""
                       width="25px"
                       className="mx-3 my-2"
                     />
-                    <p className="hover:font-medium">Notifications</p>
+                    <p className="hover:font-medium">Prescription Order</p>
                   </div>
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"
@@ -392,7 +393,7 @@ const BaseLayout = () => {
             </div>
           </div>
         </div>
-        <div className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen">
+        <div className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen" onClick={() => setShowMore(false)}>
           <Outlet />
         </div>
 
@@ -403,7 +404,7 @@ const BaseLayout = () => {
         </Link>
       </div>
 
-      <div className="w-[100%]  rounded-t-3xl border mt-8">
+      <div className="w-[100%]  rounded-t-3xl border mt-8" onClick={() => setShowMore(false)}>
         <Footer />
         <div className="text-white bg-[#31D490]  flex justify-center lg:text-lg">
           <p className="py-2">&#169; 2023, webmeds.com</p>

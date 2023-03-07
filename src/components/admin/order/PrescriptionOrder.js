@@ -39,24 +39,39 @@ const PrescriptionOrder = (props) => {
 
   // 1. FULFILL
   const fulfill = () => {
-    dispatch(changePrescriptionOrderState({id: order._id, deliveryStatus: delOptions.processed}))
-  }
+    dispatch(
+      changePrescriptionOrderState({
+        id: order._id,
+        deliveryStatus: delOptions.processed,
+      })
+    );
+  };
 
   // 2. OUT FOR DELIVERY
   const ofd = () => {
-    dispatch(changePrescriptionOrderState({id: order._id, deliveryStatus: delOptions.ofd}))
-  }
+    dispatch(
+      changePrescriptionOrderState({
+        id: order._id,
+        deliveryStatus: delOptions.ofd,
+      })
+    );
+  };
 
   // 3. DELIVERED
   const delivered = () => {
-    dispatch(changePrescriptionOrderState({id: order._id, deliveryStatus: delOptions.delivered}))
-  }
+    dispatch(
+      changePrescriptionOrderState({
+        id: order._id,
+        deliveryStatus: delOptions.delivered,
+      })
+    );
+  };
 
   return (
     <div className="flex flex-col justify-around bg-[#DCF2FB] mt-6 px-5 rounded-lg py-3">
       <div className="h-[55px] md:h-[25px] flex flex-col justify-around md:flex-row md:justify-between">
         <p>
-          <span className="font-medium">Placed on:</span>
+          <span className="font-medium">Placed on: </span>
           {order.date.split("T")[0]}
         </p>
         <p>
@@ -121,6 +136,24 @@ const PrescriptionOrder = (props) => {
           </table>
         </div>
       </div>
+
+      {/* IF NOT REQUEST, ADD DESC, MEDICINES, PRICE TO THE BOTTOM*/}
+      {order.deliveryStatus !== delOptions.request && (
+        <div className="mt-3">
+          <div>
+            <p className="font-medium">Medicines:</p>
+            <p></p>
+          </div>
+          <div>
+            <p className="font-medium">Description:</p>
+            <p></p>
+          </div>
+          <div>
+            <p className="font-medium">Price:</p>
+            <p></p>
+          </div>
+        </div>
+      )}
 
       {/* IF DELIVERY STATUS IS "REQUEST" */}
       {order.deliveryStatus === delOptions.request && (

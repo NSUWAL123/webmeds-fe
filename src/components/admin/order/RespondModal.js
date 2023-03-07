@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import {
@@ -6,21 +6,46 @@ import {
   setShowRespondModal,
 } from "../../../redux/prescriptionSlice";
 import ViewPrescriptionModal from "./ViewPrescriptionModal";
+import { notifyError, notifySuccess } from "../../../utils/Toast";
+import axios from "axios";
 
 const RespondModal = () => {
   const dispatch = useDispatch();
   const { prescription, showRespondModal, showPrescription } = useSelector(
     (state) => state.prescriptionOrder
   );
+  const [price, setPrice] = useState("");
+  const [medicines, setMedicines] = useState("");
+  const [description, setDescription] = useState("");
 
-  const sendQuotation = () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const sendQuotation = async () => {
+    if (!price || !medicines || !description) {
+      notifyError("Empty Fields!!");
+      return;
+    }
+
+    const prescription = await axios.put(
+      `http://localhost:5000/prescription/updateStatus`, {id: showRespondModal.id, medicines: medicines, description: description, price: price, deliveryStatus: "pending"},
+      config
+    );
+
     dispatch(
       changePrescriptionOrderState({
         id: showRespondModal.id,
         deliveryStatus: "pending",
       })
     );
+
+    console.log(price, medicines, description);
+    notifySuccess("Quotation sent to the user.");
   };
+
   return (
     <div className="">
       <div
@@ -43,13 +68,22 @@ const RespondModal = () => {
                     ></h3>
                     <div className="mt-2">
                       <div className="mb-4 flex flex-col">
-                        <p className="mb-1 font-medium">Title:</p>
+                        <p className="mb-1 font-medium">Medicines:</p>
                         <input
                           type="text"
                           className="border p-1"
-                          // value={title}
                           onChange={(e) => {
-                            //   setTitle(e.target.value);
+                            setMedicines(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <div className="mb-4 flex flex-col">
+                        <p className="mb-1 font-medium">Total Price:</p>
+                        <input
+                          type="text"
+                          className="border p-1"
+                          onChange={(e) => {
+                            setPrice(e.target.value);
                           }}
                         />
                       </div>
@@ -59,6 +93,9 @@ const RespondModal = () => {
                           type="text"
                           rows="3"
                           className="border w-full p-1 text resize-none rounded-sm outline-none pl-2"
+                          onChange={(e) => {
+                            setDescription(e.target.value);
+                          }}
                         />
                       </div>
                     </div>
