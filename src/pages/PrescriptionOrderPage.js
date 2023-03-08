@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import UserPrescriptionOrder from "../components/admin/order/UserPrescriptionOrder";
+import ViewPrescriptionModal from "../components/admin/order/ViewPrescriptionModal";
 import { populatePrescription } from "../redux/uploadPrescriptionSlice";
 import ProtectedRoutes from "../routes/ProtectedRoutes";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
@@ -56,7 +58,7 @@ const PrescriptionOrderPage = () => {
   console.log(filteredPrescriptions);
 
   return (
-    <div>
+    <div className="relative">
       <ProtectedRoutes />
       <div className="w-full ">
         <button
@@ -120,6 +122,20 @@ const PrescriptionOrderPage = () => {
           Delivered
         </button>
       </div>
+
+      <div>
+        {filteredPrescriptions.map((order) => {
+          return (
+            <UserPrescriptionOrder
+              delState={delState}
+              delOptions={delOptions}
+              key={order._id}
+              order={order}
+            />
+          );
+        })}
+      </div>
+      
     </div>
   );
 };

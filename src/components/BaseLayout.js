@@ -68,7 +68,7 @@ const BaseLayout = () => {
   }, []);
 
   return (
-    <div className="bg-[#F2F2F2]" >
+    <div className="bg-[#F2F2F2]">
       <div className="relative font-display xl:text-[18px] flex">
         <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
           <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
@@ -113,7 +113,7 @@ const BaseLayout = () => {
 
                 <span
                   className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
+    -translate-x-1/2 translate-y-2/3 opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
                 >
                   <div
                     className="w-0 h-0 
@@ -138,7 +138,7 @@ const BaseLayout = () => {
                 </Link>
                 <span
                   className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
+    -translate-x-1/2 translate-y-2/3 opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
                 >
                   <div
                     className="w-0 h-0 
@@ -153,7 +153,7 @@ const BaseLayout = () => {
                   </p>
                 </span>
               </div>
-              <div className="group flex relative">
+              <div className="group flex relative ">
                 <Link to="upload-prescription">
                   <img
                     src={camera}
@@ -162,8 +162,8 @@ const BaseLayout = () => {
                   />
                 </Link>
                 <span
-                  className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center "
+                  className=" group-hover:opacity-100 transition-opacity px-2 text-sm text-gray-100 absolute left-1/2 
+    -translate-x-1/2 translate-y-2/3 opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
                 >
                   <div
                     className="w-0 h-0 
@@ -184,12 +184,12 @@ const BaseLayout = () => {
                   alt=""
                   className={`${
                     !login ? "" : "mr-3"
-                  } lg:mr-6 w-[30px] sm:w-[30px] lg:w-[35px]`}
+                  } lg:mr-6 w-[30px]`}
                   onClick={() => toggleMore()}
                 />
                 <span
                   className="group-hover:opacity-100 transition-opacity  px-2 text-sm text-gray-100 absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
+    -translate-x-1/2 translate-y-2/3 opacity-0  mx-auto w-[55px] justify-center flex flex-col items-center"
                 >
                   <div
                     className="w-0 h-0 
@@ -287,7 +287,7 @@ const BaseLayout = () => {
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"
                     onClick={() => {
-                      navigate("/notifications");
+                      navigate("/prescription-order");
                       setShowMore(false);
                     }}
                   >
@@ -393,7 +393,10 @@ const BaseLayout = () => {
             </div>
           </div>
         </div>
-        <div className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen" onClick={() => setShowMore(false)}>
+        <div
+          className="pt-40 md:pt-44 pb-8 lg:pt-32 px-4 lg:px-12 xl:px-20 bg-[#F2F2F2] w-[100%] min-h-screen"
+          onClick={() => setShowMore(false)}
+        >
           <Outlet />
         </div>
 
@@ -404,7 +407,10 @@ const BaseLayout = () => {
         </Link>
       </div>
 
-      <div className="w-[100%]  rounded-t-3xl border mt-8" onClick={() => setShowMore(false)}>
+      <div
+        className="w-[100%]  rounded-t-3xl border mt-8"
+        onClick={() => setShowMore(false)}
+      >
         <Footer />
         <div className="text-white bg-[#31D490]  flex justify-center lg:text-lg">
           <p className="py-2">&#169; 2023, webmeds.com</p>
