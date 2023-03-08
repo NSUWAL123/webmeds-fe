@@ -35,7 +35,7 @@ const PrescriptionOrder = (props) => {
     })();
   }, []);
 
-  console.log(order._id);
+  // console.log(order._id);
 
   // 1. FULFILL
   const fulfill = () => {
@@ -134,26 +134,28 @@ const PrescriptionOrder = (props) => {
               })}
             </tbody>
           </table>
+          <p className="mt-2">
+            <span className="font-medium">Note: </span>
+            {order.note}
+          </p>
+          {/* IF NOT REQUEST, ADD DESC, MEDICINES, PRICE TO THE BOTTOM*/}
+          {order.deliveryStatus !== delOptions.request && (
+            <div className="mt-1">
+              <div>
+                <p className="mt-1">
+                  <span className="font-medium ">Description: </span>
+                  {order.description}
+                </p>
+              </div>
+              <div>
+                <p className="mt-1 text-[#E25247]  font-semibold">
+                  <span className="font-medium">Price: </span>Rs. {order.quotedPrice}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* IF NOT REQUEST, ADD DESC, MEDICINES, PRICE TO THE BOTTOM*/}
-      {order.deliveryStatus !== delOptions.request && (
-        <div className="mt-3">
-          <div>
-            <p className="font-medium">Medicines:</p>
-            <p></p>
-          </div>
-          <div>
-            <p className="font-medium">Description:</p>
-            <p></p>
-          </div>
-          <div>
-            <p className="font-medium">Price:</p>
-            <p></p>
-          </div>
-        </div>
-      )}
 
       {/* IF DELIVERY STATUS IS "REQUEST" */}
       {order.deliveryStatus === delOptions.request && (

@@ -15,7 +15,7 @@ const RespondModal = () => {
     (state) => state.prescriptionOrder
   );
   const [price, setPrice] = useState("");
-  const [medicines, setMedicines] = useState("");
+  // const [medicines, setMedicines] = useState("");
   const [description, setDescription] = useState("");
 
   const config = {
@@ -25,24 +25,36 @@ const RespondModal = () => {
   };
 
   const sendQuotation = async () => {
-    if (!price || !medicines || !description) {
+    if (!price || !description) {
       notifyError("Empty Fields!!");
       return;
     }
 
-    const prescription = await axios.put(
-      `http://localhost:5000/prescription/updateStatus`, {id: showRespondModal.id, medicines: medicines, description: description, price: price, deliveryStatus: "pending"},
+    let id = showRespondModal.id;
+    let deliveryStatus = "pending";
+
+    const {data} = await axios.get(
+      `http://localhost:5000/prescription/getPrescriptionById/${id}`,
+      config
+    );
+
+    // console.log(prescription.data)
+
+
+    const updatedPrescription = await axios.put(
+      `http://localhost:5000/prescription/updateStatus`,
+      { ...data, quotedPrice: price, description, deliveryStatus },
       config
     );
 
     dispatch(
       changePrescriptionOrderState({
         id: showRespondModal.id,
-        deliveryStatus: "pending",
+        deliveryStatus: deliveryStatus,
       })
     );
 
-    console.log(price, medicines, description);
+    // console.log(price, medicines, description);
     notifySuccess("Quotation sent to the user.");
   };
 
@@ -62,12 +74,12 @@ const RespondModal = () => {
               <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 w-full">
                 <div className="sm:flex sm:items-start w-full">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                    <h3
+                    {/* <h3
                       className="text-lg font-medium leading-6 text-gray-900"
                       id="modal-title"
-                    ></h3>
+                    >Quotation for Medicines: </h3> */}
                     <div className="mt-2">
-                      <div className="mb-4 flex flex-col">
+                      {/* <div className="mb-4 flex flex-col">
                         <p className="mb-1 font-medium">Medicines:</p>
                         <input
                           type="text"
@@ -76,12 +88,12 @@ const RespondModal = () => {
                             setMedicines(e.target.value);
                           }}
                         />
-                      </div>
+                      </div> */}
                       <div className="mb-4 flex flex-col">
                         <p className="mb-1 font-medium">Total Price:</p>
                         <input
-                          type="text"
-                          className="border p-1"
+                          type="number"
+                          className="rounded-sm outline-none border p-1"
                           onChange={(e) => {
                             setPrice(e.target.value);
                           }}
