@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import eye from "../../../pictures/icons/eyeopen.svg";
 import { setShowPrescription } from "../../../redux/prescriptionSlice";
+import AcceptQuotationModal from "../../modals/AcceptQuotationModal";
 import ViewPrescriptionModal from "./ViewPrescriptionModal";
 
 const UserPrescriptionOrder = (props) => {
   const { order } = props;
   const dispatch = useDispatch();
   const { showPrescription } = useSelector((state) => state.prescriptionOrder);
+  const [showAQModal, setShowAQModal] = useState(false);
 
   return (
     <div className="flex flex-col justify-around bg-[#ffffff] mt-6 px-5 rounded-lg py-3">
@@ -102,7 +104,7 @@ const UserPrescriptionOrder = (props) => {
               <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
                 Decline
               </button>
-              <button className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2">
+              <button className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2" onClick={() => setShowAQModal(true)}>
                 Accept Quotation
               </button>
             </div>
@@ -111,6 +113,9 @@ const UserPrescriptionOrder = (props) => {
         <div className="fixed w-[89%] top-0 h-full flex justify-center items-center mt-8">
           <ViewPrescriptionModal imgURL={order.prescriptionPicURL} />
         </div>
+      )}
+      {showAQModal && (
+        <AcceptQuotationModal setShowAQModal={setShowAQModal} order={order}/>
       )}
     </div>
   );

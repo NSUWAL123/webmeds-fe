@@ -69,7 +69,7 @@ const BaseLayout = () => {
 
   return (
     <div className="bg-[#F2F2F2]">
-      <div className="relative font-display xl:text-[18px] flex">
+      <div className="relative -fontdisplay xl:text-[18px] flex">
         <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
           <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
             <div className="flex">

@@ -35,6 +35,7 @@ const CartBilling = () => {
       </div>
 
       <div className="lg:flex lg:justify-between">
+        {/* YOUR BILLING DETAILS CONTAINER */}
         <div className="bg-white rounded-md p-6 h-[350px] flex flex-col justify-between mb-6 lg:w-[60%]">
           <h1 className="text-[22px] font-medium">Your Billing Details</h1>
           <div onClick={() => setShowModal(true)}>
@@ -61,6 +62,7 @@ const CartBilling = () => {
           </div>
         </div>
 
+        {/* ORDER SUMMARY DETAILS CONTAINER */}
         <div className="bg-white rounded-md p-6 lg:w-[35%]">
           <h1 className="text-[22px] font-medium">Order Summary</h1>
           {orderLine.map((order) => {
