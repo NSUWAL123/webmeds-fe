@@ -272,7 +272,7 @@ const BaseLayout = () => {
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"
                     onClick={() => {
-                      navigate("/notes");
+                      navigate("/my-medicines");
                       setShowMore(false);
                     }}
                   >
@@ -282,7 +282,7 @@ const BaseLayout = () => {
                       width="25px"
                       className="mx-3 my-2"
                     />
-                    <p className="hover:font-medium">Notes</p>
+                    <p className="hover:font-medium">My Medicines</p>
                   </div>
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"

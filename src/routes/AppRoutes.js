@@ -43,7 +43,7 @@ const AppRoutes = () => {
           <Route path="/upload-prescription" element={<UploadPrescriptionPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrderPage />} />
-          <Route path="/notes" element={<NotesPage />} />
+          <Route path="/my-medicines" element={<NotesPage />} />
           <Route path="/prescription-order" element={<PrescriptionOrderPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="*" element={<PageNotFound />} />

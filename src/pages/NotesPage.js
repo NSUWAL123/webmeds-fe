@@ -63,10 +63,10 @@ const NotesPage = () => {
         {/* add notes section */}
         <div className="w-full bg-white h-[380px] flex flex-col justify-evenly px-4 max-w-[650px] rounded-lg  shadow-2xl">
           <div className="flex justify-center text-2xl font-semibold">
-            <h1>Add a Note</h1>
+            <h1>Add a Medicine</h1>
           </div>
           <div>
-            <p className="font-medium text-lg mb-1">Title</p>
+            <p className="font-medium text-lg mb-1">Medicine Name</p>
             <input
               type="text"
               className="border w-full px-1 text-lg rounded-sm outline-none pl-2"
@@ -87,7 +87,7 @@ const NotesPage = () => {
               className="bg-[#37474F] text-white px-3 py-1 rounded-md"
               onClick={() => AddNote()}
             >
-              Add Note
+              Add Medicine
             </button>
           </div>
         </div>
@@ -97,7 +97,7 @@ const NotesPage = () => {
           <div className="mt-9 w-full flex justify-center">
             {/* if no notes present */}
             <div className="bg-white flex justify-center items-center h-[100px] text-2xl font-semibold max-w-[650px] w-full rounded-lg shadow-2xl">
-              <h1>No Notes To Display</h1>
+              <h1>No medicines added yet!</h1>
             </div>
           </div>
         )}
@@ -105,7 +105,7 @@ const NotesPage = () => {
         {noteData.length !== 0 && (
           <div className="mt-9 w-full bg-white px-4 rounded-lg  shadow-2xl ">
             <div className="flex justify-center py-5">
-              <h1 className="text-2xl font-semibold">Your Notes</h1>
+              <h1 className="text-2xl font-semibold">Your Medicines</h1>
             </div>
 
             <div className="md:flex md:flex-wrap justify-around">

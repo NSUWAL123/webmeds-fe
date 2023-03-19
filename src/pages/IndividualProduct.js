@@ -186,8 +186,7 @@ const IndividualProduct = () => {
                 <h1 className="text-[18px] lg:text-[20px] py-2">
                   Product Details:
                 </h1>
-                <textarea className="text-[#7A7A7A] pb-3 font-normal w-full outline-none h-[300px]" value={product.description} >
-                  
+                <textarea className="text-[#7A7A7A] pb-3 font-normal w-full outline-none h-[300px]" value={product.description} readOnly >             
                 </textarea>
               </div>
             </div>

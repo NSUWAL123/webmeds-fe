@@ -62,7 +62,7 @@ const EditNote = (props) => {
                     ></h3>
                     <div className="mt-2">
                       <div className="mb-4 flex flex-col">
-                        <p className="mb-1 font-medium">Title:</p>
+                        <p className="mb-1 font-medium">Medicine:</p>
                         <input
                           type="text"
                           className="border p-1"
