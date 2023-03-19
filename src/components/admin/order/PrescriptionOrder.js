@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import eye from "../../../pictures/icons/eyeopen.svg";
+import location from "../../../pictures/icons/location.svg";
+import khalti from "../../../pictures/logo/khaltilogo.png";
+
 import {
   changePrescriptionOrderState,
   setShowPrescription,
@@ -38,37 +41,62 @@ const PrescriptionOrder = (props) => {
   // console.log(order._id);
 
   // 1. FULFILL
-  const fulfill = () => {
+  const fulfill = async () => {
     dispatch(
       changePrescriptionOrderState({
         id: order._id,
         deliveryStatus: delOptions.processed,
       })
     );
+
+    const updatedDelStatus = {...order, deliveryStatus: delOptions.processed}
+    const updateStatus = await axios.put(
+      "http://localhost:5000/prescription/updateStatus",
+      updatedDelStatus,
+      config
+    )
   };
 
   // 2. OUT FOR DELIVERY
-  const ofd = () => {
+  const ofd = async () => {
     dispatch(
       changePrescriptionOrderState({
         id: order._id,
         deliveryStatus: delOptions.ofd,
       })
     );
+
+    const updatedDelStatus = {...order, deliveryStatus: delOptions.ofd}
+    const updateStatus = await axios.put(
+      "http://localhost:5000/prescription/updateStatus",
+      updatedDelStatus,
+      config
+    )
   };
 
   // 3. DELIVERED
-  const delivered = () => {
+  const delivered = async () => {
     dispatch(
       changePrescriptionOrderState({
         id: order._id,
         deliveryStatus: delOptions.delivered,
       })
     );
+
+    const updatedDelStatus = {...order, deliveryStatus: delOptions.delivered}
+    const updateStatus = await axios.put(
+      "http://localhost:5000/prescription/updateStatus",
+      updatedDelStatus,
+      config
+    )
   };
 
   return (
     <div className="flex flex-col justify-around bg-[#DCF2FB] mt-6 px-5 rounded-lg py-3">
+      <div className="flex items-center justify-start">
+        <img src={location} alt="" className="w-[16px] mr-2" />
+        <p className="text-xs">{order.billingAddress}</p>
+      </div>
       <div className="h-[55px] md:h-[25px] flex flex-col justify-around md:flex-row md:justify-between">
         <p>
           <span className="font-medium">Placed on: </span>
@@ -147,10 +175,15 @@ const PrescriptionOrder = (props) => {
                   {order.description}
                 </p>
               </div>
-              <div>
-                <p className="mt-1 text-[#E25247]  font-semibold">
-                  <span className="font-medium">Price: </span>Rs. {order.quotedPrice}
+              <div className="flex items-center">
+                <p className=" text-[#E25247]  font-semibold mr-2">
+                  <span className="font-medium">Price: </span>Rs.{" "}
+                  {order.quotedPrice}
                 </p>
+                <div className="flex items-center">
+                  <p className="text-xs italic">*Paid via </p>
+                  <img src={khalti} alt="" className="w-[60px]"/>
+                </div>
               </div>
             </div>
           )}

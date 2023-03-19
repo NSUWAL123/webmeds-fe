@@ -13,7 +13,7 @@ const ForgotPasswordPage = () => {
         </div>
         <div className="flex flex-col items-center">
           <img src={forgotpwdpic} alt="" className="w-[250px] md:w-[280px]" />
-          <p className="font-medium text-lg md:text-xl">Forgot your password</p>
+          <p className="font-medium text-lg md:text-xl">Forgot your password?</p>
         </div>
         <p className="text-center text-gray-600 md:text-lg">
           Enter your email address below to reset your password.

@@ -4,12 +4,16 @@ import eye from "../../../pictures/icons/eyeopen.svg";
 import { setShowPrescription } from "../../../redux/prescriptionSlice";
 import AcceptQuotationModal from "../../modals/AcceptQuotationModal";
 import ViewPrescriptionModal from "./ViewPrescriptionModal";
+import khalti from "../../../pictures/logo/khaltilogo.png";
 
 const UserPrescriptionOrder = (props) => {
   const { order } = props;
   const dispatch = useDispatch();
   const { showPrescription } = useSelector((state) => state.prescriptionOrder);
   const [showAQModal, setShowAQModal] = useState(false);
+  const [ord, setOrd] = useState({});
+  // const [imgURL, setImgURL] = useState("");
+  console.log(ord)
 
   return (
     <div className="flex flex-col justify-around bg-[#ffffff] mt-6 px-5 rounded-lg py-3">
@@ -28,7 +32,11 @@ const UserPrescriptionOrder = (props) => {
           <button
             className="flex items-center bg-[#FFC655] hover:bg-[#fecd6a] w-fit px-2 py-1 rounded-md"
             onClick={() =>
-              dispatch(setShowPrescription({ setTo: true, id: order._id }))
+              {dispatch(setShowPrescription({ setTo: true, id: "" }));
+              setOrd({})
+              setOrd(order);
+              // setImgURL(order.prescriptionPicURL)
+            }
             }
           >
             <img src={eye} alt="" className="mr-2" />
@@ -92,30 +100,43 @@ const UserPrescriptionOrder = (props) => {
                 <p className="mt-1 text-[#E25247]  font-semibold">
                   <span className="font-medium">Price: </span>Rs.{" "}
                   {order.quotedPrice}
+                    <span className="italic font-medium text-xs text-[#AAAAAA]">
+                    {" "}
+                    *excluding Rs.50 delivery charge
+                  </span>
                 </p>
+                {order.isPriceAccepted === "accepted" && (
+                  <div className="flex items-center">
+                    <p className="text-xs italic text-[#AAAAAA] font-medium">*Paid via </p>
+                    <img src={khalti} alt="" className="w-[60px]" />
+                  </div>
+                )}
               </div>
             </div>
           )}
         </div>
       </div>
-        {order.deliveryStatus === "pending" &&
-          order.isPriceAccepted === "pending" && (
-            <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-300 md:pt-2">
-              <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
-                Decline
-              </button>
-              <button className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2" onClick={() => setShowAQModal(true)}>
-                Accept Quotation
-              </button>
-            </div>
-          )}
+      {order.deliveryStatus === "pending" &&
+        order.isPriceAccepted === "pending" && (
+          <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-300 md:pt-2">
+            <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+              Decline
+            </button>
+            <button
+              className="bg-[#3ad192] hover:bg-[#32de96]  text-white px-2 py-1 rounded-md m-2"
+              onClick={() => setShowAQModal(true)}
+            >
+              Accept Quotation
+            </button>
+          </div>
+        )}
       {showPrescription.show && (
         <div className="fixed w-[89%] top-0 h-full flex justify-center items-center mt-8">
-          <ViewPrescriptionModal imgURL={order.prescriptionPicURL} />
+          <ViewPrescriptionModal order={ord} />
         </div>
       )}
       {showAQModal && (
-        <AcceptQuotationModal setShowAQModal={setShowAQModal} order={order}/>
+        <AcceptQuotationModal setShowAQModal={setShowAQModal} order={order} />
       )}
     </div>
   );

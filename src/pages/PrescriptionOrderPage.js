@@ -29,8 +29,6 @@ const PrescriptionOrderPage = () => {
   }, []);
   const prescriptions = useSelector((state) => state.uploadPrescription);
 
-  // console.log(prescriptions);
-
   //four different delivery states
   const delOptions = {
     request: "request",
@@ -43,16 +41,16 @@ const PrescriptionOrderPage = () => {
   const [delState, setDelState] = useState(delOptions.quotation);
 
   const filteredPrescriptions = prescriptions.filter((prescription) => {
+    if (delState === delOptions.request) {
+      return prescription.deliveryStatus === delOptions.request
+    }
     if (delState === "quotation") {
       return (
         prescription.deliveryStatus === delOptions.pending &&
         prescription.isPriceAccepted === "pending"
       );
     }
-    if (delState === delOptions.pending) {
-      return prescription.isPriceAccepted === "accepted";
-    }
-    return prescription.deliveryStatus === delState;
+    return prescription.deliveryStatus === delState && prescription.isPriceAccepted === "accepted";
   });
 
   console.log(filteredPrescriptions);

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeAdminOrderState } from "../../../redux/adminOrderSlice";
 import khaltilogo from "../../../pictures/logo/khaltilogo.png"
+import location from "../../../pictures/icons/location.svg"
 
 const Order = (props) => {
   const { delState, delOptions, order } = props;
@@ -87,6 +88,10 @@ const Order = (props) => {
 
   return (
     <div className="border-b-[1px] border-black my-6">
+      <div className="flex items-center justify-start">
+        <img src={location} alt="" className="w-[16px] mr-2" />
+        <p className="text-xs text-[#AAAAAA]">{order.billingAddress}</p>
+      </div>
       <div className="text-gray-500 md:flex md:justify-between">
         <p>Placed on: {order.date.split("T")[0]}</p>
         <p>Placed by: {user.name}</p>

@@ -13,9 +13,11 @@ import axios from "axios";
 import { getTokenFromLocalStorage } from "../../utils/handleToken";
 import KhaltiCheckout from "khalti-checkout-web";
 import ThankYouOrdering from "./ThankYouOrdering";
+import Loading from "../Loading";
 
 const PlaceOrderModal = (props) => {
   const [toggleDiv, setToggleDiv] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { setShowPlaceOrderModal, paymentType } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,7 +48,8 @@ const PlaceOrderModal = (props) => {
     productUrl: "http://localhost:3000/",
     eventHandler: {
       async onSuccess(payload) {
-        console.log(payload);
+        setLoading(true);
+        
         await axios.post(
           "http://localhost:5000/payment/initiatePayment",
           payload
@@ -111,6 +114,7 @@ const PlaceOrderModal = (props) => {
       );
     }
     dispatch(confirmOrder(order));
+    setLoading(false);
     setToggleDiv(false);
   };
 
@@ -180,6 +184,7 @@ const PlaceOrderModal = (props) => {
       ) : (
         <ThankYouOrdering/>
       )}
+      {loading && <Loading/>}
     </>
   );
 };

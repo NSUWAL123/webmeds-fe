@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import addSym from "../../pictures/icons/add-symbol.svg";
 import { initiatePresOrder } from "../../redux/uploadPrescriptionSlice";
 import { getTokenFromLocalStorage } from "../../utils/handleToken";
+import Loading from "../Loading";
 import AddressModal from "./AddressModal";
 import ThankYouOrdering from "./ThankYouOrdering";
 
@@ -14,8 +15,9 @@ const AcceptQuotationModal = (props) => {
   const { billingAddress } = useSelector((state) => state.user);
 
   const [showModal, setShowModal] = useState(false);
-  const [paymentType, setPaymentType] = useState("cod");
+  const [paymentType, setPaymentType] = useState("khalti");
   const [toggleDiv, setToggleDiv] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const { setShowAQModal, order } = props;
   const dispatch = useDispatch();
@@ -34,6 +36,8 @@ const AcceptQuotationModal = (props) => {
     productUrl: "http://localhost:3000/",
     eventHandler: {
       async onSuccess(payload) {
+        setLoading(true)
+        
         await axios.post(
           "http://localhost:5000/payment/initiatePayment",
           payload
@@ -72,6 +76,7 @@ const AcceptQuotationModal = (props) => {
 
   const sideeffects = async () => {
     // dispatch(initiatePresOrder(updatedOrder));
+    setLoading(false);
     setToggleDiv(false);
   };
 
@@ -81,7 +86,7 @@ const AcceptQuotationModal = (props) => {
     // if khalti or cod check
     if (paymentType === "khalti") {
       let checkout = new KhaltiCheckout(khalticonfig);
-      checkout.show({ amount: parseInt(quotedPrice * 100) });
+      checkout.show({ amount: parseInt((quotedPrice + 50) * 100)});
       return;
     } else {
       const updatedOrder = {
@@ -138,10 +143,11 @@ const AcceptQuotationModal = (props) => {
                         className="border w-full p-1"
                         onChange={(e) => setPaymentType(e.target.value)}
                       >
-                        <option value="cod">Cash on Delivery</option>
+                        {/* <option value="cod">Cash on Delivery</option> */}
                         <option value="khalti">Khalti</option>
                       </select>
                     </div>
+                    <p className="text-xs text-[#8d8d8d] font-medium">*Only pre-prepayments available</p>
                     {showModal && <AddressModal setShowModal={setShowModal} />}
                   </div>
                   <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
@@ -173,6 +179,7 @@ const AcceptQuotationModal = (props) => {
       ) : (
         <ThankYouOrdering />
       )}
+      {loading && <Loading/>}
       {/* {showThankyou && <ThankYouOrdering />} */}
       <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>

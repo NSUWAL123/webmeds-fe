@@ -173,7 +173,7 @@ const UploadPrescriptionPage = () => {
                   <img
                     src={previewSource}
                     alt=""
-                    className="h-[150px] bg-red-300 border-[1px] border-[#37474F]"
+                    className="h-[150px] border-[1px] border-[#37474F]"
                   />
                 </div>
               ) : (

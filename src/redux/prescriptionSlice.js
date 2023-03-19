@@ -34,8 +34,8 @@ export const prescriptionSlice = createSlice({
       state.showPrescription.show = setTo;
       for (let i = 0; i < state.prescription.length; i++) {
         if (state.prescription[i]._id === id) {
-          state.showPrescription.imgLink =
-            state.prescription[i].prescriptionPicURL;
+          state.showPrescription.imgLink = "";
+          state.showPrescription.imgLink = state.prescription[i].prescriptionPicURL;
         }
       }
     },
