@@ -43,6 +43,12 @@ const SearchBar = () => {
     clearSearch();
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      search()
+    }
+  };
+
   return (
     <div className="w-screen relative">
       <div className="flex w-screen justify-center font-display md:px-10 mb-[1px] lg:w-[100%] box-border">
@@ -54,6 +60,7 @@ const SearchBar = () => {
             className="text-[14px] bg-[#efefef] w-[90%]  outline-none"
             type="text"
             placeholder="Search for Products, Medicine..."
+            onKeyDown={handleKeyDown}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}

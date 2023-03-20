@@ -10,7 +10,6 @@ import {
   setShowRespondModal,
 } from "../../../redux/prescriptionSlice";
 import RespondModal from "./RespondModal";
-import ViewPrescriptionModal from "./ViewPrescriptionModal";
 
 const PrescriptionOrder = (props) => {
   const { delState, delOptions, order } = props;

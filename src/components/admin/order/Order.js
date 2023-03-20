@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { changeAdminOrderState } from "../../../redux/adminOrderSlice";
 import khaltilogo from "../../../pictures/logo/khaltilogo.png"
 import location from "../../../pictures/icons/location.svg"
+import {getTokenFromLocalStorage} from "../../../utils/handleToken"
 
 const Order = (props) => {
   const { delState, delOptions, order } = props;
@@ -15,6 +16,13 @@ const Order = (props) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
+    },
+  };
+
+  const adminConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": getTokenFromLocalStorage(),
     },
   };
 
@@ -51,7 +59,7 @@ const Order = (props) => {
     const orderUpdate = await axios.put(
       `http://localhost:5000/order/updateOrder`,
       state,
-      config
+      adminConfig
     );
     dispatch(changeAdminOrderState(state));
   };
@@ -65,7 +73,7 @@ const Order = (props) => {
     const orderUpdate = await axios.put(
       `http://localhost:5000/order/updateOrder`,
       state,
-      config
+      adminConfig
     );
     dispatch(changeAdminOrderState(state));
   };
@@ -79,7 +87,7 @@ const Order = (props) => {
     const orderUpdate = await axios.put(
       `http://localhost:5000/order/updateOrder`,
       state,
-      config
+      adminConfig
     );
     dispatch(changeAdminOrderState(state));
   };

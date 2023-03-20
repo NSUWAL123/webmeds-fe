@@ -75,8 +75,8 @@ export const cartSlice = createSlice({
     updateOrderSummary: (state, action) => {
       state.orderSummary = action.payload
       if (action.payload.grandTotal <= 1500) {
-        state.orderSummary.deliveryCharge = 150
-        state.orderSummary.grandTotal += 150
+        state.orderSummary.deliveryCharge = 50
+        state.orderSummary.grandTotal += 50
       } else {
         state.orderSummary.deliveryCharge = 0
       }

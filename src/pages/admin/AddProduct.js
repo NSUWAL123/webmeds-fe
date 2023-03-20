@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast";
 import ClipLoader from "react-spinners/ClipLoader";
 import { clearForm } from "../../utils/clearForm";
+import { getTokenFromLocalStorage } from "../../utils/handleToken";
 
 const AddProduct = () => {
   const [pname, setPname] = useState("");
@@ -23,6 +24,13 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
 
   const maxDate = new Date().toISOString().split("T")[0];
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": getTokenFromLocalStorage(),
+    },
+  };
 
   const addProduct = async () => {
     if (
@@ -65,12 +73,6 @@ const AddProduct = () => {
       expiry,
       previewSource,
       description,
-    };
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
     };
 
     try {
@@ -173,8 +175,8 @@ const AddProduct = () => {
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="OTC Medicines">OTC Medicines</option>
-                <option value="Home Essentials">Home Essentials</option>
+                <option value="OTC">OTC</option>
+                <option value="Household">Household</option>
                 <option value="Health & Nutrition">Health & Nutrition</option>
                 <option value="Skin Care">Skin Care</option>
                 <option value="Hair Care">Hair Care</option>

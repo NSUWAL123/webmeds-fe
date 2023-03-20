@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyWarning, notifySuccess } from "../../utils/Toast";
 import { useParams } from "react-router-dom";
+import {getTokenFromLocalStorage} from "../../utils/handleToken"
 
 const UpdateItem = () => {
   const [pname, setPname] = useState("");
@@ -73,6 +74,7 @@ const UpdateItem = () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "auth-token": getTokenFromLocalStorage(),
       },
     };
 

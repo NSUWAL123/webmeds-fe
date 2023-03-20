@@ -18,11 +18,13 @@ const ProductItem = (props) => {
       }}
     >
       <div className="relative flex justify-center items-center">
-        <img
-          src={product.productPicURL}
-          alt=""
-          className="w-[145px] h-[145px] lg:w-[200px] lg:h-[200px] border rounded-md "
-        />
+        <div className="w-[145px] h-[145px] lg:w-[200px] lg:h-[200px] border rounded-md flex items-center">
+          <img
+            src={product.productPicURL}
+            alt=""
+            className="w-full"
+          />
+        </div>
         {product.stock === 0 && (
           <p className="w-[145px] lg:w-[200px] text-md text-center bg-black opacity-75 mb-2 text-white absolute">
             Out of Stock

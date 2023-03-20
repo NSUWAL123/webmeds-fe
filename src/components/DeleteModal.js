@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { notifySuccess, notifyWarning } from "../utils/Toast";
+import {getTokenFromLocalStorage} from "../utils/handleToken";
 
 const DeleteModal = (props) => {
   const { indproduct, setShowDeleteModal, products, setProducts } = props;
@@ -9,6 +10,7 @@ const DeleteModal = (props) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "auth-token": getTokenFromLocalStorage(),
       },
     };
 
