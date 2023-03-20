@@ -63,7 +63,7 @@ const NotesPage = () => {
         {/* add notes section */}
         <div className="w-full bg-white h-[380px] flex flex-col justify-evenly px-4 max-w-[650px] rounded-lg  shadow-2xl">
           <div className="flex justify-center text-2xl font-semibold">
-            <h1>Add a Medicine</h1>
+            <h1>Medicine</h1>
           </div>
           <div>
             <p className="font-medium text-lg mb-1">Medicine Name</p>

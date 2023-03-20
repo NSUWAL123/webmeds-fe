@@ -133,7 +133,9 @@ const PrescriptionOrderPage = () => {
           );
         })}
       </div>
-      
+      {filteredPrescriptions.length === 0 && (
+        <p className="text-[#7b7b7b] font-semibold text-2xl h-[400px] flex items-center justify-center">Nothing to display here!</p>
+      )}
     </div>
   );
 };

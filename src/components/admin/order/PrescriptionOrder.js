@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import eye from "../../../pictures/icons/eyeopen.svg";
 import location from "../../../pictures/icons/location.svg";
 import khalti from "../../../pictures/logo/khaltilogo.png";
-
 import {
   changePrescriptionOrderState,
   setShowPrescription,

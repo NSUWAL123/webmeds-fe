@@ -1,6 +1,7 @@
-export const setUserToLocalStorage = (isAuthenticated, token) => {
+export const setUserToLocalStorage = (isAuthenticated, token, role) => {
     localStorage.setItem("isAuthenticated", isAuthenticated);
     localStorage.setItem("token", token)
+    // localStorage.setItem("role", role)
 }
 
 export const getTokenFromLocalStorage = () => {
@@ -8,9 +9,12 @@ export const getTokenFromLocalStorage = () => {
     return token;
 }
 
+// export const getRoleFromLocalStorage
+
 export const removeUserFromLocalStorage = () => {
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("token");
+    // localStorage.setItem("role")
   };
 
 export const isUserLoggedIn = () => {

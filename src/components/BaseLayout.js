@@ -14,7 +14,6 @@ import more from "../pictures/icons/more.svg";
 import blackcart from "../pictures/icons/cart-black.svg";
 import order from "../pictures/icons/orders.svg";
 import notes from "../pictures/icons/add-note.svg";
-// import notification from "../pictures/icons/notification.svg";
 import prescriptionicn from "../pictures/icons/prescription.svg";
 import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
@@ -79,14 +78,17 @@ const BaseLayout = () => {
                 className="w-max pr-4 xl:w-[55px] xl:mr-4 cursor-pointer md:hidden"
                 onClick={() => setShowSidebar(true)}
               />
-              <img
-                src={logo}
-                alt=""
-                className="w-[139px] xl:w-[180px] cursor-pointer"
-                onClick={() => {
-                  navigate("/");
-                }}
-              />
+              <div className="relative">
+                <img
+                  src={logo}
+                  alt=""
+                  className="w-[139px] xl:w-[180px] cursor-pointer"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                />
+                <p className="absolute -top-1 -right-6 text-xs bg-[#FFC655] text-white px-2 rounded-tl-xl rounded-br-xl xl:top-0 xl:-right-5">Beta</p>
+              </div>
             </div>
 
             <div className="hidden lg:w-[60%] lg:flex py-1">
@@ -222,7 +224,7 @@ const BaseLayout = () => {
                       width="25px"
                       className="mx-3 my-2"
                     />
-                    <p className="hover:font-medium">My Profile</p>
+                    <p className="hover:font-medium duration-200">My Profile</p>
                   </div>
                   <div
                     className="flex items-center border-b-[1px] cursor-pointer"

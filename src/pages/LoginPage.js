@@ -56,7 +56,7 @@ const LoginPage = () => {
       }
       if (data.lvl === "success") {
         notifySuccess(data.message);
-        setUserToLocalStorage("authenticated", data.data);
+        setUserToLocalStorage("authenticated", data.data, data.role);
         navigate("/");
         return;
       }

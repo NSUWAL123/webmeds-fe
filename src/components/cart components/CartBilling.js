@@ -6,6 +6,10 @@ import addSym from "../../pictures/icons/add-symbol.svg";
 import CartSummary from "./CartSummary";
 import AddressModal from "../modals/AddressModal";
 import PlaceOrderModal from "../modals/PlaceOrderModal";
+import khaltilogo from "../../pictures/logo/khaltilogo.png"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { notifyError } from "../../utils/Toast";
 
 const CartBilling = () => {
   const dispatch = useDispatch();
@@ -19,6 +23,10 @@ const CartBilling = () => {
   const { orderLine, orderSummary } = useSelector((state) => state.cart);
 
   const placeOrder = () => {
+    if (!billingAddress) {
+      notifyError("No billing address added yet!");
+      return;
+    }
     setShowPlaceOrderModal(true);
   };
 
@@ -60,6 +68,12 @@ const CartBilling = () => {
               <option value="khalti">Khalti</option>
             </select>
           </div>
+          {paymentType === "khalti" && (
+            <div className="flex items-center">
+              <p className="text-xs text-[#AAAAAA] italic font-medium">*transaction limit upto 200 via </p>
+              <img src={khaltilogo} alt="" className="w-[60px]"/>
+            </div>
+          )}
         </div>
 
         {/* ORDER SUMMARY DETAILS CONTAINER */}
@@ -108,6 +122,7 @@ const CartBilling = () => {
         />
       )}
       {/* {orderSuccess && <OrderSuccessModal/>} */}
+      <ToastContainer autoClose={3000} hideProgressBar={true} theme="colored" />
     </div>
   );
 };
