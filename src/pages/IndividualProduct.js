@@ -24,7 +24,6 @@ const IndividualProduct = () => {
 
   useEffect(() => {
     (async () => {
-
       const response = await axios.get(
         `http://localhost:5000/products/${params.pname}`
       );
@@ -35,7 +34,7 @@ const IndividualProduct = () => {
     })();
   }, [params.pname]);
 
-  console.log(product)
+  console.log(product);
 
   const decreaseQty = () => {
     if (quantity > 1) {
@@ -186,14 +185,16 @@ const IndividualProduct = () => {
                 <h1 className="text-[18px] lg:text-[20px] py-2">
                   Product Details:
                 </h1>
-                <textarea className="text-[#7A7A7A] pb-3 font-normal w-full outline-none h-[300px]" value={product.description} readOnly >             
-                </textarea>
+                <textarea
+                  className="text-[#7A7A7A] pb-3 font-normal w-full outline-none h-[300px] resize-none scrollbar-thin
+                  scrollbar-thumb-rounded-ful scrollbar-track-rounded-full
+                  scrollbar-thumb-[#bdd2f1] scrollbar-track-gray-100"
+                  value={product.description}
+                  readOnly
+                ></textarea>
               </div>
             </div>
           </div>
-
-          {/* <img src={product.productPicURL} alt=""  width="200px"/>
-      <p>{product.description}</p> */}
         </div>
       ) : (
         <ProductNotFound />

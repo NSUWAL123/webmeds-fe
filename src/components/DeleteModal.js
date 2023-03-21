@@ -45,7 +45,7 @@ const DeleteModal = (props) => {
   return (
     <div className="">
       <div
-        className="relative z-10"
+        className="relative z-50"
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"

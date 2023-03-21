@@ -43,11 +43,15 @@ const UpdateItem = () => {
       !category ||
       !company ||
       !price ||
-      !discountPct ||
+      // !discountPct ||
       !stock ||
-      !expiry ||
       !description
     ) {
+      notifyError("Empty Fields");
+      return;
+    }
+
+    if (category !== "Health Devices" && !expiry) {
       notifyError("Empty Fields");
       return;
     }
@@ -201,7 +205,7 @@ const UpdateItem = () => {
           <div className="sm:flex sm:justify-between">
             <div className="sm:w-[42%] mb-4 sm:mb-0">
               <p className="mb-1 text-[#37474F] font-semibold">Category</p>
-              <select
+              {/* <select
                 name="category"
                 id=""
                 value={category}
@@ -216,7 +220,13 @@ const UpdateItem = () => {
                 <option value="Baby Care">Baby Care</option>
                 <option value="Covid Essentials">Covid Essentials</option>
                 <option value="Health Devices">Health Devices</option>
-              </select>
+              </select> */}
+              <input
+                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
+                value={category}
+                disabled
+                // onChange={(e) => setPrice(e.target.value)}
+              />
             </div>
             <div className="sm:w-[42%]">
               <p className="mb-1 text-[#37474F] font-semibold">Company</p>

@@ -46,7 +46,7 @@ const AdminBaseLayout = () => {
       {/* for sidebar */}
       {showSidebar && (
         <div
-          className="fixed top-0 w-[100vw] h-[100vh] bg-black opacity-30 z-10"
+          className="fixed top-0 w-[100vw] h-[100vh] bg-black opacity-30 z-30"
           onClick={() => setShowSidebar(false)}
         ></div>
       )}

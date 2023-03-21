@@ -18,7 +18,7 @@ const ProductItem = (props) => {
       }}
     >
       <div className="relative flex justify-center items-center">
-        <div className="w-[145px] h-[145px] lg:w-[200px] lg:h-[200px] border rounded-md flex items-center">
+        <div className="w-[145px] h-[145px] lg:w-[200px] lg:h-[200px] border rounded-md flex items-center overflow-hidden">
           <img
             src={product.productPicURL}
             alt=""

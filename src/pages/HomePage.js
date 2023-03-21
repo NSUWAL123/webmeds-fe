@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductItem from "../components/ProductItem";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import { populateUser } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   // let productArray = [];
   const dispatch = useDispatch();
   let [products, setProducts] = useState([]);
-
+  const navigate = useNavigate();
   // const token = ;
   const config = {
     headers: {
@@ -27,11 +28,13 @@ const HomePage = () => {
       window.scrollTo(0, 0);
       const user = await axios.get("http://localhost:5000/user/getUser/", config)
       dispatch(populateUser(user.data))
-      // console.log(user.data)
     })();
   }, []);
 
-  console.log(products);
+  const user = useSelector(state => state.user)
+  if (user.role === "admin") {
+    navigate("/admin")
+  }
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BaseLayout from "../components/BaseLayout";
 import HomePage from "../pages/HomePage";
@@ -25,8 +25,11 @@ import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SearchPage from "../pages/SearchPage";
 import PrescriptionOrderPage from "../pages/PrescriptionOrderPage";
 import AdminProtectedRoutes from "./AdminProtectedRoutes";
+import { getTokenFromLocalStorage } from "../utils/handleToken";
+import axios from "axios";
 
 const AppRoutes = () => {
+
   return (
     <BrowserRouter>
       <Routes>

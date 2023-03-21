@@ -91,6 +91,8 @@ const AddProduct = () => {
       notifySuccess(data.message);
       setLoading(false);
       clearForm();
+      setPreviewSource("");
+      setOfferPrice("");
     } catch (error) {
       console.log(error);
     }
@@ -175,7 +177,7 @@ const AddProduct = () => {
                 className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="OTC">OTC</option>
+                <option value="OTC Medicines">OTC</option>
                 <option value="Household">Household</option>
                 <option value="Health & Nutrition">Health & Nutrition</option>
                 <option value="Skin Care">Skin Care</option>
@@ -240,15 +242,15 @@ const AddProduct = () => {
               />
             </div>
             {category !== "Health Devices" && (
-            <div className="sm:w-[42%]">
-              <p className="mb-1 text-[#37474F] font-semibold">Expiry Date</p>
-              <input
-                type="date"
-                min={maxDate}
-                className="bg-[#EEEEEE] outline-none border-black border-[1px] rounded-md w-full px-4 py-1"
-                onChange={(e) => setExpiry(e.target.value)}
-              />
-            </div>
+              <div className="sm:w-[42%]">
+                <p className="mb-1 text-[#37474F] font-semibold">Expiry Date</p>
+                <input
+                  type="date"
+                  min={maxDate}
+                  className="bg-[#EEEEEE] outline-none border-black border-[1px] rounded-md w-full px-4 py-1"
+                  onChange={(e) => setExpiry(e.target.value)}
+                />
+              </div>
             )}
           </div>
 
@@ -288,7 +290,9 @@ const AddProduct = () => {
             <p className="mb-1 text-[#37474F] font-semibold">Description</p>
             <textarea
               type="text"
-              className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1 h-[100px] resize-none"
+              className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1 h-[100px] resize-none scrollbar-thin
+              scrollbar-thumb-rounded-ful scrollbar-track-rounded-full
+              scrollbar-thumb-[#5b6c74] scrollbar-track-gray-100"
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
@@ -311,7 +315,10 @@ const AddProduct = () => {
             </div>
             <button
               className="bg-[#E25247] text-white font-medium px-4 py-1 rounded-md"
-              onClick={clearForm}
+              onClick={() => {
+                clearForm();
+                setPreviewSource("");
+              }}
             >
               Clear Form
             </button>
