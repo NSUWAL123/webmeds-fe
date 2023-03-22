@@ -205,24 +205,8 @@ const UpdateItem = () => {
           <div className="sm:flex sm:justify-between">
             <div className="sm:w-[42%] mb-4 sm:mb-0">
               <p className="mb-1 text-[#37474F] font-semibold">Category</p>
-              {/* <select
-                name="category"
-                id=""
-                value={category}
-                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-2 py-1 border-black border-[1px] "
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option value="OTC Medicines">OTC Medicines</option>
-                <option value="Home Essentials">Home Essentials</option>
-                <option value="Health & Nutrition">Health & Nutrition</option>
-                <option value="Skin Care">Skin Care</option>
-                <option value="Hair Care">Hair Care</option>
-                <option value="Baby Care">Baby Care</option>
-                <option value="Covid Essentials">Covid Essentials</option>
-                <option value="Health Devices">Health Devices</option>
-              </select> */}
               <input
-                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1"
+                className="bg-[#EEEEEE] outline-none rounded-md w-full pl-4 py-1 cursor-not-allowed"
                 value={category}
                 disabled
                 // onChange={(e) => setPrice(e.target.value)}

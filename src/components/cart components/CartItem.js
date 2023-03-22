@@ -132,7 +132,7 @@ const CartItem = (props) => {
             <img
               src={product.productPicURL}
               alt=""
-              className="w-[60px] h-[60px] border rounded-md sm:w-[100px] sm:h-[100px]"
+              className="w-[60px]  border rounded-md sm:w-[100px] "
             />
             {product.stock === 0 && (
               <p className="w-[60px] sm:w-[100px] text-xs sm:text-sm text-center bg-black opacity-75 mb-2 text-white absolute">
@@ -183,9 +183,11 @@ const CartItem = (props) => {
               </div>
             </div>
             <div className="sm:hidden">
-              <p className="my-2">
-                <strike>Rs. {product.price}</strike> -{product.discountPct}%
-              </p>
+              {product.discountPct > 0 && (
+                <p className="my-2">
+                  <strike>Rs. {product.price}</strike> -{product.discountPct}%
+                </p>
+              )}
               <p className="text-[#E25247]">Rs. {product.offerPrice}</p>
             </div>
           </div>
@@ -193,9 +195,11 @@ const CartItem = (props) => {
 
         <div className="sm:flex sm:w-[28%] sm:justify-between">
           <div className="hidden sm:block">
-            <p className="text-[#7A7A7A]">
-              <strike>Rs. {product.price}</strike> -{product.discountPct}%
-            </p>
+            {product.discountPct > 0 && (
+              <p className="text-[#7A7A7A]">
+                <strike>Rs. {product.price}</strike> -{product.discountPct}%
+              </p>
+            )}
             <p className="text-[#E25247]">Rs. {product.offerPrice}</p>
           </div>
           <img

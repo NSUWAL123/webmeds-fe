@@ -61,7 +61,7 @@ const CartBilling = () => {
             <select
               name=""
               id=""
-              className="border w-full p-1"
+              className="border w-full p-1 outline-none"
               onChange={(e) => setPaymentType(e.target.value)}
             >
               <option value="cod">Cash on Delivery</option>

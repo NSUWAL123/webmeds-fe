@@ -45,7 +45,8 @@ const ManageProduct = () => {
       <table className="w-full">
         <tbody className="">
           <tr className="border bg-[#31D490] text-white">
-            <th className="p-3 border font-medium">Product Name</th>
+            <th className=""></th>
+            <th className="p-3 border font-medium max-w-[400px]">Product Name</th>
             {/* <th className="p-3 border font-medium">In Stock</th> */}
             <th className="p-3 border font-medium">Price</th>
             <th className="p-3 border font-medium">Stock</th>
@@ -57,9 +58,11 @@ const ManageProduct = () => {
             
             return (
               <tr key={product._id} className="even:bg-[#F2F2F2] hover:bg-[#DDDDDD]">
-                <td className="p-2 border">{product.pname}</td>
+                <td className="text-center min-w-[50px] max-w-[80px]"><img src={product.productPicURL} alt="" className="min-w-[50px] max-w-[80px] mx-auto"/></td>
+                {/* <img src={product.productPicURL} alt="" className="min-w-[50px]"/> */}
+                <td className="p-2 border max-w-[400px]">{product.pname}</td>
                 {/* <td className="text-center border">{product.stock}</td> */}
-                <td className="text-center border">{product.price}</td>
+                <td className="align-middle border">{product.price}</td>
                 <td className="text-center border">{product.stock}</td>
                 <td className="text-center border">{product.expiry && product.expiry.split("T")[0]}</td>
                 <td className="text-center border">

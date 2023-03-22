@@ -361,7 +361,7 @@ const BaseLayout = () => {
         <div
           className={`fixed md:hidden w-[75%] top-0 left-0 max-w-[350px] h-screen bg-white  ${
             showSidebar ? "translate-x-0" : "translate-x-[-105%] z-20"
-          } duration-500 z-20 rounded-r-3xl `}
+          } duration-500 z-20 rounded-tr-3xl `}
         >
           <div className="flex flex-col justify-between h-[100%]">
             <div>
@@ -381,7 +381,7 @@ const BaseLayout = () => {
               </p>
               <Categories setShowSidebar={setShowSidebar}/>
             </div>
-            <div>
+            {/* <div>
               <button
                 className="bg-[#FFC655] flex w-[100%] justify-between items-center rounded-br-3xl"
                 onClick={() => navigationTo("/cart")}
@@ -392,7 +392,7 @@ const BaseLayout = () => {
                 </div>
                 <img src={rightarr} alt="" className="w-[25px] py-4 mr-6" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div
