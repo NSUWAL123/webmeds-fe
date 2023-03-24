@@ -1,5 +1,7 @@
 import React from "react";
 import DashSales from "./DashSales";
+import DashSalesChart from "./DashSalesChart";
+import DashTopProductsBar from "./DashTopProductsBar";
 import DashUserRevenue from "./DashUserRevenue";
 
 const DashMonth = () => {
@@ -20,8 +22,12 @@ const DashMonth = () => {
       </div>
 
       <div>
-        <DashSales/>
-        <DashUserRevenue/>
+        <DashSales />
+        <DashUserRevenue />
+        <div className="bg-[#f9f9f9] mt-10 py-5 rounded-lg xl:flex  xl:justify-around items-center">
+          <DashSalesChart/>
+          <DashTopProductsBar/>
+        </div>
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ import chat from "../pictures/icons/chat.svg";
 import logout from "../pictures/icons/logout.svg";
 import chaticn from "../pictures/icons/chat-icn.svg";
 import { Link } from "react-router-dom";
+import wave3 from "../pictures/photo/wave3.svg";
 
 import {
   getTokenFromLocalStorage,
@@ -87,7 +88,9 @@ const BaseLayout = () => {
                     navigate("/");
                   }}
                 />
-                <p className="absolute -top-1 -right-6 text-xs bg-[#FFC655] text-white px-2 rounded-tl-xl rounded-br-xl xl:top-0 xl:-right-5">Beta</p>
+                <p className="absolute -top-1 -right-6 text-xs bg-[#FFC655] text-white px-2 rounded-tl-xl rounded-br-xl xl:top-0 xl:-right-5">
+                  Beta
+                </p>
               </div>
             </div>
 
@@ -184,9 +187,7 @@ const BaseLayout = () => {
                 <img
                   src={more}
                   alt=""
-                  className={`${
-                    !login ? "" : "mr-3"
-                  } lg:mr-6 w-[30px]`}
+                  className={`${!login ? "" : "mr-3"} lg:mr-6 w-[30px]`}
                   onClick={() => toggleMore()}
                 />
                 <span
@@ -379,7 +380,7 @@ const BaseLayout = () => {
               <p className="px-6 py-4  bg-[#5D94E7] font-semibold text-[20px] text-white xl:px-8">
                 Categories for you
               </p>
-              <Categories setShowSidebar={setShowSidebar}/>
+              <Categories setShowSidebar={setShowSidebar} />
             </div>
             {/* <div>
               <button
@@ -409,12 +410,11 @@ const BaseLayout = () => {
         </Link>
       </div>
 
-      <div
-        className="w-[100%]  rounded-t-3xl border mt-8"
-        onClick={() => setShowMore(false)}
-      >
-        <Footer />
-        <div className="text-white bg-[#31D490]  flex justify-center lg:text-lg">
+      <div className="w-[100%]  mt-8" onClick={() => setShowMore(false)}>
+        <div>
+          <Footer />
+        </div>
+        <div className="text-white bg-[#37474F]  flex justify-center lg:text-lg">
           <p className="py-2">&#169; 2023, webmeds.com</p>
         </div>
       </div>
