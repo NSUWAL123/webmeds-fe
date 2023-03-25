@@ -28,7 +28,6 @@ export const options = {
 };
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 const data1 = [4, 4, 3, 5, 6, 7, 3];
-//   const data2 = [4, 6, 3, 5, 6, 6, 8]
 
 export const data = {
   labels,
@@ -38,11 +37,6 @@ export const data = {
       data: data1,
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
-    //   {
-    //     label: 'Dataset 2',
-    //     data: data2,
-    //     backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    //   },
   ],
 };
 

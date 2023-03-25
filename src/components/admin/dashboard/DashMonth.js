@@ -9,6 +9,15 @@ import DashUserRevenue from "./DashUserRevenue";
 const DashMonth = () => {
   let currentDate = new Date().toJSON().slice(0, 7);
   const [monthYear, setMonthYear] = useState(currentDate);
+  const [figures, setFigures] = useState({
+    orderTotal: 0,
+    prescriptionTotal: 0,
+    productSales: 0,
+    ordersFulfilled: 0,
+    prescriptionsFulfilled: 0,
+    failedDeliveries: 0,
+    totalCustomers: 0,
+  })
 
   const config = {
     headers: {
@@ -23,10 +32,11 @@ const DashMonth = () => {
         `http://localhost:5000/dashboard/details/${monthYear}`,
         config
       );
-      console.log(monthYear);
+      setFigures(data);
     })()
   }, [monthYear])
   // console.log(monthYear)
+  console.log(figures);
 
   return (
     <div>
@@ -45,11 +55,11 @@ const DashMonth = () => {
       </div>
 
       <div>
-        <DashSales />
-        <DashUserRevenue />
+        <DashSales figures={figures}/>
+        <DashUserRevenue  figures={figures}/>
         <div className="bg-[#f9f9f9] mt-10 py-5 rounded-lg xl:flex  xl:justify-around items-center">
-          <DashSalesChart/>
-          <DashTopProductsBar/>
+          <DashSalesChart  figures={figures}/>
+          <DashTopProductsBar  figures={figures}/>
         </div>
       </div>
     </div>

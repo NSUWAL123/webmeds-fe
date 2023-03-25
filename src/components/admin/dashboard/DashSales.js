@@ -5,7 +5,8 @@ import returnIcn from "../../../pictures/icons/dashReturn.svg"
 import prescriptionIcn from "../../../pictures/icons/dashPrescription.svg"
 
 
-const DashSales = () => {
+const DashSales = (props) => {
+    const {figures} = props;
   return (
     <div className='flex justify-evenly flex-wrap xl:justify-between gap-y-5 my-5'>
         {/* product sales */}
@@ -14,7 +15,7 @@ const DashSales = () => {
                 <img src={salesIcn} alt="" className='w-[40px] bg-[#81aff4] rounded-full p-1 mr-3'/>
                 <p>Product Sales</p>
             </div>
-            <h2 className='text-2xl'>59467</h2>
+            <h2 className='text-2xl'>{figures.productSales}</h2>
             <p>for this month</p>
         </div>
 
@@ -24,7 +25,7 @@ const DashSales = () => {
                 <img src={returnIcn} alt="" className='w-[40px] h-[40px] bg-[#5be8ad] rounded-full p-1 mr-3'/>
                 <p>Orders Fulfilled</p>
             </div>
-            <h2 className='text-2xl'>245</h2>
+            <h2 className='text-2xl'>{figures.ordersFulfilled}</h2>
             <p>for this month</p>
         </div>
         {/* product sales */}
@@ -33,7 +34,7 @@ const DashSales = () => {
                 <img src={prescriptionIcn} alt="" className='w-[40px] h-[40px] bg-[#ffd684] rounded-full p-1 mr-3'/>
                 <p>Prescriptions Fulfilled</p>
             </div>
-            <h2 className='text-2xl'>90</h2>
+            <h2 className='text-2xl'>{figures.prescriptionsFulfilled}</h2>
             <p>for this month</p>
         </div>
         {/* product sales */}
@@ -42,7 +43,7 @@ const DashSales = () => {
                 <img src={purchaseIcn} alt="" className='w-[40px] h-[40px] bg-[#5c5e79] rounded-full p-1 mr-3'/>
                 <p>Failed Deliveries</p>
             </div>
-            <h2 className='text-2xl'>23</h2>
+            <h2 className='text-2xl'>{figures.failedDeliveries}</h2>
             <p>for this month</p>
         </div>
     </div>

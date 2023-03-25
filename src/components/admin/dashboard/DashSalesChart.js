@@ -1,17 +1,24 @@
 import React, { useEffect } from "react";
 import * as d3 from "d3";
 
-const DashSalesChart = () => {
+const DashSalesChart = (props) => {
+  const { figures } = props;
+  const orderTotal = figures.orderTotal;
+  const prescriptionTotal = figures.prescriptionTotal;
   const data = [
-    { label: "Prescription Orders", value: 50, color: "#31D490" },
-    { label: "Product Orders", value: 500, color: "#5D94E7" },
+    {
+      label: "Prescription Orders",
+      value: prescriptionTotal,
+      color: "#31D490",
+    },
+    { label: "Product Orders", value: orderTotal, color: "#5D94E7" },
   ];
-  
+
   let totalValue = 0;
   data.map((ind, i) => {
-    return totalValue += ind.value
-  })
-  console.log(totalValue)
+    return (totalValue += ind.value);
+  });
+  console.log(totalValue);
 
   let outerRadius = 150;
   let innerRadius = 0;
@@ -82,22 +89,33 @@ const DashSalesChart = () => {
   return (
     <div className=" flex flex-col items-center">
       <p className="text-2xl font-medium text-[#8a8a8a]">Revenue breakdown:</p>
-      <div className="flex flex-col sm:flex-row  ">
-        <div id="pie-container" className="flex justify-center my-5"></div>
-        <div className="sm:flex sm:flex-col sm:justify-center">
-          {data.map((indData, i) => {
-            return (
-              <div className="flex my-1" key={i}>
-                <div
-                  className={`w-[20px] h-[20px] mx-3`}
-                  style={{ backgroundColor: indData.color }}
-                ></div>
-                <p>{indData.label} <span className="font-semibold">- {(indData.value/totalValue * 100).toFixed(2)}%</span></p>
-              </div> 
-            );
-          })}
+      {orderTotal === 0 && prescriptionTotal === 0 ? (
+        <h2 className="mt-5 text-[#8a8a8a] text-lg">
+          No revenue generated on this month!
+        </h2>
+      ) : (
+        <div className="flex flex-col sm:flex-row  ">
+          <div id="pie-container" className="flex justify-center my-5"></div>
+          <div className="sm:flex sm:flex-col sm:justify-center">
+            {data.map((indData, i) => {
+              return (
+                <div className="flex my-1" key={i}>
+                  <div
+                    className={`w-[20px] h-[20px] mx-3`}
+                    style={{ backgroundColor: indData.color }}
+                  ></div>
+                  <p>
+                    {indData.label}{" "}
+                    <span className="font-semibold">
+                      - {((indData.value / totalValue) * 100).toFixed(2)}%
+                    </span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
