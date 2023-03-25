@@ -81,7 +81,7 @@ const DashSalesChart = () => {
   }
   return (
     <div className=" flex flex-col items-center">
-      <p className="text-2xl font-medium text-[#8a8a8a]">Sales breakdown:</p>
+      <p className="text-2xl font-medium text-[#8a8a8a]">Revenue breakdown:</p>
       <div className="flex flex-col sm:flex-row  ">
         <div id="pie-container" className="flex justify-center my-5"></div>
         <div className="sm:flex sm:flex-col sm:justify-center">

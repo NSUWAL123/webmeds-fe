@@ -115,7 +115,6 @@ const Order = (props) => {
                 <img
                   src={prod.productPicURL}
                   alt=""
-                  srcset=""
                   className="w-[60px] h-[60px] mr-4 border rounded-md my-1"
                 />
                 <div className="">
@@ -125,9 +124,9 @@ const Order = (props) => {
                   {orderLine.map((ord) => {
                     if (ord.productId === prod._id) {
                       return (
-                        <p>
+                        <p key={ord.productId}>
                           Quantity{" "}
-                          <span className="font-semibold">x{ord.quantity}</span>
+                          <span className="font-semibold">x{ord.quantity}</span> 
                         </p>
                       );
                     }

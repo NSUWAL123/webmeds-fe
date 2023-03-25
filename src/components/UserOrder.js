@@ -43,7 +43,6 @@ const UserOrder = (props) => {
                 <img
                   src={prod.productPicURL}
                   alt=""
-                  srcset=""
                   className="w-[60px] h-[60px] mr-4 border rounded-md my-1"
                 />
                 <div className="">
