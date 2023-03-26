@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -17,34 +18,68 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-);
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-};
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-const data1 = [4, 4, 3, 5, 6, 7, 3];
+  );
+  
+  const DashTopProductsBar = (props) => {
+    const {figures, monthYear} = props;
+    let productIds = figures.products;
+    if (productIds.length > 5) {
+      productIds = productIds.slice(0, 5)
+    }
+    const [products, setProducts] = useState([]);
+    const [productsSold, setProductsSold] = useState([]);
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: data1,
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-const DashTopProductsBar = () => {
+    useEffect(() => {
+      (async () => {  
+        const products = [];
+        const productsSold = [];
+        for (let i = 0; i < productIds.length; i++) {
+          const product = await axios.get(
+            `http://localhost:5000/products/id/${productIds[i].pid}`,
+            config 
+          );
+          products.push(product.data.pname);
+          productsSold.push(productIds[i].pqty);
+        }
+        setProducts(products);
+        setProductsSold(productsSold)
+      })();
+    }, [productIds]);
+
+    console.log(products); 
+    console.log(productsSold);
+ 
+   const options = {
+     responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+  const labels = products; 
+  const data1 = productsSold;
+  
+   const data = {
+    labels,
+    datasets: [ 
+      {
+        label: "Sold this Month",
+        data: data1,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
   return (
     <div className="w-full xl:w-auto mt-10 xl:mt-0 flex flex-col items-center justify-center">
       <h1 className="text-2xl font-medium text-[#8a8a8a]">
-        Top Selling Products:
+        Top 5 Sold Products of {monthYear}:
       </h1>
 
       <Bar options={options} data={data} className="my-4 w-[500px]" />

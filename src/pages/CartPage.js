@@ -118,11 +118,11 @@ const CartPage = () => {
               </div>
               <div className="flex justify-between">
                 <p>Discount:</p>
-                <p>- Rs. {orderSummary.discount}</p>
+                <p>Rs. {orderSummary.discount}</p>
               </div>
               <div className="flex justify-between pb-2 border-b-2 border-slate-300">
                 <p>Delivery Charge:</p>
-                <p>+ Rs. {orderSummary.deliveryCharge}</p>
+                <p>Rs. {orderSummary.deliveryCharge}</p>
               </div>
               <div className="flex justify-between text-[#E25247] font-medium">
                 <p>Grand Total</p>

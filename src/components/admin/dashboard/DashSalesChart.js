@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import * as d3 from "d3";
 
 const DashSalesChart = (props) => {
-  const { figures } = props;
+  const { figures,  monthYear } = props;
   const orderTotal = figures.orderTotal;
   const prescriptionTotal = figures.prescriptionTotal;
   const data = [
@@ -88,10 +88,10 @@ const DashSalesChart = (props) => {
   }
   return (
     <div className=" flex flex-col items-center">
-      <p className="text-2xl font-medium text-[#8a8a8a]">Revenue breakdown:</p>
+      <p className="text-2xl font-medium text-[#8a8a8a]">Revenue breakdown of {monthYear}:</p>
       {orderTotal === 0 && prescriptionTotal === 0 ? (
         <h2 className="mt-5 text-[#8a8a8a] text-lg">
-          No revenue generated on this month!
+          No revenue generated on {monthYear}
         </h2>
       ) : (
         <div className="flex flex-col sm:flex-row  ">

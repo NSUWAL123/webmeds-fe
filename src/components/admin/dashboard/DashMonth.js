@@ -17,7 +17,8 @@ const DashMonth = () => {
     prescriptionsFulfilled: 0,
     failedDeliveries: 0,
     totalCustomers: 0,
-  })
+    products: [],
+  });
 
   const config = {
     headers: {
@@ -33,8 +34,8 @@ const DashMonth = () => {
         config
       );
       setFigures(data);
-    })()
-  }, [monthYear])
+    })();
+  }, [monthYear]);
   // console.log(monthYear)
   console.log(figures);
 
@@ -55,11 +56,11 @@ const DashMonth = () => {
       </div>
 
       <div>
-        <DashSales figures={figures}/>
-        <DashUserRevenue  figures={figures}/>
+        <DashSales figures={figures} />
+        <DashUserRevenue figures={figures} />
         <div className="bg-[#f9f9f9] mt-10 py-5 rounded-lg xl:flex  xl:justify-around items-center">
-          <DashSalesChart  figures={figures}/>
-          <DashTopProductsBar  figures={figures}/>
+          <DashSalesChart figures={figures} monthYear={monthYear} />
+          <DashTopProductsBar figures={figures} monthYear={monthYear} />
         </div>
       </div>
     </div>
