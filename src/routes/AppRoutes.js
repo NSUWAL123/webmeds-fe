@@ -27,6 +27,7 @@ import PrescriptionOrderPage from "../pages/PrescriptionOrderPage";
 import AdminProtectedRoutes from "./AdminProtectedRoutes";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import axios from "axios";
+import PasswordReset from "../pages/PasswordReset";
 
 const AppRoutes = () => {
 
@@ -37,6 +38,7 @@ const AppRoutes = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/user/:id/verify/:token" element={<EmailVerification />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/password/reset/:userId/:token" element={<PasswordReset />} />
 
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
