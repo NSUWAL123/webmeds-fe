@@ -24,19 +24,6 @@ const UpdateItem = () => {
   const maxDate = new Date().toISOString().split("T")[0];
 
   const UpdateItem = async () => {
-    console.log({
-      pname,
-      purpose,
-      type,
-      category,
-      company,
-      price,
-      discountPct,
-      offerPrice,
-      stock,
-      expiry,
-      description,
-    });
     if (
       !pname ||
       !purpose ||
@@ -83,7 +70,6 @@ const UpdateItem = () => {
     };
 
     try {
-      console.log(formData);
       const { data } = await axios.post(
         `http://localhost:5000/admin/manage-product/update/${product._id}`,
         formData,
@@ -97,7 +83,6 @@ const UpdateItem = () => {
 
       notifySuccess(data.message);
     } catch (error) {
-      console.log(error);
     }
   };
 

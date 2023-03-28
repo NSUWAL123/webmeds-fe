@@ -18,7 +18,6 @@ const DashSalesChart = (props) => {
   data.map((ind, i) => {
     return (totalValue += ind.value);
   });
-  console.log(totalValue);
 
   let outerRadius = 150;
   let innerRadius = 0;

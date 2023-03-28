@@ -1,23 +1,26 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import logo from "../pictures/logo/logo.svg";
 import forgotpwdpic from "../pictures/photo/forgot-password.svg";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifyInfo, notifyWarning } from "../utils/Toast";
+import PageNotFound from "./PageNotFound";
 
 const PasswordReset = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [isToken, setIsToken] = useState(true);
 
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
-  };
+  }; 
 
   useEffect(() => {
     (async () => {
@@ -25,11 +28,16 @@ const PasswordReset = () => {
         `http://localhost:5000/user/getUserById/${params.userId}`,
         config
       );
-      setName(data.name);
+      const isToken = await axios.get(
+        `http://localhost:5000/user/findTokenInDB/${params.token}`,
+        config
+      );
+      setName(data.name);       
+      setIsToken(isToken.data.tokenInDB);
     })();
   }, []);
 
-  const resetPassword = () => {
+  const resetPassword = async () => {
     if (!password || !rePassword) {
       notifyError("Please enter password.");
       return;
@@ -38,10 +46,20 @@ const PasswordReset = () => {
       notifyError("Password does not match with re-typed password.");
       return;
     }
+
+    const updatePassword = await axios.put(
+      `http://localhost:5000/user/updatePassword`, 
+      {userId: params.userId, password, token: params.token},
+      config
+    );
+
+    navigate('/login')
   };
+
 
   return (
     <div>
+      {isToken ? (
       <div className="w-full flex justify-center">
         <div className="w-[90%] flex flex-col items-center h-[600px] justify-around">
           <div className="w-full">
@@ -49,7 +67,7 @@ const PasswordReset = () => {
               src={logo}
               alt=""
               className="w-[150px] md:mt-1 cursor-pointer"
-              onClick={() => Navigate("/login")}
+              onClick={() => navigate("/login")}
             />
           </div>
           <div className="flex flex-col items-center">
@@ -68,7 +86,7 @@ const PasswordReset = () => {
             </p>
             <input
               type="text"
-              className="outline-none border-[2px] rounded-md"
+              className="outline-none border-[2px] rounded-md pl-2"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -78,7 +96,7 @@ const PasswordReset = () => {
             </p>
             <input
               type="text"
-              className="outline-none border-[2px] rounded-md"
+              className="outline-none border-[2px] rounded-md pl-2"
               onChange={(e) => setRePassword(e.target.value)}
             />
           </div>
@@ -96,6 +114,11 @@ const PasswordReset = () => {
           theme="colored"
         />
       </div>
+      ) : ( 
+        <div className="h-screen">
+          <PageNotFound/>
+        </div>
+      )}
     </div>
   );
 };

@@ -63,10 +63,8 @@ const PlaceOrderModal = (props) => {
         sideeffects();
       },
       onError(error) {
-        console.log(error);
       },
       onClose() {
-        console.log("widget is closing");
       },
     },
     paymentPreference: [
@@ -83,7 +81,6 @@ const PlaceOrderModal = (props) => {
       let checkout = new KhaltiCheckout(khalticonfig);
       checkout.show({ amount: parseInt(orderSummary.grandTotal * 100) });
       return;
-      // console.log(checkout)
     } else {
       const initiateOrder = await axios.post(
         "http://localhost:5000/order/addOrder",

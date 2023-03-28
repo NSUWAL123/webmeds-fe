@@ -9,7 +9,6 @@ export const noteSlice = createSlice({
     },
     addNote(state, action) {
       state.push(action.payload);
-      console.log(action.payload.title);
     },
 
     deleteNote(state, action) {
@@ -23,8 +22,6 @@ export const noteSlice = createSlice({
 
     editNote(state, action) {
       const data = action.payload;
-      console.log("slice bhitrako" + data.id, data.title);
-      console.log(state);
       for (let i = 0; i < state.length; i++) {
         if (state[i]._id === data.id) {
           state[i].title = data.title;

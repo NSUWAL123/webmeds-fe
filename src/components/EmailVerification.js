@@ -14,10 +14,8 @@ const EmailVerification = () => {
       try {
         const url = `http://localhost:5000/user/${params.id}/verify/${params.token}`;
         const { data } = await axios.get(url);
-        console.log(data);
         setValidUrl(true);
       } catch (error) {
-        console.log(error);
         setValidUrl(false);
       }
     };

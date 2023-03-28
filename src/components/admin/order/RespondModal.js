@@ -38,9 +38,6 @@ const RespondModal = () => {
       config
     );
 
-    // console.log(prescription.data)
-
-
     const updatedPrescription = await axios.put(
       `http://localhost:5000/prescription/updateStatus`,
       { ...data, quotedPrice: price, description, deliveryStatus },
@@ -53,8 +50,6 @@ const RespondModal = () => {
         deliveryStatus: deliveryStatus,
       })
     );
-
-    // console.log(price, medicines, description);
     notifySuccess("Quotation sent to the user.");
   };
 

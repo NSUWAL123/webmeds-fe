@@ -34,8 +34,6 @@ const IndividualProduct = () => {
     })();
   }, [params.pname]);
 
-  console.log(product);
-
   const decreaseQty = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -56,7 +54,6 @@ const IndividualProduct = () => {
     );
 
     notifySuccess(response.data.message);
-    console.log(response.data.message);
   };
 
   return (

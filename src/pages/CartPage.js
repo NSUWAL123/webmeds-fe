@@ -30,7 +30,6 @@ const CartPage = () => {
         "http://localhost:5000/cart/getCartItems",
         config
       );
-      console.log(fetchCart.data);
       dispatch(populateCart(fetchCart.data.getCart));
       dispatch(populateOrderLine(fetchCart.data.getCart));
       window.scrollTo(0, 0);

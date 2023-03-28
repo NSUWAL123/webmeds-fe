@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 const Medicine = (props) => {
   const { med, setMedicine, removeMedicine, updateName, updateQty } = props;
-  console.log(med);
   const [medQty, setMedQty] = useState(med.medQty);
-  console.log(medQty);
   return (
     <div
       className="bg-[#FFC655] px-3 rounded-md flex flex-col justify-around mb-4 pb-2"

@@ -43,13 +43,11 @@ const SignupPage = () => {
     e.preventDefault();
 
     if ((!name, !email, !mobile, !dob, !password)) {
-      console.log("Please enter all the fields.");
       notifyError("Empty Fields");
       return;
     }
 
     if (password !== confirmPassword) {
-      console.log("Entered password are different.");
       notifyError("Entered password are different.");
       return;
     }
@@ -68,13 +66,10 @@ const SignupPage = () => {
         { name, email, mobile, dob, password },
         config
       );
-      console.log(data);
       notifyInfo(
         "A verification link has been sent to your email. Please check your email."
       );
-      console.log(`A verification link has been sent to ${data.user.email}`);
     } catch (error) {
-      console.log(error);
     }
   };
 

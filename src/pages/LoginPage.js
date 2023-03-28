@@ -26,9 +26,7 @@ const LoginPage = () => {
   };
 
   const submitHandler = async () => {
-    console.log(email, password);
     if (!email || !password) {
-      console.log("empty fields");
       notifyError("Empty Fields");
     }
 
@@ -60,9 +58,7 @@ const LoginPage = () => {
         navigate("/");
         return;
       }
-      console.log(data);
     } catch (error) {
-      console.log(error);
     }
   };
 

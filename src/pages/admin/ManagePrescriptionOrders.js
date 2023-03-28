@@ -10,7 +10,6 @@ const ManagePrescriptionOrders = () => {
   const { prescription, showRespondModal, showPrescription } = useSelector(
     (state) => state.prescriptionOrder
   );
-  console.log(prescription);
 
   const delOptions = {
     request: "request",
@@ -20,11 +19,9 @@ const ManagePrescriptionOrders = () => {
     delivered: "delivered",
   };
   const [delState, setDelState] = useState(delOptions.request);
-  console.log(delState)
   const filteredOrder = prescription.filter(
     (order) => order.deliveryStatus === delState
   );
-  console.log(filteredOrder);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -38,7 +35,6 @@ const ManagePrescriptionOrders = () => {
       );
       let { data } = response;
 
-      console.log(data);
       dispatch(populatePrescriptionOrder(data));
     })();
   }, []);

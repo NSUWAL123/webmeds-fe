@@ -7,7 +7,6 @@ const ViewPrescriptionModal = (props) => {
   let { order } = props;
   const { showPrescription } = useSelector((state) => state.prescriptionOrder);
   const dispatch = useDispatch();
-  console.log("kina");
 
   return (
     <div className="bg-white pb-4 border border-black rounded-md shadow-2xl">

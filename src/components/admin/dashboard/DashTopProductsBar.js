@@ -51,9 +51,6 @@ ChartJS.register(
         setProductsSold(productsSold)
       })();
     }, [productIds]);
-
-    console.log(products); 
-    console.log(productsSold);
  
    const options = {
      responsive: true,

@@ -55,14 +55,11 @@ const AcceptQuotationModal = (props) => {
           updatedOrder,
           config
         );
-        console.log(updatedOrder);
         sideeffects();
       },
       onError(error) {
-        console.log(error);
       },
       onClose() {
-        console.log("widget is closing");
       },
     },
     paymentPreference: [
@@ -75,14 +72,12 @@ const AcceptQuotationModal = (props) => {
   };
 
   const sideeffects = async () => {
-    // dispatch(initiatePresOrder(updatedOrder));
     setLoading(false);
     setToggleDiv(false);
   };
 
   const acceptQuotation = async () => {
     const { quotedPrice } = order;
-    // console.log(order);
     // if khalti or cod check
     if (paymentType === "khalti") {
       let checkout = new KhaltiCheckout(khalticonfig);

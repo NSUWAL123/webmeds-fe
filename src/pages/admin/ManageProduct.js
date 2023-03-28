@@ -23,13 +23,11 @@ const ManageProduct = () => {
     //setShowUpdateModal(true);
     setCurrProduct(product)
     navigate(`/admin/manage-product/update/${product._id}`)
-    console.log(product)
   }
 
   const deleteHandler = (product) => {
     setCurrProduct(product)
     setShowDeleteModal(true);
-    console.log(product)
   }
 
   return (

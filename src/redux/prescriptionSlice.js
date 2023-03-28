@@ -17,7 +17,6 @@ export const prescriptionSlice = createSlice({
     populatePrescriptionOrder: (state, action) => {
       state.prescription = [];
       const prescription = action.payload;
-      console.log(prescription);
 
       for (let i = 0; i < prescription.length; i++) {
         if (
@@ -35,14 +34,14 @@ export const prescriptionSlice = createSlice({
       for (let i = 0; i < state.prescription.length; i++) {
         if (state.prescription[i]._id === id) {
           state.showPrescription.imgLink = "";
-          state.showPrescription.imgLink = state.prescription[i].prescriptionPicURL;
+          state.showPrescription.imgLink =
+            state.prescription[i].prescriptionPicURL;
         }
       }
     },
     setShowRespondModal: (state, action) => {
       const { setTo, id } = action.payload;
       state.showRespondModal.show = setTo;
-      console.log(setTo, id);
 
       for (let i = 0; i < state.prescription.length; i++) {
         if (state.prescription[i]._id === id) {

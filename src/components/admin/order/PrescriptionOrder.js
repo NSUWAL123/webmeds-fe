@@ -36,8 +36,6 @@ const PrescriptionOrder = (props) => {
     })();
   }, []);
 
-  // console.log(order._id);
-
   // 1. FULFILL
   const fulfill = async () => {
     dispatch(

@@ -54,8 +54,6 @@ const NotesPage = () => {
     })();
   }, []);
 
-  console.log(noteData);
-
   return (
     <>
       <ProtectedRoutes />

@@ -8,11 +8,9 @@ import {getTokenFromLocalStorage} from "../../../utils/handleToken"
 
 const Order = (props) => {
   const { delState, delOptions, order } = props;
-  console.log(order);
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
   const orderLine = order.orderLine;
-  // console.log(orderLine)
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -91,8 +89,6 @@ const Order = (props) => {
     );
     dispatch(changeAdminOrderState(state));
   };
-  console.log(user);
-  console.log(products);
 
   return (
     <div className="border-b-[1px] border-black my-6">

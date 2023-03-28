@@ -15,7 +15,6 @@ const ProfilePage = () => {
   const userData = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  console.log(userData);
   const [showDeleteModal, setShowModal] = useState(false);
 
   const config = {

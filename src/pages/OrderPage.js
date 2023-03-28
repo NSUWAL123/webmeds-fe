@@ -43,8 +43,6 @@ const OrderPage = () => {
     })();
   }, []);
 
-  console.log(filteredOrder);
-
   return (
     <div className="">
       <ProtectedRoutes />

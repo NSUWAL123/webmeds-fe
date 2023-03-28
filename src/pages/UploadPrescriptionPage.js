@@ -60,7 +60,6 @@ const UploadPrescriptionPage = () => {
     { count: count, medName: "", medQty: 1 },
   ]);
   const [doctor, setDoctor] = useState("");
-  console.log(doctor);
   const [NMC, setNMC] = useState("");
   const [note, setNote] = useState("");
 
@@ -76,7 +75,6 @@ const UploadPrescriptionPage = () => {
   };
 
   const updateName = (count, name) => {
-    console.log(count, name);
     for (let i = 0; i < medicine.length; i++) {
       if (count === medicine[i].count) {
         medicine[i].medName = name;
@@ -90,7 +88,6 @@ const UploadPrescriptionPage = () => {
         medicine[i].medQty = qty;
       }
     }
-    console.log(qty);
   };
 
   const clearFields = () => {

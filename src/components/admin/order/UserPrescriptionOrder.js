@@ -12,8 +12,6 @@ const UserPrescriptionOrder = (props) => {
   const { showPrescription } = useSelector((state) => state.prescriptionOrder);
   const [showAQModal, setShowAQModal] = useState(false);
   const [ord, setOrd] = useState({});
-  // const [imgURL, setImgURL] = useState("");
-  console.log(ord)
 
   return (
     <div className="flex flex-col justify-around bg-[#ffffff] mt-6 px-5 rounded-lg py-3">

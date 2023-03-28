@@ -39,7 +39,6 @@ const DeleteModal = (props) => {
 
       notifySuccess(data.message);
     } catch (error) {
-      console.log(error);
     }
   };
   return (

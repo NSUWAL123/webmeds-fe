@@ -24,7 +24,6 @@ const PrescriptionOrderPage = () => {
         config
       );
       dispatch(populatePrescription(data));
-      // console.log(data)
     })();
   }, []);
   const prescriptions = useSelector((state) => state.uploadPrescription);
@@ -52,8 +51,6 @@ const PrescriptionOrderPage = () => {
     }
     return prescription.deliveryStatus === delState && prescription.isPriceAccepted === "accepted";
   });
-
-  console.log(filteredPrescriptions);
 
   return (
     <div className="relative">

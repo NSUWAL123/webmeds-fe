@@ -36,8 +36,7 @@ const DashMonth = () => {
       setFigures(data);
     })();
   }, [monthYear]);
-  // console.log(monthYear)
-  console.log(figures);
+
 
   return (
     <div>

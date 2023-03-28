@@ -44,7 +44,6 @@ const AddProduct = () => {
       !previewSource ||
       !description
     ) {
-      console.log("Empty Fields");
       notifyError("Empty Fields");
       return;
     }
@@ -76,7 +75,6 @@ const AddProduct = () => {
     };
 
     try {
-      console.log(formData);
       const { data } = await axios.post(
         "http://localhost:5000/admin/manage-product/add",
         formData,
@@ -94,7 +92,6 @@ const AddProduct = () => {
       setPreviewSource("");
       setOfferPrice("");
     } catch (error) {
-      console.log(error);
     }
   };
 

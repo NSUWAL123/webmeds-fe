@@ -21,9 +21,6 @@ const SearchBar = () => {
     })();
   }, [searchText]);
 
-  // console.log(searchText);
-  // console.log(returnedProduct);
-
   const redirectToIndProduct = (pname) => {
     navigate(`/products/${pname}`);
     setSearchText("");

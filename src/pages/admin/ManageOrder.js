@@ -30,8 +30,6 @@ const ManageOrder = () => {
     })();
   }, []);
 
-  console.log(orders);
-
   return (
     <div>
       <div className="w-full">
