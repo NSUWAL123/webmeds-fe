@@ -29,7 +29,7 @@ const PrescriptionOrder = (props) => {
     (async () => {
       let userId = order.userId;
       const user = await axios.get(
-        `http://localhost:5000/user/getUserById/${userId}`,
+        `${process.env.REACT_APP_BASE_URL}/user/getUserById/${userId}`,
         config
       );
       setUser(user.data);
@@ -47,7 +47,7 @@ const PrescriptionOrder = (props) => {
 
     const updatedDelStatus = {...order, deliveryStatus: delOptions.processed}
     const updateStatus = await axios.put(
-      "http://localhost:5000/prescription/updateStatus",
+      `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       updatedDelStatus,
       config
     )
@@ -64,7 +64,7 @@ const PrescriptionOrder = (props) => {
 
     const updatedDelStatus = {...order, deliveryStatus: delOptions.ofd}
     const updateStatus = await axios.put(
-      "http://localhost:5000/prescription/updateStatus",
+      `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       updatedDelStatus,
       config
     )
@@ -81,7 +81,7 @@ const PrescriptionOrder = (props) => {
 
     const updatedDelStatus = {...order, deliveryStatus: delOptions.delivered}
     const updateStatus = await axios.put(
-      "http://localhost:5000/prescription/updateStatus",
+      `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       updatedDelStatus,
       config
     )

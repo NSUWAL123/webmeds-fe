@@ -71,7 +71,7 @@ const UpdateItem = () => {
 
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/admin/manage-product/update/${product._id}`,
+        `${process.env.REACT_APP_BASE_URL}/admin/manage-product/update/${product._id}`,
         formData,
         config
       );
@@ -120,7 +120,7 @@ const UpdateItem = () => {
     (async () => {
       //await getAllProducts()
       const response = await axios.get(
-        `http://localhost:5000/products/id/${params.id}`
+        `${process.env.REACT_APP_BASE_URL}/products/id/${params.id}`
       );
       const { data } = response;
       setProduct(data);

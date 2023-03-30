@@ -31,7 +31,7 @@ const AddressModal = (props) => {
     const billingAddress = province + " province, " + district + ", " + area + ", " + landmark;
 
     const user = await axios.post(
-      "http://localhost:5000/user/update-address/",
+      `${process.env.REACT_APP_BASE_URL}/user/update-address/`,
       {
         billingAddress: billingAddress,
       },

@@ -12,7 +12,7 @@ const SearchPage = () => {
   useEffect(() => {
     (async () => {
       let response = await axios.get(
-        `http://localhost:5000/products/search/${keyword}`
+        `${process.env.REACT_APP_BASE_URL}/products/search/${keyword}`
       );
       let { data } = response;
       setReturnedProduct(data);

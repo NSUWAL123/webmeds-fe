@@ -30,7 +30,7 @@ const DashMonth = () => {
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/dashboard/details/${monthYear}`,
+        `${process.env.REACT_APP_BASE_URL}/dashboard/details/${monthYear}`,
         config
       );
       setFigures(data);

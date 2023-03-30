@@ -34,12 +34,12 @@ const RespondModal = () => {
     let deliveryStatus = "pending";
 
     const {data} = await axios.get(
-      `http://localhost:5000/prescription/getPrescriptionById/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/prescription/getPrescriptionById/${id}`,
       config
     );
 
     const updatedPrescription = await axios.put(
-      `http://localhost:5000/prescription/updateStatus`,
+      `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       { ...data, quotedPrice: price, description, deliveryStatus },
       config
     );

@@ -18,7 +18,7 @@ const AdminProtectedRoutes = () => {
   };
   useEffect(() => {
     (async () => {
-      const {data} = await axios.get(`http://localhost:5000/user/getUser`, config);
+      const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/getUser`, config);
       setRole(data.role);
     })() 
   }, [])

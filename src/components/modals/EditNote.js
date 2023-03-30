@@ -29,7 +29,7 @@ const EditNote = (props) => {
     }
 
     let response = await axios.post(
-      `http://localhost:5000/notes/update/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/notes/update/${id}`,
       {
         title,
         description,

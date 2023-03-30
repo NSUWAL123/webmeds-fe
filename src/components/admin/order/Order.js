@@ -30,7 +30,7 @@ const Order = (props) => {
     (async () => {
       let userId = order.userId;
       const user = await axios.get(
-        `http://localhost:5000/user/getUserById/${userId}`,
+        `${process.env.REACT_APP_BASE_URL}/user/getUserById/${userId}`,
         config
       );
       setUser(user.data);
@@ -38,7 +38,7 @@ const Order = (props) => {
       const products = [];
       for (let i = 0; i < orderLine.length; i++) {
         const product = await axios.get(
-          `http://localhost:5000/products/id/${orderLine[i].productId}`,
+          `${process.env.REACT_APP_BASE_URL}/products/id/${orderLine[i].productId}`,
           config
         );
         products.push(product.data);
@@ -55,7 +55,7 @@ const Order = (props) => {
       deliveryStatus: delOptions.processed,
     };
     const orderUpdate = await axios.put(
-      `http://localhost:5000/order/updateOrder`,
+      `${process.env.REACT_APP_BASE_URL}/order/updateOrder`,
       state,
       adminConfig
     );
@@ -69,7 +69,7 @@ const Order = (props) => {
       deliveryStatus: delOptions.ofd,
     };
     const orderUpdate = await axios.put(
-      `http://localhost:5000/order/updateOrder`,
+      `${process.env.REACT_APP_BASE_URL}/order/updateOrder`,
       state,
       adminConfig
     );
@@ -83,7 +83,7 @@ const Order = (props) => {
       deliveryStatus: delOptions.delivered,
     };
     const orderUpdate = await axios.put(
-      `http://localhost:5000/order/updateOrder`,
+      `${process.env.REACT_APP_BASE_URL}/order/updateOrder`,
       state,
       adminConfig
     );

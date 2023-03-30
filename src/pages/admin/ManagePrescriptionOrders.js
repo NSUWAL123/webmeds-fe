@@ -31,7 +31,7 @@ const ManagePrescriptionOrders = () => {
   useEffect(() => {
     (async () => {
       let response = await axios.get(
-        "http://localhost:5000/prescription/getAllPrescriptionOrders"
+        `${process.env.REACT_APP_BASE_URL}/prescription/getAllPrescriptionOrders`
       );
       let { data } = response;
 

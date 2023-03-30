@@ -38,7 +38,7 @@ const LoginPage = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/user/login",
+        `${process.env.REACT_APP_BASE_URL}/user/login`,
         { email, password },
         config
       );

@@ -51,12 +51,12 @@ const PlaceOrderModal = (props) => {
         setLoading(true);
         
         await axios.post(
-          "http://localhost:5000/payment/initiatePayment",
+          `${process.env.REACT_APP_BASE_URL}/payment/initiatePayment`,
           payload
         );
 
         await axios.post(
-          "http://localhost:5000/order/addOrder",
+          `${process.env.REACT_APP_BASE_URL}/order/addOrder`,
           { ...order, paymentStatus: true },
           config
         );
@@ -83,7 +83,7 @@ const PlaceOrderModal = (props) => {
       return;
     } else {
       const initiateOrder = await axios.post(
-        "http://localhost:5000/order/addOrder",
+        `${process.env.REACT_APP_BASE_URL}/order/addOrder`,
         order,
         config
       );
@@ -95,7 +95,7 @@ const PlaceOrderModal = (props) => {
     //removes products from cart that has been ordered
     for (let i = 0; i < orderLine.length; i++) {
       const response = await axios.delete(
-        `http://localhost:5000/cart/removeCart/${orderLine[i]._id}`,
+        `${process.env.REACT_APP_BASE_URL}/cart/removeCart/${orderLine[i]._id}`,
         config
       );
       dispatch(removeItemFromCart({ id: orderLine[i]._id }));
@@ -103,7 +103,7 @@ const PlaceOrderModal = (props) => {
     //updates(decreases) qty of product when order
     for (let i = 0; i < orderLine.length; i++) {
       const response = await axios.post(
-        "http://localhost:5000/admin/manage-product/updateQty",
+        `${process.env.REACT_APP_BASE_URL}/admin/manage-product/updateQty`,
         {
           id: orderLine[i].productId,
           qty: orderLine[i].quantity,

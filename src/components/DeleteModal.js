@@ -27,7 +27,7 @@ const DeleteModal = (props) => {
 
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/admin/manage-product/delete`,
+        `${process.env.REACT_APP_BASE_URL}/admin/manage-product/delete`,
         id,
         config
       );

@@ -25,11 +25,11 @@ const PasswordReset = () => {
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/user/getUserById/${params.userId}`,
+        `${process.env.REACT_APP_BASE_URL}/user/getUserById/${params.userId}`,
         config
       );
       const isToken = await axios.get(
-        `http://localhost:5000/user/findTokenInDB/${params.token}`,
+        `${process.env.REACT_APP_BASE_URL}/user/findTokenInDB/${params.token}`,
         config
       );
       setName(data.name);       
@@ -48,7 +48,7 @@ const PasswordReset = () => {
     }
 
     const updatePassword = await axios.put(
-      `http://localhost:5000/user/updatePassword`, 
+      `${process.env.REACT_APP_BASE_URL}/user/updatePassword`, 
       {userId: params.userId, password, token: params.token},
       config
     );

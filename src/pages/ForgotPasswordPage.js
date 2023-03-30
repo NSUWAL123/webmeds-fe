@@ -25,7 +25,7 @@ const ForgotPasswordPage = () => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/user/reset-password",
+      `${process.env.REACT_APP_BASE_URL}/user/reset-password`,
       {email},
       config
     );

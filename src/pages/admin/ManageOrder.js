@@ -23,7 +23,7 @@ const ManageOrder = () => {
   useEffect(() => {
     (async () => {
       let response = await axios.get(
-        "http://localhost:5000/order/getAllOrders"
+        `${process.env.REACT_APP_BASE_URL}/order/getAllOrders`
       );
       let { data } = response;
       dispatch(populateAdminOrder(data));

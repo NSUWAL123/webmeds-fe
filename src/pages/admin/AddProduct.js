@@ -76,7 +76,7 @@ const AddProduct = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/admin/manage-product/add",
+        `${process.env.REACT_APP_BASE_URL}/admin/manage-product/add`,
         formData,
         config
       );

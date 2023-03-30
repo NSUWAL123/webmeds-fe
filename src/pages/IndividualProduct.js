@@ -25,7 +25,7 @@ const IndividualProduct = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `http://localhost:5000/products/${params.pname}`
+        `${process.env.REACT_APP_BASE_URL}/products/${params.pname}`
       );
       const { data } = response;
       setProduct(data);
@@ -48,7 +48,7 @@ const IndividualProduct = () => {
 
     //url and config to be added here ----->
     const response = await axios.post(
-      "http://localhost:5000/cart/addCart",
+      `${process.env.REACT_APP_BASE_URL}/cart/addCart`,
       productToBeAdded,
       config
     );
@@ -95,7 +95,7 @@ const IndividualProduct = () => {
 
               <div>
                 <p className="text-[18px] text-[#E25247] lg:text-[24px]">
-                  Rs. {product.offerPrice}
+                  Rs. {product.offerPrice.toFixed(2)}
                 </p>
                 {product.discountPct > 0 && (
                   <div className="flex text-[#7A7A7A] lg:text-[20px]">

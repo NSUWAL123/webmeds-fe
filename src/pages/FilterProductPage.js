@@ -21,7 +21,7 @@ const FilterProductPage = () => {
     (async () => {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5000/category/${type}`
+        `${process.env.REACT_APP_BASE_URL}/category/${type}`
       );
       const { data } = response;
       setProducts(data);

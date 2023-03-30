@@ -14,7 +14,7 @@ const SearchBar = () => {
   useEffect(() => {
     (async () => {
       let response = await axios.get(
-        `http://localhost:5000/products/search/${searchText}`
+        `${process.env.REACT_APP_BASE_URL}/products/search/${searchText}`
       );
       let { data } = response;
       setReturnedProduct(data);

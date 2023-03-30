@@ -60,7 +60,7 @@ const BaseLayout = () => {
   useEffect(() => {
     (async () => {
       const user = await axios.get(
-        "http://localhost:5000/user/getUser/",
+        `${process.env.REACT_APP_BASE_URL}/user/getUser/`,
         config
       );
       dispatch(populateUser(user.data));

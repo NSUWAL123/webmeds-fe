@@ -12,7 +12,7 @@ const EmailVerification = () => {
   useEffect(() => {
     const verifyEmailUrl = async () => {
       try {
-        const url = `http://localhost:5000/user/${params.id}/verify/${params.token}`;
+        const url = `${process.env.REACT_APP_BASE_URL}/user/${params.id}/verify/${params.token}`;
         const { data } = await axios.get(url);
         setValidUrl(true);
       } catch (error) {

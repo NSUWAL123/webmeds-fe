@@ -35,7 +35,7 @@ const OrderPage = () => {
   useEffect(() => {
     (async () => {
       let response = await axios.get(
-        "http://localhost:5000/order/getOrder",
+        `${process.env.REACT_APP_BASE_URL}/order/getOrder`,
         config
       );
       let { data } = response;

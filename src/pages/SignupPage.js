@@ -62,7 +62,7 @@ const SignupPage = () => {
     //nishit123
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/user/signup",
+        `${process.env.REACT_APP_BASE_URL}/user/signup`,
         { name, email, mobile, dob, password },
         config
       );

@@ -27,7 +27,7 @@ const ProfilePage = () => {
   useEffect(() => {
     (async () => {
       const user = await axios.get(
-        "http://localhost:5000/user/getUser/",
+        `${process.env.REACT_APP_BASE_URL}/user/getUser/`,
         config
       );
       dispatch(populateUser(user.data));
@@ -49,7 +49,7 @@ const ProfilePage = () => {
     }
 
     const user = await axios.post(
-      "http://localhost:5000/user/update/",
+      `${process.env.REACT_APP_BASE_URL}/user/update/`,
       {
         name: name,
         mobile: mobile,

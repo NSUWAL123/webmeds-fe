@@ -41,7 +41,7 @@ ChartJS.register(
         const productsSold = [];
         for (let i = 0; i < productIds.length; i++) {
           const product = await axios.get(
-            `http://localhost:5000/products/id/${productIds[i].pid}`,
+            `${process.env.REACT_APP_BASE_URL}/products/id/${productIds[i].pid}`,
             config 
           );
           products.push(product.data.pname);

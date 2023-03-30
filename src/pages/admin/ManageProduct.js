@@ -12,7 +12,7 @@ const ManageProduct = () => {
   useEffect(() => {
     (async () => {
       //await getAllProducts()
-      const response = await axios.get("http://localhost:5000/products/");
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/products/`);
       const { data } = response;
 
       setProducts(data);

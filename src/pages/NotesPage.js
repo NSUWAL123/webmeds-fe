@@ -31,7 +31,7 @@ const NotesPage = () => {
     }
 
     let response = await axios.post(
-      `http://localhost:5000/notes/add`,
+      `${process.env.REACT_APP_BASE_URL}/notes/add`,
       { title, description },
       config
     );
@@ -46,7 +46,7 @@ const NotesPage = () => {
 
   useEffect(() => {
     (async () => {
-      let response = await axios.get(`http://localhost:5000/notes`, config);
+      let response = await axios.get(`${process.env.REACT_APP_BASE_URL}/notes`, config);
       window.scrollTo(0, 0);
       let { data } = response;
 

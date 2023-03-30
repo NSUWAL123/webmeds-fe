@@ -137,7 +137,7 @@ const UploadPrescriptionPage = () => {
     };
 
     const prescription = await axios.post(
-      "http://localhost:5000/prescription/upload",
+      `${process.env.REACT_APP_BASE_URL}/prescription/upload`,
       uploadData,
       config
     );

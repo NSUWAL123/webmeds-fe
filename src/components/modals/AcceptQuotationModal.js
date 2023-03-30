@@ -39,7 +39,7 @@ const AcceptQuotationModal = (props) => {
         setLoading(true)
         
         await axios.post(
-          "http://localhost:5000/payment/initiatePayment",
+          `${process.env.REACT_APP_BASE_URL}/payment/initiatePayment`,
           payload
         );
 
@@ -51,7 +51,7 @@ const AcceptQuotationModal = (props) => {
         };
 
         await axios.post(
-          "http://localhost:5000/prescription/initiateOrder",
+          `${process.env.REACT_APP_BASE_URL}/prescription/initiateOrder`,
           updatedOrder,
           config
         );
@@ -92,7 +92,7 @@ const AcceptQuotationModal = (props) => {
       };
 
       await axios.post(
-        "http://localhost:5000/prescription/initiateOrder",
+        `${process.env.REACT_APP_BASE_URL}/prescription/initiateOrder`,
         updatedOrder,
         config
       );

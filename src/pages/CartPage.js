@@ -27,7 +27,7 @@ const CartPage = () => {
   useEffect(() => {
     (async () => {
       const fetchCart = await axios.get(
-        "http://localhost:5000/cart/getCartItems",
+        `${process.env.REACT_APP_BASE_URL}/cart/getCartItems`,
         config
       );
       dispatch(populateCart(fetchCart.data.getCart));

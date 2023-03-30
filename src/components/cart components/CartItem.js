@@ -34,7 +34,7 @@ const CartItem = (props) => {
   useEffect(() => {
     (async () => {
       const product = await axios.get(
-        `http://localhost:5000/products/id/${cartItem.productId}`,
+        `${process.env.REACT_APP_BASE_URL}/products/id/${cartItem.productId}`,
         config
       );
       setProduct(product.data);
@@ -50,7 +50,7 @@ const CartItem = (props) => {
         quantity: quantity,
       };
       const response = await axios.post(
-        "http://localhost:5000/cart/editCart",
+        `${process.env.REACT_APP_BASE_URL}/cart/editCart`,
         cartToBeUpdated,
         config
       );
@@ -74,7 +74,7 @@ const CartItem = (props) => {
   const removeFromCart = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/cart/removeCart/${cartItem._id}`,
+        `${process.env.REACT_APP_BASE_URL}/cart/removeCart/${cartItem._id}`,
         config
       );
       dispatch(removeItemFromCart({ id: cartItem._id }));
@@ -93,7 +93,7 @@ const CartItem = (props) => {
         isCheck: false,
       };
       const response = await axios.post(
-        `http://localhost:5000/cart/toggleCheck`,
+        `${process.env.REACT_APP_BASE_URL}/cart/toggleCheck`,
         cartToBeUpdated,
         config
       );
@@ -105,7 +105,7 @@ const CartItem = (props) => {
         isCheck: true,
       };
       const response = await axios.post(
-        `http://localhost:5000/cart/toggleCheck`,
+        `${process.env.REACT_APP_BASE_URL}/cart/toggleCheck`,
         cartToBeUpdated,
         config
       );

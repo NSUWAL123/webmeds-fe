@@ -20,7 +20,7 @@ const PrescriptionOrderPage = () => {
   useEffect(() => {
     (async () => {
       let { data } = await axios.get(
-        "http://localhost:5000/prescription/getPrescriptionByUser",
+        `${process.env.REACT_APP_BASE_URL}/prescription/getPrescriptionByUser`,
         config
       );
       dispatch(populatePrescription(data));
@@ -39,7 +39,7 @@ const PrescriptionOrderPage = () => {
   };
   const [delState, setDelState] = useState(delOptions.quotation);
 
-  const filteredPrescriptions = prescriptions.filter((prescription) => {
+  const filteredPrescriptions = prescriptions?.filter((prescription) => {
     if (delState === delOptions.request) {
       return prescription.deliveryStatus === delOptions.request
     }
@@ -119,7 +119,7 @@ const PrescriptionOrderPage = () => {
       </div>
 
       <div>
-        {filteredPrescriptions.map((order) => {
+        {filteredPrescriptions?.map((order) => {
           return (
             <UserPrescriptionOrder
               delState={delState}
@@ -130,7 +130,7 @@ const PrescriptionOrderPage = () => {
           );
         })}
       </div>
-      {filteredPrescriptions.length === 0 && (
+      {filteredPrescriptions?.length === 0 && (
         <p className="text-[#7b7b7b] font-semibold text-2xl h-[400px] flex items-center justify-center">Nothing to display here!</p>
       )}
     </div>

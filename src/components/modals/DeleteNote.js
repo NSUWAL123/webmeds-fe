@@ -17,7 +17,7 @@ const DeleteNote = (props) => {
   };
 
   const DeleteNote = async (_id) => {
-    let response = await axios.delete(`http://localhost:5000/notes/delete/${_id}`, config);
+    let response = await axios.delete(`${process.env.REACT_APP_BASE_URL}/notes/delete/${_id}`, config);
     dispatch(deleteNote(_id))
   };
   return (
