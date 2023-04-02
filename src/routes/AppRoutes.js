@@ -28,9 +28,9 @@ import AdminProtectedRoutes from "./AdminProtectedRoutes";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import axios from "axios";
 import PasswordReset from "../pages/PasswordReset";
+import DealsPage from "../pages/DealsPage";
 
 const AppRoutes = () => {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -38,7 +38,10 @@ const AppRoutes = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/user/:id/verify/:token" element={<EmailVerification />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/password/reset/:userId/:token" element={<PasswordReset />} />
+        <Route
+          path="/password/reset/:userId/:token"
+          element={<PasswordReset />}
+        />
 
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<HomePage />} />
@@ -46,6 +49,7 @@ const AppRoutes = () => {
           <Route path="/category/:type" element={<FilterProductPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/search/:keyword" element={<SearchPage />} />
+          <Route path="/deals/:deal" element={<DealsPage />} />
           <Route
             path="/upload-prescription"
             element={<UploadPrescriptionPage />}

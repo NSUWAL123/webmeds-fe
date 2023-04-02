@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import { populateUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import Banners from "../components/Banners";
 
 const HomePage = () => {
   // let productArray = [];
@@ -38,6 +39,9 @@ const HomePage = () => {
 
   return (
     <div>
+      <div>
+        <Banners/>
+      </div>
       <div className="flex items-center justify-between mb-5 ">
         <h1 className="font-semibold lg:text-xl text-[#31D490]">
           ALL PRODUCTS
