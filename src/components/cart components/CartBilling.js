@@ -93,7 +93,7 @@ const CartBilling = () => {
             </div>
             <div className="flex justify-between">
               <p>Discount:</p>
-              <p>Rs. {orderSummary.discount}</p>
+              <p>Rs. {(orderSummary.discount)?.toFixed(2)}</p>
             </div>
             <div className="flex justify-between">
               <p>Delivery Charge:</p>
@@ -101,7 +101,7 @@ const CartBilling = () => {
             </div>
             <div className="flex justify-between text-[#E25247] font-medium text-lg border-t border-gray-400 pt-1">
               <p>Grand Total:</p>
-              <p>Rs.{orderSummary.grandTotal}</p>
+              <p>Rs.{(orderSummary.grandTotal)?.toFixed(2)}</p>
             </div>
           </div>
           <div className="flex justify-center">

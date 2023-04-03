@@ -13,6 +13,7 @@ import {
   updateOrderSummary,
   updateQuantity,
 } from "../../redux/cartSlice";
+import checkExpiry from "../../utils/checkExpiry";
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
@@ -116,7 +117,7 @@ const CartItem = (props) => {
     <div className="py-3 border-b border-slate-300">
       <div className="flex justify-between items-center sm:px-6">
         <div className="flex items-center w-[80%] sm:w-[60%] justify-between lg:w-[70%]">
-          {product.stock === 0 ? (
+          {(product.stock === 0 || checkExpiry(product.expiry)) ? (
             <div
               className={`w-4 h-4 sm:w-5 sm:h-5 border-2 rounded-full bg-[#AAAAAA] border-none cursor-pointer`}
             ></div>
@@ -134,7 +135,7 @@ const CartItem = (props) => {
               alt=""
               className="w-[60px]  border rounded-md sm:w-[100px] "
             />
-            {product.stock === 0 && (
+            {(product.stock === 0 || checkExpiry(product.expiry)) && (
               <p className="w-[60px] sm:w-[100px] text-xs sm:text-sm text-center bg-black opacity-75 mb-2 text-white absolute">
                 Out of Stock
               </p>
@@ -161,7 +162,6 @@ const CartItem = (props) => {
                       : "bg-[#37474F]"
                   }  text-white w-5 h-5 ml-3 rounded-md flex items-center justify-center cursor-pointer`}
                   onClick={() => {
-                    // setQuantity(quantity + 1);
                     if (quantity < 10 && quantity < product.stock) {
                       dispatch(
                         updateQuantity({
@@ -188,7 +188,7 @@ const CartItem = (props) => {
                   <strike>Rs. {product.price}</strike> -{product.discountPct}%
                 </p>
               )}
-              <p className="text-[#E25247]">Rs. {product.offerPrice}</p>
+              <p className="text-[#E25247]">Rs. {(product?.offerPrice)?.toFixed(2)}</p>
             </div>
           </div>
         </div>

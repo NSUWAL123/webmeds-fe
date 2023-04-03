@@ -7,6 +7,7 @@ import PageNotFound from "./PageNotFound";
 import { notifySuccess } from "../utils/Toast";
 import { getTokenFromLocalStorage } from "../utils/handleToken";
 import ProductNotFound from "../components/ProductNotFound";
+import checkExpiry from "../utils/checkExpiry";
 
 const IndividualProduct = () => {
   const params = useParams();
@@ -73,7 +74,7 @@ const IndividualProduct = () => {
                 alt=""
                 className="w-[225px] border border-[#AAAAAA] rounded-3xl md:w-[255px] lg:w-[360px]"
               />
-              {product.stock === 0 && (
+              {(product.stock === 0  || checkExpiry(product.expiry)) && (
                 <p className="w-[225px] md:w-[255px] lg:w-[360px] text-xl text-center bg-black opacity-75 mb-2 text-white absolute">
                   Out of Stock
                 </p>
@@ -86,7 +87,7 @@ const IndividualProduct = () => {
                 <p className="text-[#7A7A7A] lg:text-[24px]">
                   {product.company}
                 </p>
-                {product.stock === 0 ? (
+                {(product.stock === 0  || checkExpiry(product.expiry)) ? (
                   <p className="text-[#5D94E7] lg:text-[20px]">Out of Stock</p>
                 ) : (
                   <p className="text-[#5D94E7] lg:text-[20px]">In Stock</p>
@@ -134,7 +135,7 @@ const IndividualProduct = () => {
                   </button>
                 </div>
               </div>
-              {product.stock === 0 ? (
+              {(product.stock === 0  || checkExpiry(product.expiry)) ? (
                 <div className="flex justify-center md:justify-start">
                   <button
                     className="bg-[#f57a71] text-white px-2 py-1 rounded-lg my-3 lg:text-[20px] cursor-not-allowed"
@@ -158,11 +159,6 @@ const IndividualProduct = () => {
                   Only {product.stock} items left! Get yours fast.
                 </p>
               )}
-              {/* {product.stock === 0 && (
-                <p className="text-sm text-center mb-2 text-red-500 md:text-left">
-                  Product Out of Stock!
-                </p>
-              )} */}
             </div>
           </div>
 

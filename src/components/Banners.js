@@ -6,6 +6,7 @@ const Banners = () => {
     const navigateTo = (endpoint) => {
         navigate(`/category/${endpoint}`)
     }
+
   return (
     <div className='flex flex-col items-center gap-4'>
         <div className='category-deals flex flex-col gap-4 items-center w-full sm:flex-row sm:justify-around'>

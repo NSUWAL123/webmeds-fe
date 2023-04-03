@@ -1,6 +1,7 @@
 import React from "react";
 import carticn from "../pictures/icons/cart.svg";
 import { useNavigate } from "react-router-dom";
+import checkExpiry from "../utils/checkExpiry";
 
 const ProductItem = (props) => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const ProductItem = (props) => {
             className="w-full"
           />
         </div>
-        {product.stock === 0 && (
+        {(product.stock === 0 || checkExpiry(product.expiry)) && (
           <p className="w-[145px] lg:w-[200px] text-md text-center bg-black opacity-75 mb-2 text-white absolute">
             Out of Stock
           </p>

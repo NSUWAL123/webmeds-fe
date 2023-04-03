@@ -16,8 +16,7 @@ const CartSummary = (props) => {
   }
 
   return (
-    <div className='flex border-b py-3 border-gray-400'>
-      
+    <div className='flex border-b py-3 border-gray-400'>   
         <img src={product.productPicURL} alt="" className='w-[55px] border rounded-md'/>
         <div className='ml-5 flex flex-col justify-around'>
             <p>{product.pname}</p>

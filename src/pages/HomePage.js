@@ -6,11 +6,13 @@ import { getTokenFromLocalStorage } from "../utils/handleToken";
 import { populateUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import Banners from "../components/Banners";
+import Loading from '../components/Loading'
 
 const HomePage = () => {
   // let productArray = [];
   const dispatch = useDispatch();
   let [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   // const token = ;
   const config = {
@@ -23,12 +25,14 @@ const HomePage = () => {
   useEffect(() => {
     (async () => {
       //await getAllProducts()
+      setLoading(true);
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/products/`);
       const { data } = response;
       setProducts(data);
       window.scrollTo(0, 0);
       const user = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/getUser/`, config)
-      dispatch(populateUser(user.data))
+      dispatch(populateUser(user.data));
+      setLoading(false);
     })();
   }, []);
 
@@ -39,7 +43,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <div>
+      <div className="md:my-4">
         <Banners/>
       </div>
       <div className="flex items-center justify-between mb-5 ">
@@ -54,6 +58,7 @@ const HomePage = () => {
           return <ProductItem key={product._id} product={product} />;
         })}
       </div>
+      {loading && <Loading/>}
     </div>
   );
 };
