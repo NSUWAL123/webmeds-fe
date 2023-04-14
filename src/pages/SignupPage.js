@@ -58,14 +58,17 @@ const SignupPage = () => {
       },
     };
 
-    //nissuwal00@gmail.com
-    //nishit123
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/user/signup`,
         { name, email, mobile, dob, password },
         config
       );
+
+      if (data.lvl === "error") {
+        notifyError(data.message);
+        return;
+      }
       notifyInfo(
         "A verification link has been sent to your email. Please check your email."
       );

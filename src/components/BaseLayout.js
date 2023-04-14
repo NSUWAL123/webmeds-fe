@@ -164,7 +164,7 @@ const BaseLayout = () => {
                     src={camera}
                     alt=""
                     className="mr-2 sm:mr-5 xl:mr-7 sm:w-[28px] "
-                  />
+                  />                  
                 </Link>
                 <span
                   className=" group-hover:opacity-100 transition-opacity px-2 text-sm text-gray-100 absolute left-1/2 

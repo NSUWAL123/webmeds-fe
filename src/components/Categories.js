@@ -5,8 +5,6 @@ const Categories = (props) => {
   const {setShowSidebar} = props;
   const navigate = useNavigate();
 
-  
-
   return (
     <div>
       <div className="flex flex-col md:flex-row md:justify-around md:text-sm md:items-center h-[80%] mx-6 xl:mx-8">
