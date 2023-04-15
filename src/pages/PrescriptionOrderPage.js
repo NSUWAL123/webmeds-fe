@@ -23,7 +23,10 @@ const PrescriptionOrderPage = () => {
         `${process.env.REACT_APP_BASE_URL}/prescription/getPrescriptionByUser`,
         config
       );
-      dispatch(populatePrescription(data));
+      console.log(" data " + data)
+      if (Array.isArray(data)) {
+        dispatch(populatePrescription(data));
+      }
     })();
   }, []);
   const prescriptions = useSelector((state) => state.uploadPrescription);
@@ -39,7 +42,7 @@ const PrescriptionOrderPage = () => {
   };
   const [delState, setDelState] = useState(delOptions.quotation);
 
-  const filteredPrescriptions = prescriptions?.filter((prescription) => {
+  const filteredPrescriptions = prescriptions?.filter((prescription) =>  {
     if (delState === delOptions.request) {
       return prescription.deliveryStatus === delOptions.request
     }

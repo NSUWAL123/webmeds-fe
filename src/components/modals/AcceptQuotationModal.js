@@ -33,7 +33,7 @@ const AcceptQuotationModal = (props) => {
     publicKey: process.env.REACT_APP_KHALTI_PUBLIC_KEY,
     productIdentity: process.env.REACT_APP_KHALTI_SECRET_KEY,
     productName: "webmeds",
-    productUrl: "http://localhost:3000/",
+    productUrl: "https://webmeds.onrender.com",
     eventHandler: {
       async onSuccess(payload) {
         setLoading(true)
