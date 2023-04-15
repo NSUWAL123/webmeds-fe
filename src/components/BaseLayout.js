@@ -380,7 +380,7 @@ const BaseLayout = () => {
               <p className="px-6 py-4  bg-[#5D94E7] font-semibold text-[20px] text-white xl:px-8">
                 Categories for you
               </p>
-              <Categories setShowSidebar={setShowSidebar} />
+              <Categories showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
             </div>
             {/* <div>
               <button
