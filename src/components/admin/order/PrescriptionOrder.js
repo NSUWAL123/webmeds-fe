@@ -6,6 +6,7 @@ import location from "../../../pictures/icons/location.svg";
 import khalti from "../../../pictures/logo/khaltilogo.png";
 import {
   changePrescriptionOrderState,
+  declinePrescriptionOrderState,
   setShowPrescription,
   setShowRespondModal,
 } from "../../../redux/prescriptionSlice";
@@ -45,12 +46,12 @@ const PrescriptionOrder = (props) => {
       })
     );
 
-    const updatedDelStatus = {...order, deliveryStatus: delOptions.processed}
+    const updatedDelStatus = { ...order, deliveryStatus: delOptions.processed };
     const updateStatus = await axios.put(
       `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       updatedDelStatus,
       config
-    )
+    );
   };
 
   // 2. OUT FOR DELIVERY
@@ -62,12 +63,12 @@ const PrescriptionOrder = (props) => {
       })
     );
 
-    const updatedDelStatus = {...order, deliveryStatus: delOptions.ofd}
+    const updatedDelStatus = { ...order, deliveryStatus: delOptions.ofd };
     const updateStatus = await axios.put(
       `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       updatedDelStatus,
       config
-    )
+    );
   };
 
   // 3. DELIVERED
@@ -79,12 +80,23 @@ const PrescriptionOrder = (props) => {
       })
     );
 
-    const updatedDelStatus = {...order, deliveryStatus: delOptions.delivered}
+    const updatedDelStatus = { ...order, deliveryStatus: delOptions.delivered };
     const updateStatus = await axios.put(
       `${process.env.REACT_APP_BASE_URL}/prescription/updateStatus`,
       updatedDelStatus,
       config
-    )
+    );
+  };
+
+  // PRESCRIPTION ORDER CANCEL
+  const declineOrder = async () => {
+    const state = {
+      id: order._id,
+    };
+    const deletePrescription = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/prescription/deletePrescriptionOrder/${order._id}`
+    );
+    dispatch(declinePrescriptionOrderState(state));
   };
 
   return (
@@ -178,7 +190,7 @@ const PrescriptionOrder = (props) => {
                 </p>
                 <div className="flex items-center">
                   <p className="text-xs italic">*Paid via </p>
-                  <img src={khalti} alt="" className="w-[60px]"/>
+                  <img src={khalti} alt="" className="w-[60px]" />
                 </div>
               </div>
             </div>
@@ -189,7 +201,10 @@ const PrescriptionOrder = (props) => {
       {/* IF DELIVERY STATUS IS "REQUEST" */}
       {order.deliveryStatus === delOptions.request && (
         <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
-          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+          <button
+            className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2"
+            onClick={() => declineOrder()}
+          >
             Decline
           </button>
           <button
@@ -206,7 +221,10 @@ const PrescriptionOrder = (props) => {
       {/* IF DELIVERY STATUS IS "PENDING" */}
       {order.deliveryStatus === delOptions.pending && (
         <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
-          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+          <button
+            className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2"
+            onClick={() => declineOrder()}
+          >
             Cancel
           </button>
           <button
@@ -221,7 +239,10 @@ const PrescriptionOrder = (props) => {
       {/* IF DELIVERY STATUS IS "PROCESSED" */}
       {order.deliveryStatus === delOptions.processed && (
         <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
-          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+          <button
+            className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2"
+            onClick={() => declineOrder()}
+          >
             Cancel
           </button>
           <button
@@ -236,7 +257,10 @@ const PrescriptionOrder = (props) => {
       {/* IF DELIVERY STATUS IS "OFD" */}
       {order.deliveryStatus === delOptions.ofd && (
         <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-400 md:pt-2">
-          <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+          <button
+            className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2"
+            onClick={() => declineOrder()}
+          >
             Cancel
           </button>
           <button

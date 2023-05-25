@@ -23,7 +23,7 @@ const PrescriptionOrderPage = () => {
         `${process.env.REACT_APP_BASE_URL}/prescription/getPrescriptionByUser`,
         config
       );
-      console.log(" data " + data)
+      console.log(" data " + data);
       if (Array.isArray(data)) {
         dispatch(populatePrescription(data));
       }
@@ -42,17 +42,22 @@ const PrescriptionOrderPage = () => {
   };
   const [delState, setDelState] = useState(delOptions.quotation);
 
-  const filteredPrescriptions = prescriptions?.filter((prescription) =>  {
-    if (delState === delOptions.request) {
-      return prescription.deliveryStatus === delOptions.request
-    }
-    if (delState === "quotation") {
+  const filteredPrescriptions = prescriptions?.filter((prescription) => {
+    if (prescription.failed === false) {
+      if (delState === delOptions.request) {
+        return prescription.deliveryStatus === delOptions.request;
+      }
+      if (delState === "quotation") {
+        return (
+          prescription.deliveryStatus === delOptions.pending &&
+          prescription.isPriceAccepted === "pending"
+        );
+      }
       return (
-        prescription.deliveryStatus === delOptions.pending &&
-        prescription.isPriceAccepted === "pending"
+        prescription.deliveryStatus === delState &&
+        prescription.isPriceAccepted === "accepted"
       );
     }
-    return prescription.deliveryStatus === delState && prescription.isPriceAccepted === "accepted";
   });
 
   return (
@@ -124,17 +129,23 @@ const PrescriptionOrderPage = () => {
       <div>
         {filteredPrescriptions?.map((order) => {
           return (
-            <UserPrescriptionOrder
-              delState={delState}
-              delOptions={delOptions}
-              key={order._id}
-              order={order}
-            />
+            <>
+              {order.failed === false && (
+                <UserPrescriptionOrder
+                  delState={delState}
+                  delOptions={delOptions}
+                  key={order._id}
+                  order={order}
+                />
+              )}
+            </>
           );
         })}
       </div>
       {filteredPrescriptions?.length === 0 && (
-        <p className="text-[#7b7b7b] font-semibold text-2xl h-[400px] flex items-center justify-center">Nothing to display here!</p>
+        <p className="text-[#7b7b7b] font-semibold text-2xl h-[400px] flex items-center justify-center">
+          Nothing to display here!
+        </p>
       )}
     </div>
   );

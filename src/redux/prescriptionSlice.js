@@ -61,6 +61,15 @@ export const prescriptionSlice = createSlice({
       }
       state.showRespondModal.show = false;
     },
+    declinePrescriptionOrderState: (state, action) => {
+      const { id } = action.payload;
+      for (let i = 0; i < state.prescription.length; i++) {
+        if (state.prescription[i]._id === id) {
+          state.prescription[i].failed = true;
+        }
+      }
+      state.showRespondModal.show = false;
+    },
   },
 });
 
@@ -69,4 +78,5 @@ export const {
   setShowPrescription,
   setShowRespondModal,
   changePrescriptionOrderState,
+  declinePrescriptionOrderState,
 } = prescriptionSlice.actions;

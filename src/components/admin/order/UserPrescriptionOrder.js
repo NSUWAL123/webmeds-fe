@@ -5,6 +5,8 @@ import { setShowPrescription } from "../../../redux/prescriptionSlice";
 import AcceptQuotationModal from "../../modals/AcceptQuotationModal";
 import ViewPrescriptionModal from "./ViewPrescriptionModal";
 import khalti from "../../../pictures/logo/khaltilogo.png";
+import axios from "axios";
+import { declinePrescriptionOrder } from "../../../redux/uploadPrescriptionSlice";
 
 const UserPrescriptionOrder = (props) => {
   const { order } = props;
@@ -12,6 +14,16 @@ const UserPrescriptionOrder = (props) => {
   const { showPrescription } = useSelector((state) => state.prescriptionOrder);
   const [showAQModal, setShowAQModal] = useState(false);
   const [ord, setOrd] = useState({});
+
+  const declineOrder = async () => {
+    const state = {
+      id: order._id,
+    };
+    const deletePrescription = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/prescription/deletePrescriptionOrder/${order._id}`
+    );
+    dispatch(declinePrescriptionOrder(state));
+  };
 
   return (
     <div className="flex flex-col justify-around bg-[#ffffff] mt-6 px-5 rounded-lg py-3">
@@ -29,13 +41,12 @@ const UserPrescriptionOrder = (props) => {
           </div>
           <button
             className="flex items-center bg-[#FFC655] hover:bg-[#fecd6a] w-fit px-2 py-1 rounded-md"
-            onClick={() =>
-              {dispatch(setShowPrescription({ setTo: true, id: "" }));
-              setOrd({})
+            onClick={() => {
+              dispatch(setShowPrescription({ setTo: true, id: "" }));
+              setOrd({});
               setOrd(order);
               // setImgURL(order.prescriptionPicURL)
-            }
-            }
+            }}
           >
             <img src={eye} alt="" className="mr-2" />
             <p>View Prescription</p>
@@ -98,14 +109,16 @@ const UserPrescriptionOrder = (props) => {
                 <p className="mt-1 text-[#E25247]  font-semibold">
                   <span className="font-medium">Price: </span>Rs.{" "}
                   {order.quotedPrice}
-                    <span className="italic font-medium text-xs text-[#AAAAAA]">
+                  <span className="italic font-medium text-xs text-[#AAAAAA]">
                     {" "}
                     *excluding Rs.50 delivery charge
                   </span>
                 </p>
                 {order.isPriceAccepted === "accepted" && (
                   <div className="flex items-center">
-                    <p className="text-xs italic text-[#AAAAAA] font-medium">*Paid via </p>
+                    <p className="text-xs italic text-[#AAAAAA] font-medium">
+                      *Paid via{" "}
+                    </p>
                     <img src={khalti} alt="" className="w-[60px]" />
                   </div>
                 )}
@@ -117,7 +130,10 @@ const UserPrescriptionOrder = (props) => {
       {order.deliveryStatus === "pending" &&
         order.isPriceAccepted === "pending" && (
           <div className="flex justify-around mt-4 md:border-t-[1px] md:border-slate-300 md:pt-2">
-            <button className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2">
+            <button
+              className="bg-[#E25247] hover:bg-[#fb5d52] text-white px-2 py-1 rounded-md m-2"
+              onClick={() => declineOrder()}
+            >
               Decline
             </button>
             <button

@@ -20,7 +20,7 @@ const ManagePrescriptionOrders = () => {
   };
   const [delState, setDelState] = useState(delOptions.request);
   const filteredOrder = prescription.filter(
-    (order) => order.deliveryStatus === delState
+    (order) => order.deliveryStatus === delState && order.failed === false
   );
   const config = {
     headers: {
@@ -86,12 +86,16 @@ const ManagePrescriptionOrders = () => {
       <div>
         {filteredOrder.map((order) => {
           return (
-            <PrescriptionOrder
-              delState={delState}
-              delOptions={delOptions}
-              key={order._id}
-              order={order}
-            />
+            <>
+              {order.failed === false && (
+                <PrescriptionOrder
+                  delState={delState}
+                  delOptions={delOptions}
+                  key={order._id}
+                  order={order}
+                />
+              )}
+            </>
           );
         })}
       </div>

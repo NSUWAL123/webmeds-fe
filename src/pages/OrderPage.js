@@ -92,12 +92,16 @@ const OrderPage = () => {
       <div className="flex flex-col items-center">
         {filteredOrder.map((order) => {
           return (
-            <UserOrder
-              delState={delState}
-              delOptions={delOptions}
-              key={order._id}
-              order={order}
-            />
+            <>
+              {order.failed === false && (
+                <UserOrder
+                  delState={delState}
+                  delOptions={delOptions}
+                  key={order._id}
+                  order={order}
+                />
+              )}
+            </>
           );
         })}
       </div>

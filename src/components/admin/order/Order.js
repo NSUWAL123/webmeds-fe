@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { changeAdminOrderState } from "../../../redux/adminOrderSlice";
-import khaltilogo from "../../../pictures/logo/khaltilogo.png"
-import location from "../../../pictures/icons/location.svg"
-import {getTokenFromLocalStorage} from "../../../utils/handleToken"
+import {
+  changeAdminOrderState,
+  declineOrderState,
+} from "../../../redux/adminOrderSlice";
+import khaltilogo from "../../../pictures/logo/khaltilogo.png";
+import location from "../../../pictures/icons/location.svg";
+import { getTokenFromLocalStorage } from "../../../utils/handleToken";
 
 const Order = (props) => {
   const { delState, delOptions, order } = props;
@@ -90,6 +93,18 @@ const Order = (props) => {
     dispatch(changeAdminOrderState(state));
   };
 
+  // 4. DECLINE ORDER
+  const declineOrder = async () => {
+    const state = {
+      id: order._id,
+    };
+    console.log(order._id);
+    const orderUpdate = await axios.put(
+      `${process.env.REACT_APP_BASE_URL}/order/deleteOrder/${order._id}`
+    );
+    dispatch(declineOrderState(state));
+  };
+
   return (
     <div className="border-b-[1px] border-black my-6">
       <div className="flex items-center justify-start">
@@ -103,41 +118,46 @@ const Order = (props) => {
 
       <div className="border-b-[1px] border-gray-300 flex justify-between items-center">
         <div>
-        {/* looping products */}
-        {products.map((prod) => {
-          return (
-            <div>
-              <div className="flex items-center my-2">
-                <img
-                  src={prod.productPicURL}
-                  alt=""
-                  className="w-[60px] h-[60px] mr-4 border rounded-md my-1"
-                />
-                <div className="">
-                  <p className="font-medium">{prod.pname}</p>
+          {/* looping products */}
+          {products.map((prod) => {
+            return (
+              <div>
+                <div className="flex items-center my-2">
+                  <img
+                    src={prod.productPicURL}
+                    alt=""
+                    className="w-[60px] h-[60px] mr-4 border rounded-md my-1"
+                  />
+                  <div className="">
+                    <p className="font-medium">{prod.pname}</p>
 
-                  {/* looping orderline to return quantity of each order item, condition ===> productId match hunuparyo, there is no condition productId doesn't match */}
-                  {orderLine.map((ord) => {
-                    if (ord.productId === prod._id) {
-                      return (
-                        <p key={ord.productId}>
-                          Quantity{" "}
-                          <span className="font-semibold">x{ord.quantity}</span> 
-                        </p>
-                      );
-                    }
-                  })}
+                    {/* looping orderline to return quantity of each order item, condition ===> productId match hunuparyo, there is no condition productId doesn't match */}
+                    {orderLine.map((ord) => {
+                      if (ord.productId === prod._id) {
+                        return (
+                          <p key={ord.productId}>
+                            Quantity{" "}
+                            <span className="font-semibold">
+                              x{ord.quantity}
+                            </span>
+                          </p>
+                        );
+                      }
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
-        {(order.paymentType === "khalti") ? (
-            <div className="flex items-center"><p className="text-gray-400 font-medium text-sm">Paid via </p><img src={khaltilogo} alt="" className="w-[60px]"/></div>
-          ) : (
-            <p className="text-gray-400 font-medium text-sm">COD</p>
-          )}
+        {order.paymentType === "khalti" ? (
+          <div className="flex items-center">
+            <p className="text-gray-400 font-medium text-sm">Paid via </p>
+            <img src={khaltilogo} alt="" className="w-[60px]" />
+          </div>
+        ) : (
+          <p className="text-gray-400 font-medium text-sm">COD</p>
+        )}
       </div>
 
       <div className="h-[80px] flex flex-col justify-around mb-2">
@@ -153,7 +173,10 @@ const Order = (props) => {
           {/* 1. Renders when delivery status is pending */}
           {delState === delOptions.pending && (
             <>
-              <button className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]">
+              <button
+                className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]"
+                onClick={() => declineOrder()}
+              >
                 Decline Order
               </button>
               <button
@@ -168,7 +191,10 @@ const Order = (props) => {
           {/* 2. Renders when delivery status is processed */}
           {delState === delOptions.processed && (
             <>
-              <button className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]">
+              <button
+                className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]"
+                onClick={() => declineOrder()}
+              >
                 Cancel Order
               </button>
               <button
@@ -183,7 +209,10 @@ const Order = (props) => {
           {/* 3. Renders when delivery status is out-for-delivery */}
           {delState === delOptions.ofd && (
             <>
-              <button className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]">
+              <button
+                className="bg-[#E25247] text-white px-2 py-1 rounded-md font-medium hover:bg-[#f06359]"
+                onClick={() => declineOrder()}
+              >
                 Delivery Failed
               </button>
               <button

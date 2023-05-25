@@ -67,12 +67,16 @@ const ManageOrder = () => {
       <div>
         {filteredOrder.map((order) => {
           return (
-            <Order
-              delState={delState}
-              delOptions={delOptions}
-              key={order._id}
-              order={order}
-            />
+            <>
+              {order.failed === false && (
+                <Order
+                  delState={delState}
+                  delOptions={delOptions}
+                  key={order._id}
+                  order={order}
+                />
+              )}
+            </>
           );
         })}
       </div>
