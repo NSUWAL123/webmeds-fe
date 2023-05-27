@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
 import Categories from "./Categories";
@@ -67,9 +67,11 @@ const BaseLayout = () => {
     })();
   }, []);
 
+  const { pathname } = useLocation();
+
   return (
     <div className="bg-[#F2F2F2]">
-      <div className="relative -fontdisplay xl:text-[18px] flex">
+      <div className="relative font-display xl:text-[18px] flex">
         <div className="fixed top-0 left-0 right-0 bg-white shadow-md shadow-gray-300 z-10">
           <div className="flex justify-between py-5 px-6 items-center md:px-12 lg:py-3">
             <div className="flex">
@@ -164,7 +166,7 @@ const BaseLayout = () => {
                     src={camera}
                     alt=""
                     className="mr-2 sm:mr-5 xl:mr-7 sm:w-[28px] "
-                  />                  
+                  />
                 </Link>
                 <span
                   className=" group-hover:opacity-100 transition-opacity px-2 text-sm text-gray-100 absolute left-1/2 
@@ -380,7 +382,10 @@ const BaseLayout = () => {
               <p className="px-6 py-4  bg-[#5D94E7] font-semibold text-[20px] text-white xl:px-8">
                 Categories for you
               </p>
-              <Categories showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+              <Categories
+                showSidebar={showSidebar}
+                setShowSidebar={setShowSidebar}
+              />
             </div>
             {/* <div>
               <button
@@ -403,11 +408,13 @@ const BaseLayout = () => {
           <Outlet />
         </div>
 
-        <Link to="/chat">
-          <div className="fixed bottom-8 right-8 w-[65px] bg-white rounded-full p-1 shadow-lg border">
-            <img src={chaticn} alt="" className="" />
-          </div>
-        </Link>
+        {pathname !== "/chat" && (
+          <Link to="/chat">
+            <div className="fixed bottom-8 right-8 w-[65px] bg-white rounded-full p-1 shadow-lg border">
+              <img src={chaticn} alt="" className="" />
+            </div>
+          </Link>
+        )}
       </div>
 
       <div className="w-[100%]  mt-8" onClick={() => setShowMore(false)}>

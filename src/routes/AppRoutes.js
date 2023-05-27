@@ -29,6 +29,8 @@ import { getTokenFromLocalStorage } from "../utils/handleToken";
 import axios from "axios";
 import PasswordReset from "../pages/PasswordReset";
 import DealsPage from "../pages/DealsPage";
+import AdminChat from "../pages/admin/AdminChat";
+import AdminPrivateChat from "../pages/admin/AdminPrivateChat";
 
 const AppRoutes = () => {
   return (
@@ -79,6 +81,8 @@ const AppRoutes = () => {
               path="/admin/manage-prescription-order"
               element={<ManagePrescriptionOrders />}
             />
+            <Route path="/admin/chat" element={<AdminChat />} />
+            <Route path="/admin/chat/:id" element={<AdminPrivateChat />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Route>

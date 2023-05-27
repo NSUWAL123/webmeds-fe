@@ -200,6 +200,19 @@ const AdminBaseLayout = () => {
                 Prescription Orders
               </p>
             </div>
+            <div
+              className="bg-[#37474F] rounded-xl mx-6 my-4 p-2 flex cursor-pointer hover:shadow-xl duration-500"
+              onClick={() => {
+                navigationTo("/admin/chat");
+              }}
+            >
+              <div className="px-2 flex items-center">
+                <span className="material-symbols-outlined text-[#31D490]">
+                  chat
+                </span>
+              </div>
+              <p className="font-medium text-[16px] text-white px-1">Chat</p>
+            </div>
           </div>
 
           <div
