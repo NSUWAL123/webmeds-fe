@@ -22,7 +22,7 @@ const OrderPage = () => {
   const [delState, setDelState] = useState(delOptions.pending);
 
   const filteredOrder = orders.filter(
-    (order) => order.deliveryStatus === delState
+    (order) => order.deliveryStatus === delState && order.failed === false
   );
 
   const config = {

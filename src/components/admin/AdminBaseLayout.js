@@ -7,12 +7,17 @@ import dashboardicn from "../../pictures/icons/dashboard-admin.svg";
 import manageicn from "../../pictures/icons/manage-admin.svg";
 import addicn from "../../pictures/icons/add-admin.svg";
 import { useNavigate } from "react-router-dom";
+import { removeUserFromLocalStorage } from "../../utils/handleToken";
 
 const AdminBaseLayout = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const logoutHandler = () => {};
+  const logoutHandler = () => {
+    removeUserFromLocalStorage();
+    navigate("/login");
+    window.location.reload();
+  };
 
   const navigationTo = (endpoint) => {
     navigate(endpoint);

@@ -7,7 +7,7 @@ import axios from "axios";
 import { populateUser } from "../redux/userSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { notifyError, notifySuccess } from "../utils/Toast";
+import { notifyError, notifySuccess, notifyWarning } from "../utils/Toast";
 import { updateUser } from "../redux/userSlice";
 import ProtectedRoutes from "../routes/ProtectedRoutes";
 
@@ -62,6 +62,21 @@ const ProfilePage = () => {
     notifySuccess("Successfully updated your profile information.");
   };
   const [toggleTo, setToggleTo] = useState("profile");
+
+  const [currPwd, setCurrPwd] = useState("");
+  const [newPwd, setNewPwd] = useState("");
+  const [reNewPwd, setReNewPwd] = useState("");
+
+  const resetPassword = () => {
+    if (!currPwd && !newPwd && !reNewPwd) {
+      notifyError("Empty Fields.");
+      return;
+    }
+    if (newPwd !== reNewPwd) {
+      notifyWarning("Please check the entered password.");
+      return;
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center lg:h-[585px] ">
@@ -180,18 +195,35 @@ const ProfilePage = () => {
         <div className="bg-white rounded-tl-none rounded-lg h-[260px] lg:h-[420px] shadow-xl px-4 py-2 flex flex-col justify-around items-center ">
           <div className="w-[100%] sm:w-1/2">
             <p>Current Password:</p>
-            <input type="text" className="border outline-none pl-2 w-full" />
+            <input
+              type="text"
+              className="border outline-none pl-2 w-full"
+              onChange={(e) => setCurrPwd(e.target.value)}
+            />
           </div>
           <div className="w-[100%] sm:w-1/2">
             <p>New Password:</p>
-            <input type="text" className="border outline-none pl-2 w-full" />
+            <input
+              type="text"
+              className="border outline-none pl-2 w-full"
+              onChange={(e) => setNewPwd(e.target.value)}
+            />
           </div>
           <div className="w-[100%] sm:w-1/2">
             <p className="">Re-Type New Password:</p>
-            <input type="text" className="border outline-none pl-2 w-full" />
+            <input
+              type="text"
+              className="border outline-none pl-2 w-full"
+              onChange={(e) => setReNewPwd(e.target.value)}
+            />
           </div>
           <div>
-          <button className="bg-[#E25247] text-white py-1 px-4 rounded-lg">Reset</button>
+            <button
+              className="bg-[#E25247] text-white py-1 px-4 rounded-lg"
+              onClick={() => resetPassword()}
+            >
+              Reset
+            </button>
           </div>
         </div>
       )}
