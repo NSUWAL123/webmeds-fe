@@ -17,7 +17,6 @@ export const uploadPrescriptionSlice = createSlice({
     },
     declinePrescriptionOrder: (state, action) => {
       const { id } = action.payload;
-      // console.log(id);
       for (let i = 0; i < state.length; i++) {
         if (state[i]._id === id) {
           state[i].failed = true;

@@ -6,7 +6,6 @@ import prescriptionIcn from "../../../pictures/icons/dashPrescription.svg";
 
 const DashSales = (props) => {
   const { figures } = props;
-  console.log(figures);
   return (
     <div className="flex justify-evenly flex-wrap xl:justify-between gap-y-5 my-5">
       {/* product sales */}

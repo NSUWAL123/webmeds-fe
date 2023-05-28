@@ -98,7 +98,6 @@ const Order = (props) => {
     const state = {
       id: order._id,
     };
-    console.log(order._id);
     const orderUpdate = await axios.put(
       `${process.env.REACT_APP_BASE_URL}/order/deleteOrder/${order._id}`
     );

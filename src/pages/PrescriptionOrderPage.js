@@ -23,7 +23,6 @@ const PrescriptionOrderPage = () => {
         `${process.env.REACT_APP_BASE_URL}/prescription/getPrescriptionByUser`,
         config
       );
-      console.log(" data " + data);
       if (Array.isArray(data)) {
         dispatch(populatePrescription(data));
       }
