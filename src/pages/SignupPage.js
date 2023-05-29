@@ -12,6 +12,11 @@ import { notifyError, notifyInfo } from "../utils/Toast";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const currDate = new Date().toISOString().split("T")[0];
+  const above18Year = currDate.substring(0, 4) - 18;
+  const above18Rest = currDate.substring(4);
+  const minDate = `${above18Year}${above18Rest}`;
+  console.log(minDate);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +24,6 @@ const SignupPage = () => {
   const [dob, setDob] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [showPass, setShowPass] = useState(false);
   const [showConfPass, setShowConfPass] = useState(false);
 
@@ -72,8 +76,7 @@ const SignupPage = () => {
       notifyInfo(
         "A verification link has been sent to your email. Please check your email."
       );
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
@@ -148,6 +151,7 @@ const SignupPage = () => {
                 <div className="w-[70%]">
                   <input
                     type="date"
+                    max={minDate}
                     className="min-w-[140px] outline-none rounded-lg py-1 px-3 border-2 w-[60%]"
                     onChange={(e) => setDob(e.target.value)}
                   />

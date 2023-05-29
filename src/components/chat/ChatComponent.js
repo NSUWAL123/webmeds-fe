@@ -7,6 +7,7 @@ const ChatComponent = (props) => {
   const id = props.id;
 
   const [messagesArr, setMessagesArr] = useState([]);
+  const [user, setUser] = useState("");
 
   const token = getTokenFromLocalStorage();
   const config = {
@@ -35,12 +36,21 @@ const ChatComponent = (props) => {
       console.error("Error fetching messages:", error);
     }
   };
+
   useEffect(() => {
     const interval = setInterval(fetchMessages, 4000);
     return () => clearInterval(interval);
   }, [id, config]);
 
   useEffect(() => {
+    if (typeof id !== "undefined") {
+      (async () => {
+        const fetchUsers = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/user/getUserById/${id}`
+        );
+        setUser(fetchUsers.data.name);
+      })();
+    }
     fetchMessages();
   }, []);
 
@@ -93,7 +103,7 @@ const ChatComponent = (props) => {
       {/* top */}
       <div className="flex items-center  pl-5 gap-3 bg-[#ffffff] border-b-2 h-[10%] rounded-t-lg">
         <div className="w-4 h-4 rounded-full bg-green-500"></div>
-        <h2 className="text-xl font-medium">Pharmacist</h2>
+        <h2 className="text-xl font-medium">{user ? user : "Pharmacist"}</h2>
       </div>
       {/* middle */}
       <div

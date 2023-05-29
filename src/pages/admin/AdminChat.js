@@ -77,7 +77,6 @@ const AdminChat = () => {
             </div>
           );
         })}
-        {chatMessage.length === 0 && <div>No Messsages To Display</div>}
       </div>
     </div>
   );

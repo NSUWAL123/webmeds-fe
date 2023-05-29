@@ -5,7 +5,13 @@ const initialState = {
   cartItems: [],
   cartProducts: [],
   orderLine: [], //array of cart items that has been selected
-  orderSummary: { totalItems: 0, orderTotal: 0, discount: 0, grandTotal: 0, deliveryCharge: 0 }, 
+  orderSummary: {
+    totalItems: 0,
+    orderTotal: 0,
+    discount: 0,
+    grandTotal: 0,
+    deliveryCharge: 0,
+  },
   finalOrder: {},
   orderSuccess: false,
 };
@@ -69,28 +75,25 @@ export const cartSlice = createSlice({
         }
       }
     },
-    populateCartProducts: (state, action) => {     
+    populateCartProducts: (state, action) => {
       state.cartProducts.push(action.payload);
     },
     updateOrderSummary: (state, action) => {
-      state.orderSummary = action.payload
+      state.orderSummary = action.payload;
       if (action.payload.grandTotal <= 1500) {
-        state.orderSummary.deliveryCharge = 50
-        state.orderSummary.grandTotal += 50
+        state.orderSummary.deliveryCharge = 50;
+        state.orderSummary.grandTotal += 50;
       } else {
-        state.orderSummary.deliveryCharge = 0
+        state.orderSummary.deliveryCharge = 0;
       }
     },
-    decreaseOrderSummary: (state, action) => {
-
-    },
+    decreaseOrderSummary: (state, action) => {},
     confirmOrder: (state, action) => {
-      state.finalOrder = action.payload
+      state.finalOrder = action.payload;
     },
     setOrderSuccess: (state, action) => {
       state.orderSuccess = action.payload;
-    }
-
+    },
   },
 });
 
@@ -109,5 +112,5 @@ export const {
   updateOrderTotalPrice,
   getCartProduct,
   confirmOrder,
-  setOrderSuccess
+  setOrderSuccess,
 } = cartSlice.actions;

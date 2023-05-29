@@ -78,11 +78,9 @@ const CartItem = (props) => {
         `${process.env.REACT_APP_BASE_URL}/cart/removeCart/${cartItem._id}`,
         config
       );
+      changeCheckStatus();
       dispatch(removeItemFromCart({ id: cartItem._id }));
-      // --> dispatch order summary
-    } catch (error) {
-      //try catch nahuda error ayo. 'is not a function bhanera'
-    }
+    } catch (error) {}
   };
 
   const changeCheckStatus = async () => {
@@ -117,7 +115,7 @@ const CartItem = (props) => {
     <div className="py-3 border-b border-slate-300">
       <div className="flex justify-between items-center sm:px-6">
         <div className="flex items-center w-[80%] sm:w-[60%] justify-between lg:w-[70%]">
-          {(product.stock === 0 || checkExpiry(product.expiry)) ? (
+          {product.stock === 0 || checkExpiry(product.expiry) ? (
             <div
               className={`w-4 h-4 sm:w-5 sm:h-5 border-2 rounded-full bg-[#AAAAAA] border-none cursor-pointer`}
             ></div>
@@ -188,7 +186,9 @@ const CartItem = (props) => {
                   <strike>Rs. {product.price}</strike> -{product.discountPct}%
                 </p>
               )}
-              <p className="text-[#E25247]">Rs. {(product?.offerPrice)?.toFixed(2)}</p>
+              <p className="text-[#E25247]">
+                Rs. {product?.offerPrice?.toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
